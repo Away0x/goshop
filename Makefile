@@ -1,4 +1,4 @@
-APP_NAME = "echo_bbs"
+APP_NAME = "echo_shop"
 
 default:
 	go build -o ${APP_NAME}

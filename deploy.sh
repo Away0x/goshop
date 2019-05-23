@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVER="echo_bbs"
+SERVER="echo_shop"
 BASE_DIR=$PWD
 INTERVAL=2
 
