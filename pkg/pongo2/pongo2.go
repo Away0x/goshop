@@ -1,18 +1,20 @@
 package pongo2
 
+import (
+	"github.com/labstack/echo/v4"
+)
+
 // Config -
 type Config struct {
 	PublicPath  string // 静态文件路径
 	MixFilePath string // laravel-mix 生成的 mix-manifest.json 文件的路径
+	Echo        *echo.Echo
 }
 
 var gpconfig *Config
 
 // Setup -
 func Setup(c *Config) {
-	// config = &Config{
-
-	// }
 	gpconfig = c
 }
 
