@@ -2,6 +2,7 @@ package routes
 
 import (
 	"echo_shop/app/controllers/page"
+	customContext "echo_shop/routes/middleware"
 	"net/http"
 	"strings"
 
@@ -13,15 +14,20 @@ import (
 
 // Register 注册路由
 func Register(e *echo.Echo) {
+	// 自定义 context
+	e.Use(customContext.Context)
+
 	// from value 中携带 _method 参数，可以指定请求从 POST 重写为其他 (DELETE、PUT、PATCH ...)
 	e.Pre(middleware.MethodOverrideWithConfig(middleware.MethodOverrideConfig{
 		Getter: middleware.MethodFromForm("_method"),
 	}))
 
+	// session
 	e.Use(session.MiddlewareWithConfig(session.Config{
 		Store: sessions.NewCookieStore([]byte("secret")),
 	}))
 
+	// csrf
 	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
 		Skipper: func(c echo.Context) bool {
 			p := c.Path()
