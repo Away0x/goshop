@@ -25,10 +25,11 @@ func Root(c echo.Context) error {
 	req := new(UserForm)
 
 	if err := c.Bind(&req); err != nil {
-		return errno.ParamsErr.SetErrors(err)
+		return c.Render(200, "root.html", map[string]interface{}{})
+		// return errno.ParamsErr.RenderNoContent()
 	}
 	if err := c.Validate(req); err != nil {
-		return errno.ParamsErr.SetErrors(err)
+		return errno.ParamsErr.RenderNoContent()
 	}
 
 	return errors.New("sss")

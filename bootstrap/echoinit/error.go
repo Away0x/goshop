@@ -11,8 +11,10 @@ import (
 func SetupError(e *echo.Echo) {
 	e.HTTPErrorHandler = func(err error, c echo.Context) {
 		var (
-			code = http.StatusInternalServerError
-			data interface{}
+			code       = http.StatusInternalServerError
+			data       interface{}
+			render     string
+			renderData map[string]interface{}
 		)
 
 		switch typed := err.(type) {
@@ -24,6 +26,10 @@ func SetupError(e *echo.Echo) {
 		case *errno.Errno:
 			code = typed.HTTPCode
 			data = typed
+			if typed.RenderTpl != "" {
+				render = typed.RenderTpl
+				renderData = typed.Errors.(map[string]interface{})
+			}
 		default:
 			data = map[string]interface{}{
 				"msg": typed.Error(),
@@ -35,7 +41,11 @@ func SetupError(e *echo.Echo) {
 			if c.Request().Method == http.MethodHead {
 				err = c.NoContent(code)
 			} else {
-				err = c.JSON(code, data)
+				if render != "" {
+					err = c.Render(code, render, renderData)
+				} else {
+					err = c.JSON(code, data)
+				}
 			}
 			if err != nil {
 				e.Logger.Error(err)
