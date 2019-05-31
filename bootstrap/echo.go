@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"echo_shop/bootstrap/echoinit"
+	"echo_shop/config"
 
 	"github.com/labstack/echo/v4"
 )
@@ -23,5 +24,6 @@ func SetupEcho() {
 
 // RunEcho -
 func RunEcho() {
-	EchoEngine.Logger.Fatal(EchoEngine.Start(":1323"))
+	SetupEcho()
+	EchoEngine.Logger.Fatal(EchoEngine.Start(config.String("APP.ADDR")))
 }

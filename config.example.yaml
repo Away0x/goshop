@@ -1,0 +1,15 @@
+APP:
+  NAME: echo_shop
+  RUNMODE: debug # 模式: debug, release, test
+  Addr: :9000 # 端口
+  URL: http://localhost:9000 # 网站 url，内部跳转时会用到该项
+  KEY: Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5
+  ENABLE_CSRF: true # 是否开启 csrf
+
+DB:
+  CONNECTION: mysql
+  HOST: 127.0.0.1
+  PORT: 3306
+  DATABASE: gin_bbs
+  USERNAME: root
+  PASSWORD: secret

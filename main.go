@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
-	bootstrap.SetupEcho()
+	db, _ := bootstrap.SetupDB()
+	defer db.Close()
+
 	bootstrap.RunEcho()
 }

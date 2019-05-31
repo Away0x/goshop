@@ -7,6 +7,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/go-playground/locales v0.12.1
 	github.com/go-playground/universal-translator v0.16.0
+	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gookit/validate v1.1.0
 	github.com/gorilla/sessions v1.1.3
 	github.com/h3poteto/pongo2echo v0.0.0-20171218143754-4bd569ba1b14
