@@ -21,7 +21,7 @@ var (
 		if strings.HasPrefix(c.Path(), restfulAPIPrefix) {
 			return errno.NotFoundErr
 		} else {
-			return errno.NotFoundErr.RenderNoContent()
+			return errno.NotFoundErr.SetMessage("很抱歉！您浏览的页面不存在。").RenderNoContent()
 		}
 	}
 )

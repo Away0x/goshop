@@ -27,10 +27,6 @@ func init() {
 	// 初始化 viper 配置
 	viper.SetConfigFile(configFilePath)
 	viper.SetConfigType(configFileType)
-	// 环境变量 (设置环境变量: export ECHO_SHOP_APP_RUNMODE=development)
-	viper.AutomaticEnv()
-	viper.SetEnvPrefix("ECHO_SHOP") // 环境变量前缀
-	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	if err := viper.ReadInConfig(); err != nil {
 		panic(fmt.Sprintf("读取配置文件失败，请检查 config.yaml 配置文件是否存在: %v", err))
@@ -38,6 +34,11 @@ func init() {
 
 	// 设置配置默认值
 	setupDefaultConfig()
+
+	// 环境变量 (设置环境变量: export ECHO_SHOP_APP_RUNMODE=development)
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix(String("APP.NAME")) // 环境变量前缀
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	// 初始化日志配置
 	initLog()

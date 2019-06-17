@@ -12,7 +12,7 @@ func SetupError(e *echo.Echo) {
 	e.HTTPErrorHandler = func(err error, c echo.Context) {
 		var (
 			code       = http.StatusInternalServerError
-			data       interface{}
+			data       *errno.Errno
 			render     string
 			renderData map[string]interface{}
 		)
@@ -21,8 +21,8 @@ func SetupError(e *echo.Echo) {
 		// http error
 		case *echo.HTTPError:
 			code = typed.Code
-			data = map[string]interface{}{
-				"msg": typed.Message,
+			data = &errno.Errno{
+				Message: typed.Message.(string),
 			}
 			// 自定义错误
 		case *errno.Errno:
@@ -33,8 +33,8 @@ func SetupError(e *echo.Echo) {
 				renderData = typed.Errors.(map[string]interface{})
 			}
 		default:
-			data = map[string]interface{}{
-				"msg": typed.Error(),
+			data = &errno.Errno{
+				Message: typed.Error(),
 			}
 		}
 

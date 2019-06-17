@@ -2,66 +2,6 @@
   "count": 14,
   "routes": [
     {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
-    },
-    {
-      "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
-    },
-    {
-      "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
-    },
-    {
-      "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
-      "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
-    },
-    {
       "method": "POST",
       "path": "/password/email",
       "name": "password.email"
@@ -70,6 +10,66 @@
       "method": "POST",
       "path": "register",
       "name": "register"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
+    },
+    {
+      "method": "GET",
+      "path": "captcha/:id",
+      "name": "captcha"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset",
+      "name": "password.show_link_form"
+    },
+    {
+      "method": "GET",
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
+    },
+    {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
+    },
+    {
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
     }
   ]
 }

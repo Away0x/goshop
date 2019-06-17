@@ -26,6 +26,7 @@ yarn-error.log
 # temp
 /storage/fresh
 /storage/logs
+/storage/routes.json
 /public/uploads
 
 # private
