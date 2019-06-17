@@ -1,0 +1,75 @@
+{
+  "count": 14,
+  "routes": [
+    {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
+    },
+    {
+      "method": "GET",
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
+    },
+    {
+      "method": "POST",
+      "path": "/password/email",
+      "name": "password.email"
+    },
+    {
+      "method": "GET",
+      "path": "captcha/:id",
+      "name": "captcha"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset",
+      "name": "password.show_link_form"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
+    },
+    {
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
+    }
+  ]
+}

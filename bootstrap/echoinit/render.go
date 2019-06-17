@@ -1,6 +1,7 @@
 package echoinit
 
 import (
+	"echo_shop/config"
 	"echo_shop/pkg/constants"
 	pongo2utils "echo_shop/pkg/pongo2"
 	"fmt"
@@ -13,12 +14,12 @@ import (
 func SetupRender(e *echo.Echo) {
 	pongo2utils.Setup(&pongo2utils.Config{
 		Echo:        e,
-		PublicPath:  "public",
-		MixFilePath: "public/mix-manifest.json",
+		PublicPath:  config.String("APP.PUBLIC_DIR"),
+		MixFilePath: config.String("APP.PUBLIC_DIR") + "/mix-manifest.json",
 	})
 
 	render := pongo2utils.NewRenderer()
-	render.AddDirectory("resources/views")
+	render.AddDirectory(config.String("APP.TEMPLATE_DIR"))
 	render.UseContextProcessor(func(echoCtx echo.Context, pongoCtx pongo2.Context) {
 		other := pongo2.Context{}
 

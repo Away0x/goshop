@@ -2,14 +2,10 @@ package routes
 
 import (
 	"echo_shop/app/controllers/page"
-	"echo_shop/pkg/constants"
 
 	mymiddleware "echo_shop/routes/middleware"
 
-	"github.com/gorilla/sessions"
-	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 
 	"echo_shop/app/controllers/auth/login"
 	"echo_shop/app/controllers/auth/password"
@@ -22,21 +18,9 @@ func registerWeb(e *echo.Echo, middlewares ...echo.MiddlewareFunc) {
 	ee := e.Group("")
 
 	// session
-	ee.Use(session.MiddlewareWithConfig(session.Config{
-		Store: sessions.NewCookieStore([]byte("secret")),
-	}))
-
+	ee.Use(mymiddleware.Session())
 	// csrf
-	ee.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
-		Skipper:        middleware.DefaultSkipper,
-		TokenLength:    32,
-		TokenLookup:    "header:" + constants.CsrfValueName,
-		ContextKey:     constants.CsrfContexntName,
-		CookieName:     constants.CsrfCookieName,
-		CookiePath:     "/",
-		CookieHTTPOnly: true,
-		CookieMaxAge:   86400,
-	}))
+	ee.Use(mymiddleware.Csrf())
 
 	ee.GET("/", page.Root).Name = "root"
 	ee.GET("captcha/:id", captcha.Handler).Name = "captcha" // 验证码
@@ -75,8 +59,8 @@ func registerWeb(e *echo.Echo, middlewares ...echo.MiddlewareFunc) {
 		// 展示发送激活用户链接邮件的页面
 		verificationRouter.GET("/verify", verification.ShowLinkForm).Name = "verification.show_link_form"
 		// 激活用户
-		verificationRouter.GET("/verify", verification.Verify).Name = "verification.verify"
+		verificationRouter.GET("/verify/:token", verification.Verify).Name = "verification.verify"
 		// 重新发送激活用户链接
-		verificationRouter.GET("/verify", verification.Resend).Name = "verification.resend"
+		verificationRouter.GET("/resend", verification.Resend).Name = "verification.resend"
 	}
 }

@@ -1,20 +1,42 @@
 package echoinit
 
 import (
+	"echo_shop/config"
 	"echo_shop/routes"
+	"encoding/json"
+	"io/ioutil"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 )
 
 func SetupRoute(e *echo.Echo) {
 	// 项目静态文件配置
-	e.Static("/public", "public")
-	e.File("/favicon.ico", "public/favicon.ico")
+	e.Static("/public", config.String("APP.PUBLIC_DIR"))
+	e.File("/favicon.ico", config.String("APP.PUBLIC_DIR")+"/favicon.ico")
 
 	routes.Register(e)
 
-	// 打印路由
-	// for _, v := range e.Routes() {
-	// 	fmt.Fprintf(os.Stderr, "[Route] "+"%-7s %-50s --> %s\n", v.Method, v.Name, v.Path)
-	// }
+	// 输出路由
+	printRoutes(e)
+}
+
+func printRoutes(e *echo.Echo) {
+	routes := make([]*echo.Route, 0)
+	for _, item := range e.Routes() {
+		if strings.HasPrefix(item.Name, "github.com") {
+			continue
+		}
+
+		routes = append(routes, item)
+	}
+
+	routesStr, _ := json.MarshalIndent(struct {
+		Count  int           `json:"count"`
+		Routes []*echo.Route `json:"routes"`
+	}{
+		Count:  len(routes),
+		Routes: routes,
+	}, "", "  ")
+	ioutil.WriteFile(config.String("APP.TEMP_DIR")+"/routes.json", routesStr, 0644)
 }

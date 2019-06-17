@@ -1,16 +1,28 @@
 package config
 
 import (
+	"echo_shop/pkg/constants"
+	"time"
+
 	"github.com/spf13/viper"
 )
+
+const (
+	defaultTempDir = "storage"
+)
+
+var now = time.Now()
 
 // 默认配置
 var defaultConfigMap = map[string]interface{}{
 	// app
-	"APP.NAME":    "app",
-	"APP.RUNMODE": "production",
-	"APP.ADDR":    ":9000",
-	"APP.KEY":     "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5",
+	"APP.NAME":         "app",
+	"APP.RUNMODE":      "production", // 环境
+	"APP.ADDR":         ":9000",
+	"APP.KEY":          "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5",
+	"APP.TEMP_DIR":     defaultTempDir,    // 临时文件存储位置 (log ...)
+	"APP.PUBLIC_DIR":   "public",          // public 文件夹
+	"APP.TEMPLATE_DIR": "resources/views", // 模板文件存放文件夹
 
 	// db
 	"DB.CONNECTION": "mysql",
@@ -19,6 +31,16 @@ var defaultConfigMap = map[string]interface{}{
 	"DB.DATABASE":   "app",
 	"DB.USERNAME":   "root",
 	"DB.PASSWORD":   "",
+
+	// log
+	"LOG.WRITERS":          "file,stdout",
+	"LOG.LOGGER_LEVEL":     "DEBUG",
+	"LOG.LOGGER_FILE":      defaultTempDir + "/logs/" + now.Format(constants.DateLayoutUnderline) + ".log",
+	"LOG.LOG_FORMAT_TEXT":  false,
+	"LOG.ROLLING_POLICY":   "size",
+	"LOG.LOG_ROTATE_DATE":  1,
+	"LOG.LOG_ROTATE_SIZE":  1,
+	"LOG.LOG_BACKUP_COUNT": 7,
 }
 
 // 设置配置默认值

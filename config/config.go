@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/fsnotify/fsnotify"
+	"github.com/lexkong/log"
 	"github.com/spf13/viper"
 )
 
@@ -25,11 +27,10 @@ func init() {
 	// 初始化 viper 配置
 	viper.SetConfigFile(configFilePath)
 	viper.SetConfigType(configFileType)
-	// 环境变量
+	// 环境变量 (设置环境变量: export ECHO_SHOP_APP_RUNMODE=development)
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("ECHO_SHOP") // 环境变量前缀
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-	// 设置环境变量: export ECHO_SHOP_APP_RUNMODE=development
 
 	if err := viper.ReadInConfig(); err != nil {
 		panic(fmt.Sprintf("读取配置文件失败，请检查 config.yaml 配置文件是否存在: %v", err))
@@ -40,6 +41,17 @@ func init() {
 
 	// 初始化日志配置
 	initLog()
+
+	// 监听配置文件变化
+	watchConfig()
+}
+
+// 监控配置文件变化
+func watchConfig() {
+	viper.WatchConfig()
+	viper.OnConfigChange(func(ev fsnotify.Event) {
+		log.Infof("Config file changed: %s", ev.Name)
+	})
 }
 
 // String -

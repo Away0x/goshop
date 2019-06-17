@@ -1,31 +1,11 @@
 package config
 
 import (
-	"echo_shop/pkg/constants"
-	"time"
-
-	"github.com/fsnotify/fsnotify"
 	"github.com/lexkong/log"
 	"github.com/spf13/viper"
 )
 
-const (
-	// 日志文件路径
-	logFilePath = "storage/logs/"
-)
-
 func initLog() {
-	now := time.Now()
-	// 默认配置
-	viper.SetDefault("LOG.WRITERS", "file,stdout")
-	viper.SetDefault("LOG.LOGGER_LEVEL", "DEBUG")
-	viper.SetDefault("LOG.LOGGER_FILE", logFilePath+now.Format(constants.DateLayoutUnderline)+".log")
-	viper.SetDefault("LOG.LOG_FORMAT_TEXT", false)
-	viper.SetDefault("LOG.ROLLING_POLICY", "size")
-	viper.SetDefault("LOG.LOG_ROTATE_DATE", 1)
-	viper.SetDefault("LOG.LOG_ROTATE_SIZE", 1)
-	viper.SetDefault("LOG.LOG_BACKUP_COUNT", 7)
-
 	logConfig := log.PassLagerCfg{
 		// 输出位置，有两个可选项 —— file 和 stdout。选择 file 会将日志记录到 logger_file 指定的日志文件中，选择 stdout 会将日志输出到标准输出，当然也可以两者同时选择
 		Writers: viper.GetString("LOG.WRITERS"),
@@ -46,14 +26,4 @@ func initLog() {
 	}
 
 	log.InitWithConfig(&logConfig)
-	watchConfig()
-}
-
-// 监控配置文件变化
-func watchConfig() {
-	viper.WatchConfig()
-	viper.OnConfigChange(func(ev fsnotify.Event) {
-		// 配置文件更新了
-		log.Infof("Config file changed: %s", ev.Name)
-	})
 }
