@@ -2,29 +2,14 @@
   "count": 14,
   "routes": [
     {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
       "method": "GET",
       "path": "register",
       "name": "register.show"
     },
     {
-      "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
       "method": "POST",
-      "path": "login",
-      "name": "login"
+      "path": "/password/reset",
+      "name": "password.update"
     },
     {
       "method": "GET",
@@ -32,19 +17,19 @@
       "name": "verification.show_link_form"
     },
     {
-      "method": "POST",
-      "path": "register",
-      "name": "register"
-    },
-    {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
-    },
-    {
       "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
+    },
+    {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     },
     {
       "method": "GET",
@@ -53,13 +38,23 @@
     },
     {
       "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
+      "path": "captcha/:id",
+      "name": "captcha"
     },
     {
       "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
     },
     {
       "method": "GET",
@@ -68,8 +63,13 @@
     },
     {
       "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
+      "path": "/password/email",
+      "name": "password.email"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
     }
   ]
 }

@@ -24,7 +24,7 @@ yarn-error.log
 /node_modules
 
 # temp
-/storage/fresh_tmp
+/storage/fresh
 /storage/logs
 /public/uploads
 

@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// SetupError -
+// SetupError 项目统一错误处理
 func SetupError(e *echo.Echo) {
 	e.HTTPErrorHandler = func(err error, c echo.Context) {
 		var (
@@ -18,11 +18,13 @@ func SetupError(e *echo.Echo) {
 		)
 
 		switch typed := err.(type) {
+		// http error
 		case *echo.HTTPError:
 			code = typed.Code
 			data = map[string]interface{}{
 				"msg": typed.Message,
 			}
+			// 自定义错误
 		case *errno.Errno:
 			code = typed.HTTPCode
 			data = typed

@@ -9,8 +9,8 @@ var (
 	// 400
 	ParamsErr          = &Errno{HTTPCode: http.StatusBadRequest, Code: 4000, Summary: "参数错误", Message: "参数错误"}
 	UnauthorizedErr    = &Errno{HTTPCode: http.StatusUnauthorized, Code: 4001, Summary: "unauthorized", Message: "unauthorized"}
-	ForbiddenErr       = &Errno{HTTPCode: http.StatusForbidden, Code: 40002, Summary: "forbidden", Message: "forbidden"}
-	NotFoundErr        = &Errno{HTTPCode: http.StatusForbidden, Code: 4003, Summary: "not found", Message: "not found"}
+	ForbiddenErr       = &Errno{HTTPCode: http.StatusForbidden, Code: 4002, Summary: "forbidden", Message: "forbidden"}
+	NotFoundErr        = &Errno{HTTPCode: http.StatusNotFound, Code: 4003, Summary: "not found", Message: "not found"}
 	TooManyRequestsErr = &Errno{HTTPCode: http.StatusTooManyRequests, Code: 4004, Summary: "too many requests", Message: "too many requests"}
 
 	// 500
