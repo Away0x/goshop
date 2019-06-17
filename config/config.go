@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -12,10 +13,10 @@ const (
 	// 配置文件格式
 	configFileType = "yaml"
 
-	// RunmodeRelease 生产模式
-	RunmodeRelease = "release"
-	// RunmodeDebug 调试、开发模式
-	RunmodeDebug = "debug"
+	// RunmodeProduction 生产模式
+	RunmodeProduction = "production"
+	// RunmodeDevelopment 调试、开发模式
+	RunmodeDevelopment = "development"
 	// RunmodeTest 测试模式
 	RunmodeTest = "test"
 )
@@ -24,6 +25,11 @@ func init() {
 	// 初始化 viper 配置
 	viper.SetConfigFile(configFilePath)
 	viper.SetConfigType(configFileType)
+	// 环境变量
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix("ECHO_SHOP") // 环境变量前缀
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+	// 设置环境变量: export ECHO_SHOP_APP_RUNMODE=development
 
 	if err := viper.ReadInConfig(); err != nil {
 		panic(fmt.Sprintf("读取配置文件失败，请检查 config.yaml 配置文件是否存在: %v", err))
@@ -69,4 +75,9 @@ func DefaultInt(key string, defaultVal int) int {
 // Bool -
 func Bool(key string) bool {
 	return viper.GetBool(key)
+}
+
+// IsDev 是否为开发模式
+func IsDev() bool {
+	return String("APP.RUNMODE") == RunmodeDevelopment
 }

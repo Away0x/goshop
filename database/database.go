@@ -25,7 +25,7 @@ func InitDB() {
 		log.Fatal("Database connection failed. Database url: "+url+" error: ", err)
 	}
 
-	db.LogMode(config.String("APP.RUNMODE") == config.RunmodeDebug)
+	db.LogMode(config.IsDev())
 	dbClient = db
 }
 
@@ -45,5 +45,6 @@ func createDBURL(uname string, pwd string, host string, port string, dbname stri
 }
 
 func dbname() string {
+	// name_debug name_release name_test
 	return config.String("DB.DATABASE") + "_" + config.String("APP.RUNMODE")
 }

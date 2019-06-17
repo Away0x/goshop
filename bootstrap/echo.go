@@ -14,7 +14,7 @@ var EchoEngine *echo.Echo
 func SetupEcho() {
 	e := echo.New()
 	EchoEngine = e
-	e.Debug = true
+	e.Debug = config.IsDev()
 
 	echoinit.SetupRoute(e)
 	echoinit.SetupRender(e)

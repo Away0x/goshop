@@ -1,6 +1,7 @@
 package echoinit
 
 import (
+	"echo_shop/pkg/constants"
 	pongo2utils "echo_shop/pkg/pongo2"
 	"fmt"
 
@@ -21,12 +22,18 @@ func SetupRender(e *echo.Echo) {
 	render.UseContextProcessor(func(echoCtx echo.Context, pongoCtx pongo2.Context) {
 		other := pongo2.Context{}
 
-		csrf := echoCtx.Get("csrf")
+		// csrf
+		csrf := echoCtx.Get(constants.CsrfContexntName)
 		if c, ok := csrf.(string); ok && c != "" {
 			other["csrf_token"] = c
-			other["csrf_input"] = fmt.Sprintf(`<input type="hidden" value="%s">`, c)
+			other["csrf_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="%s">`, constants.CsrfValueName, c)
 			other["csrf_meta"] = fmt.Sprintf(`<meta name="csrf-token" content="%s">`, c)
 		}
+
+		// method 重写
+		other["delete_method_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="DELETE">`, constants.MethodOverrideFromFormKeyName)
+		other["put_method_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="PUT">`, constants.MethodOverrideFromFormKeyName)
+		other["patch_method_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="PATCH">`, constants.MethodOverrideFromFormKeyName)
 
 		pongoCtx.Update(other)
 	})

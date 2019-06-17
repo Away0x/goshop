@@ -3,6 +3,7 @@ module echo_shop
 go 1.12
 
 require (
+	github.com/dchest/captcha v0.0.0-20170622155422-6a29415a8364
 	github.com/flosch/pongo2 v0.0.0-20190505152737-8914e1cf9164
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/go-playground/locales v0.12.1

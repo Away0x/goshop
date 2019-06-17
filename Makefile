@@ -15,7 +15,7 @@ m-test:
 
 dev:
   # go get github.com/pilu/fresh
-	fresh -c ./fresh.conf
+	env ECHO_SHOP_APP_RUNMODE=development fresh -c ./fresh.conf
 
 api-doc:
   # go get -u github.com/swaggo/swag/cmd/swag
