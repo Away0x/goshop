@@ -21,9 +21,7 @@ func SetupError(e *echo.Echo) {
 		// http error
 		case *echo.HTTPError:
 			code = typed.Code
-			data = &errno.Errno{
-				Message: typed.Message.(string),
-			}
+			data = errno.UnknowErr.SetErrors(typed.Message.(string))
 			// 自定义错误
 		case *errno.Errno:
 			code = typed.HTTPCode
@@ -33,9 +31,7 @@ func SetupError(e *echo.Echo) {
 				renderData = typed.Errors.(map[string]interface{})
 			}
 		default:
-			data = &errno.Errno{
-				Message: typed.Error(),
-			}
+			data = errno.UnknowErr.SetErrors(typed.Error())
 		}
 
 		// Send response

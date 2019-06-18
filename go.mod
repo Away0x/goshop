@@ -3,6 +3,8 @@ module echo_shop
 go 1.12
 
 require (
+	github.com/antonlindstrom/pgstore v0.0.0-20170604072116-a407030ba6d0
+	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff
 	github.com/dchest/captcha v0.0.0-20170622155422-6a29415a8364
 	github.com/facebookgo/clock v0.0.0-20150410010913-600d898af40a // indirect
 	github.com/facebookgo/ensure v0.0.0-20160127193407-b4ab57deab51 // indirect
@@ -15,9 +17,12 @@ require (
 	github.com/flosch/pongo2 v0.0.0-20190505152737-8914e1cf9164
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/go-sql-driver/mysql v1.4.1
+	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/gookit/validate v1.1.0
+	github.com/gorilla/context v1.1.1
 	github.com/gorilla/sessions v1.1.3
 	github.com/jinzhu/gorm v1.9.8
+	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo-contrib v0.0.0-20190220224852-7fa08ffe9442
 	github.com/labstack/echo/v4 v4.0.0
 	github.com/lexkong/log v0.0.0-20180607165131-972f9cd951fc

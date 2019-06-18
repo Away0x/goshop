@@ -7,29 +7,9 @@
       "name": "password.email"
     },
     {
-      "method": "POST",
-      "path": "register",
-      "name": "register"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
       "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
-    },
-    {
-      "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
+      "path": "/",
+      "name": "root"
     },
     {
       "method": "GET",
@@ -38,18 +18,43 @@
     },
     {
       "method": "GET",
-      "path": "/",
-      "name": "root"
+      "path": "/password/reset",
+      "name": "password.show_link_form"
+    },
+    {
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
     },
     {
       "method": "GET",
       "path": "/verification/verify/:token",
       "name": "verification.verify"
-    },
-    {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
     },
     {
       "method": "GET",
@@ -58,18 +63,13 @@
     },
     {
       "method": "GET",
-      "path": "login",
-      "name": "login.show"
+      "path": "captcha/:id",
+      "name": "captcha"
     },
     {
-      "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
-    },
-    {
-      "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     }
   ]
 }

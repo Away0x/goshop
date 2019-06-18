@@ -17,6 +17,7 @@
           {% block content %}{% endblock %}
         </div>
         {% include './_footer.html' %}
+        {{ flash }}
     </div>
     <!-- JS 脚本 -->
     <script src="{% mix 'js/app.js' %}"></script>

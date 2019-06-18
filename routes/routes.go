@@ -5,6 +5,7 @@ import (
 	"echo_shop/pkg/constants"
 	"echo_shop/pkg/errno"
 	customContext "echo_shop/routes/middleware"
+	mymiddleware "echo_shop/routes/middleware"
 	"net/http"
 	"strings"
 
@@ -32,7 +33,8 @@ func Register(e *echo.Echo) {
 	e.Use(customContext.Context)
 
 	// recover
-	e.Use(middleware.Recover())
+	// e.Use(middleware.Recover())
+	e.Use(mymiddleware.Recover())
 
 	if config.IsDev() {
 		// log

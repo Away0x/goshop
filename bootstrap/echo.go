@@ -4,7 +4,7 @@ import (
 	"echo_shop/bootstrap/echoinit"
 	"echo_shop/config"
 
-	"github.com/facebookgo/grace/gracehttp"
+	// "github.com/facebookgo/grace/gracehttp"
 
 	"github.com/labstack/echo/v4"
 )
@@ -27,11 +27,13 @@ func SetupEcho() {
 // RunEcho -
 func RunEcho() {
 	SetupEcho()
+	EchoEngine.Logger.Fatal(EchoEngine.Start(config.String("APP.ADDR")))
 
-	if config.IsDev() {
-		EchoEngine.Logger.Fatal(EchoEngine.Start(config.String("APP.ADDR")))
-	} else {
-		EchoEngine.Server.Addr = config.String("APP.ADDR")
-		EchoEngine.Logger.Fatal(gracehttp.Serve(EchoEngine.Server))
-	}
+	// graceful
+	// if config.IsDev() {
+	// 	EchoEngine.Logger.Fatal(EchoEngine.Start(config.String("APP.ADDR")))
+	// } else {
+	// 	EchoEngine.Server.Addr = config.String("APP.ADDR")
+	// 	EchoEngine.Logger.Fatal(gracehttp.Serve(EchoEngine.Server))
+	// }
 }
