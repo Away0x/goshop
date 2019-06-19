@@ -3,8 +3,6 @@ package page
 import (
 	"echo_shop/pkg/validate"
 
-	"echo_shop/pkg/session"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -37,9 +35,5 @@ type UserForm struct {
 
 // Root -
 func Root(c echo.Context) error {
-	s := session.NewFlash(c, "")
-	s.Add("ggggg")
-	s.Add("555")
-	s.Save()
 	return c.Render(200, "root.html", map[string]interface{}{})
 }

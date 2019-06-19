@@ -4,7 +4,6 @@ import (
 	"echo_shop/config"
 	"echo_shop/pkg/constants"
 	pongo2utils "echo_shop/pkg/pongo2"
-	"echo_shop/pkg/session"
 	"fmt"
 
 	"github.com/flosch/pongo2"
@@ -40,12 +39,6 @@ func SetupRender(e *echo.Echo) {
 		// flash
 		// message := session.FlashData{EchoContext: echoCtx}
 		// c, _ := session.Store(echoCtx)
-		s := session.Sessions(echoCtx)
-		if s != nil {
-			other["flash"] = s.Values["_flash"].([]interface{})[len(s.Values["_flash"].([]interface{}))-1]
-		} else {
-			other["flash"] = "gg"
-		}
 
 		pongoCtx.Update(other)
 	})

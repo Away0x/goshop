@@ -3,15 +3,8 @@ package session
 import (
 	sess "echo_shop/pkg/session/echo-session"
 
-	"github.com/gorilla/sessions"
-
 	"github.com/labstack/echo/v4"
 )
-
-func Sessions(c echo.Context) *sessions.Session {
-	s := sess.Default(c)
-	return sess.GetSession(s)
-}
 
 // Set 设置 session
 func Set(c echo.Context, key string, val string) {
