@@ -15,7 +15,7 @@ import (
 	"echo_shop/pkg/flash"
 )
 
-func registerWeb(e *echo.Echo, middlewares ...echo.MiddlewareFunc) {
+func registerWeb(e *echo.Echo) {
 	ee := e.Group("")
 
 	// session

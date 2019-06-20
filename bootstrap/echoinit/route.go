@@ -10,15 +10,17 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func SetupRoute(e *echo.Echo) {
+func SetupRoute(e *echo.Echo) *routes.SpecialHandlers {
 	// 项目静态文件配置
 	e.Static("/public", config.String("APP.PUBLIC_DIR"))
 	e.File("/favicon.ico", config.String("APP.PUBLIC_DIR")+"/favicon.ico")
 
-	routes.Register(e)
+	sh := routes.Register(e)
 
 	// 输出路由
 	printRoutes(e)
+
+	return sh
 }
 
 func printRoutes(e *echo.Echo) {

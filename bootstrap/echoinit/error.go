@@ -2,34 +2,30 @@ package echoinit
 
 import (
 	"echo_shop/pkg/errno"
+	"echo_shop/routes"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
 // SetupError 项目统一错误处理
-func SetupError(e *echo.Echo) {
+func SetupError(e *echo.Echo, sh *routes.SpecialHandlers) {
 	e.HTTPErrorHandler = func(err error, c echo.Context) {
-		var (
-			code       = http.StatusInternalServerError
-			data       *errno.Errno
-			render     string
-			renderData map[string]interface{}
-		)
+		var data *errno.Errno
 
 		switch typed := err.(type) {
 		// http error
 		case *echo.HTTPError:
-			code = typed.Code
-			data = errno.UnknowErr.SetErrors(typed.Message.(string))
+			data = &errno.Errno{
+				Summary:  errno.UnknowErr.Summary,
+				HTTPCode: typed.Code,
+				Code:     errno.UnknowErr.Code,
+				Message:  errno.UnknowErr.Message,
+				Errors:   typed.Message.(string),
+			}
 			// 自定义错误
 		case *errno.Errno:
-			code = typed.HTTPCode
 			data = typed
-			if typed.RenderTpl != "" {
-				render = typed.RenderTpl
-				renderData = typed.Errors.(map[string]interface{})
-			}
 		default:
 			data = errno.UnknowErr.SetErrors(typed.Error())
 		}
@@ -37,13 +33,9 @@ func SetupError(e *echo.Echo) {
 		// Send response
 		if !c.Response().Committed {
 			if c.Request().Method == http.MethodHead {
-				err = c.NoContent(code)
+				err = c.NoContent(data.HTTPCode)
 			} else {
-				if render != "" {
-					err = c.Render(code, render, renderData)
-				} else {
-					err = c.JSON(code, data)
-				}
+				err = sh.ErrorHandler(c, data)
 			}
 			if err != nil {
 				e.Logger.Error(err)

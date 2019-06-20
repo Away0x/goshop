@@ -14,11 +14,11 @@ func SetupEcho() *echo.Echo {
 	e := echo.New()
 	e.Debug = config.IsDev()
 
-	echoinit.SetupRoute(e)    // 配置路由
-	echoinit.SetupRender(e)   // 配置 render
-	echoinit.SetupValidate(e) // 配置验证器
+	specialHandlers := echoinit.SetupRoute(e) // 配置路由
+	echoinit.SetupRender(e)                   // 配置 render
+	echoinit.SetupValidate(e)                 // 配置验证器
 	// echoinit.SetupBinder(e)   // 配置 binder
-	echoinit.SetupError(e) // 配置统一错误处理
+	echoinit.SetupError(e, specialHandlers) // 配置统一错误处理
 
 	return e
 }

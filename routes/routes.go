@@ -7,28 +7,23 @@ import (
 	customContext "echo_shop/routes/middleware"
 	mymiddleware "echo_shop/routes/middleware"
 	"net/http"
-	"strings"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
+// SpecialHandlers -
+type SpecialHandlers struct {
+	// 错误处理的 handler
+	ErrorHandler func(echo.Context, *errno.Errno) error
+}
+
 const (
 	restfulAPIPrefix = "/api"
 )
 
-var (
-	notFoundHandler = func(c echo.Context) error {
-		if strings.HasPrefix(c.Path(), restfulAPIPrefix) {
-			return errno.NotFoundErr
-		} else {
-			return errno.NotFoundErr.SetMessage("很抱歉！您浏览的页面不存在。").RenderNoContent()
-		}
-	}
-)
-
 // Register 注册路由
-func Register(e *echo.Echo) {
+func Register(e *echo.Echo) *SpecialHandlers {
 	// 自定义 context
 	e.Use(customContext.Context)
 
@@ -61,8 +56,13 @@ func Register(e *echo.Echo) {
 	registerWeb(e)
 
 	// 注册 api routes
+	registerAPI(e, restfulAPIPrefix)
 
 	// 注册 error handler
 	echo.NotFoundHandler = notFoundHandler
 	echo.MethodNotAllowedHandler = notFoundHandler
+
+	return &SpecialHandlers{
+		ErrorHandler: errorHandler,
+	}
 }
