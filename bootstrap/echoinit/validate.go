@@ -5,7 +5,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// CustomValidator -
+// CustomValidator 自定义验证器
 type CustomValidator struct{}
 
 // Validate -

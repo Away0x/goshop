@@ -3,13 +3,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/",
-      "name": "root"
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
+    },
+    {
+      "method": "GET",
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
     },
     {
       "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
+      "path": "/",
+      "name": "echo_shop/app/controllers/page.Root"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
+    },
+    {
+      "method": "GET",
+      "path": "captcha/:id",
+      "name": "captcha"
+    },
+    {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
+    },
+    {
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
     },
     {
       "method": "POST",
@@ -23,58 +58,23 @@
     },
     {
       "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
-    },
-    {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
-    },
-    {
-      "method": "POST",
-      "path": "register",
-      "name": "register"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
-    },
-    {
-      "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
-    },
-    {
-      "method": "GET",
       "path": "/verification/verify",
       "name": "verification.show_link_form"
     },
     {
       "method": "POST",
-      "path": "/",
-      "name": "echo_shop/app/controllers/page.Root"
-    },
-    {
-      "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
-    },
-    {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
+      "path": "/password/email",
+      "name": "password.email"
     },
     {
       "method": "GET",
       "path": "login",
       "name": "login.show"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
     }
   ]
 }
