@@ -6,6 +6,8 @@ import (
 	pongo2utils "echo_shop/pkg/pongo2"
 	"fmt"
 
+	"echo_shop/pkg/flash"
+
 	"github.com/flosch/pongo2"
 	"github.com/labstack/echo/v4"
 )
@@ -37,8 +39,8 @@ func SetupRender(e *echo.Echo) {
 		other["patch_method_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="PATCH">`, constants.MethodOverrideFromFormKeyName)
 
 		// flash
-		// message := session.FlashData{EchoContext: echoCtx}
-		// c, _ := session.Store(echoCtx)
+		messageFlash := flash.NewMessageFlash(echoCtx).Read()
+		other["messages"] = messageFlash
 
 		pongoCtx.Update(other)
 	})

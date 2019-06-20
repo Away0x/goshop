@@ -1,0 +1,25 @@
+<div class="flash-message">
+  {% if messages.success %}
+    {% for m in messages.success %}
+      <p class="alert alert-success">{{ m }}</p>
+    {% endfor %}
+  {% endif %}
+
+  {% if messages.info %}
+    {% for m in messages.info %}
+      <p class="alert alert-info">{{ m }}</p>
+    {% endfor %}
+  {% endif %}
+
+  {% if messages.warning %}
+    {% for m in messages.warning %}
+      <p class="alert alert-warning">{{ m }}</p>
+    {% endfor %}
+  {% endif %}
+
+  {% if messages.danger %}
+    {% for m in messages.danger %}
+      <p class="alert alert-danger">{{ m }}</p>
+    {% endfor %}
+  {% endif %}
+</div>

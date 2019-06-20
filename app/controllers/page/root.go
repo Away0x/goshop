@@ -3,6 +3,8 @@ package page
 import (
 	"echo_shop/pkg/validate"
 
+	"echo_shop/pkg/flash"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -33,7 +35,20 @@ type UserForm struct {
 // 	return errors.New("sss")
 // }
 
+var count = 1
+
 // Root -
 func Root(c echo.Context) error {
+	if count%2 == 0 {
+		flash.NewMessageFlash(c).
+			AddSuccess("success1").
+			AddSuccess("success2").
+			AddInfo("info1").
+			AddWarning("warning1").
+			AddDanger("danger1").
+			Save()
+	}
+	count++
+
 	return c.Render(200, "root.html", map[string]interface{}{})
 }

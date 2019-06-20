@@ -1,3 +1,4 @@
+// Package flash : 消息闪现模块
 package flash
 
 import (
@@ -9,9 +10,9 @@ import (
 )
 
 const (
-	itemSeparator      = "\x00"
-	keyValueSeparator  = "\x23|||\x23"
-	valueItemSeparator = "\x24|||\x24"
+	itemSeparator      = "\x25"
+	keyValueSeparator  = "\x23"
+	valueItemSeparator = "\x24"
 )
 
 type flashData struct {
@@ -29,8 +30,8 @@ func NewFlashData(name string, c echo.Context) *flashData {
 	}
 }
 
-func (f *flashData) Set(key string, val []string) {
-	f.Data[key] = val
+func (f *flashData) Set(val map[string][]string) {
+	f.Data = val
 }
 
 func (f *flashData) Save() {
@@ -48,7 +49,6 @@ func (f *flashData) Read() map[string][]string {
 	data := f.EchoContext.Get(f.Name)
 	if data != nil {
 		if d, ok := data.(map[string][]string); ok {
-			f.removeCookie()
 			return d
 		}
 	}
