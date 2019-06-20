@@ -21,16 +21,32 @@ func SetupRender(e *echo.Echo) {
 	})
 
 	render := pongo2utils.NewRenderer()
+
+	// template dir
 	render.AddDirectory(config.String("APP.TEMPLATE_DIR"))
+
+	// template global var
+	globalVar := pongo2.Context{
+		"APP_NAME":    config.String("APP.NAME"),
+		"APP_RUNMODE": config.String("APP.RUNMODE"),
+	}
+
+	// render action
 	render.UseContextProcessor(func(echoCtx echo.Context, pongoCtx pongo2.Context) {
+		pongoCtx.Update(globalVar)
+
 		other := pongo2.Context{}
+
+		// url
+		urlPath := echoCtx.Request().URL.Path
+		other["route_path"] = urlPath
 
 		// csrf
 		csrf := echoCtx.Get(constants.CsrfContexntName)
 		if c, ok := csrf.(string); ok && c != "" {
 			other["csrf_token"] = c
 			other["csrf_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="%s">`, constants.CsrfValueName, c)
-			other["csrf_meta"] = fmt.Sprintf(`<meta name="csrf-token" content="%s">`, c)
+			other["csrf_meta"] = fmt.Sprintf(`<meta name="%s" content="%s">`, constants.CsrfValueName, c)
 		}
 
 		// method 重写
@@ -44,13 +60,17 @@ func SetupRender(e *echo.Echo) {
 		oldvalueFlash := flash.NewOldValueFlash(echoCtx).Read()
 		other["old_value"] = oldvalueFlash
 		errorsFlash := flash.NewErrorsFlash(echoCtx).Read()
-		fmt.Println(errorsFlash)
 		other["errors"] = errorsFlash
+		other["all_errors"] = flash.GetAllErrors(errorsFlash)
 
 		pongoCtx.Update(other)
 	})
 	e.Renderer = render
 
+	// register filters
+	// pongo2.RegisterFilter("demo", demo)
+
+	// register tags
 	pongo2.RegisterTag("static", pongo2utils.StaticTag) // 获取静态文件地址
 	pongo2.RegisterTag("mix", pongo2utils.MixTag)       // 配合 laravel-mix 使用
 	pongo2.RegisterTag("route", pongo2utils.RouteTag)   // 通过 route name 生成 route path

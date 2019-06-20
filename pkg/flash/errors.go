@@ -2,8 +2,7 @@
 package flash
 
 import (
-	"fmt"
-
+	"github.com/gookit/validate"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,12 +15,6 @@ type errorsFlash struct {
 	Data        flashDataValue
 }
 
-type errorsData = flashDataValue
-
-func (errorsData) Error() string {
-	return "flash erros"
-}
-
 // NewErrorsFlash -
 func NewErrorsFlash(c echo.Context) *errorsFlash {
 	return &errorsFlash{
@@ -31,21 +24,10 @@ func NewErrorsFlash(c echo.Context) *errorsFlash {
 }
 
 func (e *errorsFlash) Save(err error) {
-	data, ok := err.(errorsData)
+	data, ok := err.(validate.Errors)
 	if !ok {
-		data = errorsData{
-			"error_msg": {err.Error()},
-		}
+		data = validate.Errors{"unknown": {err.Error()}}
 	}
-
-	flatErrors := make([]string, 0)
-	for _, v := range data {
-		for _, v2 := range v {
-			flatErrors = append(flatErrors, v2)
-		}
-	}
-	fmt.Println(data)
-	data["flat_errors"] = flatErrors // 存储平铺的错误信息列表
 
 	NewFlashData(flashErrorsKeyName, e.EchoContext.Request()).
 		Set(flashDataValue(data)).
@@ -60,4 +42,21 @@ func (e *errorsFlash) Read() flashDataValue {
 // NewErrors -
 func NewErrors(c echo.Context, err error) {
 	NewErrorsFlash(c).Save(err)
+}
+
+// GetAllErrors 获取平铺的错误信息列表
+func GetAllErrors(data flashDataValue) []string {
+	flatErrors := make([]string, 0)
+
+	if data == nil {
+		return flatErrors
+	}
+
+	for _, v := range data {
+		for _, v2 := range v {
+			flatErrors = append(flatErrors, v2)
+		}
+	}
+
+	return flatErrors
 }

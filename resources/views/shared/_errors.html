@@ -1,12 +1,10 @@
-{% if errors %}
-{% if errors.flat_errors %}
+{% if all_errors %}
 <div class="alert alert-danger">
   <div class="mt-2"><b>有错误发生：</b></div>
   <ul class="mt-2 mb-2">
-    {% for err in errors.flat_errors %}
+    {% for err in all_errors %}
       <li><i class="glyphicon glyphicon-remove"></i> {{ err }}</li>
     {% endfor %}
   </ul>
 </div>
-{% endif %}
 {% endif %}
