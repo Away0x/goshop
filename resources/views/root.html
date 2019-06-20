@@ -5,6 +5,13 @@
 {% block content %}
   <h1>这里是首页</h1>
 
-  {% include './shared/_messages.html' %}
+  <form method="POST" action="/">
+    {% include './shared/_errors.html' %}
+
+    {{ csrf_field | safe }}
+    <input type="text" name="name" value="{{ old_value.name.0 }}">
+    <input type="text" name="age" value="{{ old_value.age.0 }}">
+    <button>submit!</button>
+  </form>
 
 {% endblock %}

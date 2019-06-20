@@ -4,6 +4,7 @@ import (
 	"echo_shop/pkg/validate"
 
 	"echo_shop/pkg/flash"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -11,9 +12,8 @@ import (
 // UserForm -
 type UserForm struct {
 	validate.BaseForm
-	// Name  string `validate:"required|minLen:7"`
-	Email string `validate:"required|minLength:7"`
-	// Age      int       `validate:"required|int|min:1|max:99"`
+	Name string `validate:"required|minLen:7"`
+	Age  int    `validate:"required|int|min:1|max:99"`
 	// CreateAt int       `validate:"min:1"`
 	// Safe     int       `validate:"-"`
 	// UpdateAt time.Time `validate:"required"`
@@ -35,11 +35,21 @@ type UserForm struct {
 // 	return errors.New("sss")
 // }
 
-var count = 1
-
 // Root -
 func Root(c echo.Context) error {
-	if count%2 == 0 {
+	if c.Request().Method == "POST" {
+		req := new(UserForm)
+
+		if err := c.Bind(req); err != nil {
+			flash.NewDangerMessage(c, err.Error())
+			return c.Redirect(http.StatusFound, "/")
+		}
+
+		if err := c.Validate(req); err != nil {
+			flash.NewErrors(c, err)
+			return c.Redirect(http.StatusFound, "/")
+		}
+
 		flash.NewMessageFlash(c).
 			AddSuccess("success1").
 			AddSuccess("success2").
@@ -47,8 +57,9 @@ func Root(c echo.Context) error {
 			AddWarning("warning1").
 			AddDanger("danger1").
 			Save()
-	}
-	count++
 
-	return c.Render(200, "root.html", map[string]interface{}{})
+		return c.Redirect(http.StatusFound, "/")
+	}
+
+	return c.Render(http.StatusOK, "root.html", map[string]interface{}{})
 }

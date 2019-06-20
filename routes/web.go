@@ -12,6 +12,7 @@ import (
 	"echo_shop/app/controllers/auth/register"
 	"echo_shop/app/controllers/auth/verification"
 	"echo_shop/pkg/captcha"
+	"echo_shop/pkg/flash"
 )
 
 func registerWeb(e *echo.Echo, middlewares ...echo.MiddlewareFunc) {
@@ -20,9 +21,12 @@ func registerWeb(e *echo.Echo, middlewares ...echo.MiddlewareFunc) {
 	// session
 	ee.Use(mymiddleware.Session())
 	// csrf
-	ee.Use(mymiddleware.Csrf())
+	// ee.Use(mymiddleware.Csrf())
+	// old value
+	ee.Use(flash.OldValueFlashMiddleware())
 
 	ee.GET("/", page.Root).Name = "root"
+	ee.POST("/", page.Root)
 	ee.GET("captcha/:id", captcha.Handler).Name = "captcha" // 验证码
 
 	// ------------------------------------- Auth -------------------------------------

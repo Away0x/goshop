@@ -16,14 +16,14 @@ const (
 
 type messageFlash struct {
 	EchoContext echo.Context
-	Data        map[string][]string
+	Data        flashDataValue
 }
 
 // NewMessageFlash -
 func NewMessageFlash(c echo.Context) *messageFlash {
 	return &messageFlash{
 		EchoContext: c,
-		Data:        make(map[string][]string),
+		Data:        make(flashDataValue),
 	}
 }
 
@@ -35,14 +35,14 @@ func (m *messageFlash) add(typeName string, msg string) {
 }
 
 func (m *messageFlash) Save() {
-	f := NewFlashData(flashMessageKeyName, m.EchoContext)
-	f.Set(m.Data)
-	f.Save()
+	NewFlashData(flashMessageKeyName, m.EchoContext.Request()).
+		Set(m.Data).
+		Save(m.EchoContext.Response())
 }
 
-func (m *messageFlash) Read() map[string][]string {
-	f := NewFlashData(flashMessageKeyName, m.EchoContext)
-	return f.Read()
+func (m *messageFlash) Read() flashDataValue {
+	return NewFlashData(flashMessageKeyName, m.EchoContext.Request()).
+		Read(m.EchoContext.Response())
 }
 
 func (m *messageFlash) AddSuccess(msg string) *messageFlash {

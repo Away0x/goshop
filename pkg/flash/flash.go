@@ -2,11 +2,19 @@
 package flash
 
 import (
+	"encoding/base64"
 	"net/http"
-	"net/url"
 	"strings"
+)
 
-	"github.com/labstack/echo/v4"
+type (
+	flashDataValue map[string][]string
+
+	flashData struct {
+		Name    string // flash name
+		Data    flashDataValue
+		Request *http.Request
+	}
 )
 
 const (
@@ -15,55 +23,42 @@ const (
 	valueItemSeparator = "\x24"
 )
 
-type flashData struct {
-	Name        string // flash name
-	Data        map[string][]string
-	EchoContext echo.Context
-}
-
 // NewFlashData -
-func NewFlashData(name string, c echo.Context) *flashData {
+func NewFlashData(name string, r *http.Request) *flashData {
 	return &flashData{
-		Name:        name,
-		Data:        make(map[string][]string),
-		EchoContext: c,
+		Name:    name,
+		Data:    make(flashDataValue),
+		Request: r,
 	}
 }
 
-func (f *flashData) Set(val map[string][]string) {
+func (f *flashData) Set(val flashDataValue) *flashData {
 	f.Data = val
+	return f
 }
 
-func (f *flashData) Save() {
-	f.EchoContext.Set(f.Name, f.Data)
-
+func (f *flashData) Save(w http.ResponseWriter) {
 	var val strings.Builder
 	for k, v := range f.Data {
 		val.WriteString(itemSeparator + k + keyValueSeparator + strings.Join(v, valueItemSeparator) + itemSeparator)
 	}
 
-	f.saveToCookie(val.String())
+	f.saveToCookie(w, val.String())
 }
 
-func (f *flashData) Read() map[string][]string {
-	data := f.EchoContext.Get(f.Name)
-	if data != nil {
-		if d, ok := data.(map[string][]string); ok {
-			return d
-		}
-	}
-
-	cookie, err := f.EchoContext.Cookie(f.Name)
-	if err != nil {
-		return nil
-	}
-	v, err := url.QueryUnescape(cookie.Value)
+func (f *flashData) Read(w http.ResponseWriter) flashDataValue {
+	cookie, err := f.Request.Cookie(f.Name)
 	if err != nil {
 		return nil
 	}
 
-	result := make(map[string][]string)
-	items := strings.Split(v, itemSeparator) // 得到每一项 map 的 key value
+	v, err := base64.URLEncoding.DecodeString(cookie.Value)
+	if err != nil {
+		return nil
+	}
+
+	result := make(flashDataValue)
+	items := strings.Split(string(v), itemSeparator) // 得到每一项 map 的 key value
 	for _, item := range items {
 		if len(item) > 0 {
 			kv := strings.Split(item, keyValueSeparator)
@@ -73,13 +68,12 @@ func (f *flashData) Read() map[string][]string {
 		}
 	}
 
-	f.EchoContext.Set(f.Name, result)
-	f.removeCookie()
+	f.removeCookie(w)
 	return result
 }
 
-func (f *flashData) setCookie(val string, maxAge int) {
-	f.EchoContext.SetCookie(&http.Cookie{
+func (f *flashData) setCookie(w http.ResponseWriter, val string, maxAge int) {
+	http.SetCookie(w, &http.Cookie{
 		Name:     f.Name,
 		Value:    val,
 		MaxAge:   maxAge,
@@ -90,10 +84,10 @@ func (f *flashData) setCookie(val string, maxAge int) {
 	})
 }
 
-func (f *flashData) saveToCookie(val string) {
-	f.setCookie(val, 0)
+func (f *flashData) saveToCookie(w http.ResponseWriter, val string) {
+	f.setCookie(w, base64.URLEncoding.EncodeToString([]byte(val)), 0)
 }
 
-func (f *flashData) removeCookie() {
-	f.setCookie("", -1)
+func (f *flashData) removeCookie(w http.ResponseWriter) {
+	f.setCookie(w, "", -1)
 }

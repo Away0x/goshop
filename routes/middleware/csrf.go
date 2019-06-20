@@ -9,9 +9,12 @@ import (
 
 func Csrf() echo.MiddlewareFunc {
 	return middleware.CSRFWithConfig(middleware.CSRFConfig{
-		Skipper:        middleware.DefaultSkipper,
-		TokenLength:    32,
-		TokenLookup:    "header:" + constants.CsrfValueName,
+		Skipper:     middleware.DefaultSkipper,
+		TokenLength: 32,
+		// - "header:<name>"
+		// - "form:<name>"
+		// - "query:<name>"
+		TokenLookup:    "form:" + constants.CsrfValueName, // FormValue 中需有 constants.CsrfValueName
 		ContextKey:     constants.CsrfContexntName,
 		CookieName:     constants.CsrfCookieName,
 		CookiePath:     "/",

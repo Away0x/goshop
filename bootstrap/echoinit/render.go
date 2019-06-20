@@ -41,6 +41,11 @@ func SetupRender(e *echo.Echo) {
 		// flash
 		messageFlash := flash.NewMessageFlash(echoCtx).Read()
 		other["messages"] = messageFlash
+		oldvalueFlash := flash.NewOldValueFlash(echoCtx).Read()
+		other["old_value"] = oldvalueFlash
+		errorsFlash := flash.NewErrorsFlash(echoCtx).Read()
+		fmt.Println(errorsFlash)
+		other["errors"] = errorsFlash
 
 		pongoCtx.Update(other)
 	})

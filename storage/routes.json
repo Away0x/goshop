@@ -1,20 +1,20 @@
 {
-  "count": 14,
+  "count": 15,
   "routes": [
     {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
       "method": "GET",
-      "path": "/",
-      "name": "root"
+      "path": "captcha/:id",
+      "name": "captcha"
     },
     {
       "method": "POST",
-      "path": "register",
-      "name": "register"
+      "path": "/",
+      "name": "echo_shop/app/controllers/page.Root"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
     },
     {
       "method": "GET",
@@ -28,28 +28,18 @@
     },
     {
       "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
+      "path": "/",
+      "name": "root"
     },
     {
       "method": "POST",
       "path": "/password/reset",
       "name": "password.update"
+    },
+    {
+      "method": "POST",
+      "path": "/password/email",
+      "name": "password.email"
     },
     {
       "method": "GET",
@@ -58,13 +48,28 @@
     },
     {
       "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
     },
     {
       "method": "GET",
       "path": "/verification/verify",
       "name": "verification.show_link_form"
+    },
+    {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     },
     {
       "method": "GET",
