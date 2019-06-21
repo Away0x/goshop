@@ -14,20 +14,12 @@ func SetupError(e *echo.Echo, sh *routes.SpecialHandlers) {
 		var data *errno.Errno
 
 		switch typed := err.(type) {
-		// http error
-		case *echo.HTTPError:
-			data = &errno.Errno{
-				Summary:  errno.UnknowErr.Summary,
-				HTTPCode: typed.Code,
-				Code:     errno.UnknowErr.Code,
-				Message:  errno.UnknowErr.Message,
-				Errors:   typed.Message.(string),
-			}
-			// 自定义错误
-		case *errno.Errno:
+		case *echo.HTTPError: // http error
+			data = errno.WrapEchoHTTPError(typed)
+		case *errno.Errno: // 自定义错误
 			data = typed
 		default:
-			data = errno.UnknowErr.SetErrors(typed.Error())
+			data = errno.UnknowErr.SetErrorContent(typed)
 		}
 
 		// Send response

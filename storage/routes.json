@@ -2,9 +2,19 @@
   "count": 16,
   "routes": [
     {
-      "method": "GET",
+      "method": "POST",
       "path": "register",
-      "name": "register.show"
+      "name": "register"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
     },
     {
       "method": "GET",
@@ -12,14 +22,9 @@
       "name": "login.show"
     },
     {
-      "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
-    },
-    {
       "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
+      "path": "/password/reset",
+      "name": "password.show_link_form"
     },
     {
       "method": "POST",
@@ -32,9 +37,14 @@
       "name": "password.show_reset_form"
     },
     {
+      "method": "GET",
+      "path": "/api/v1",
+      "name": "api.root"
+    },
+    {
       "method": "POST",
-      "path": "login",
-      "name": "login"
+      "path": "/password/reset",
+      "name": "password.update"
     },
     {
       "method": "POST",
@@ -42,24 +52,9 @@
       "name": "echo_shop/app/controllers/page.Root"
     },
     {
-      "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
-    },
-    {
-      "method": "GET",
-      "path": "/api/v1",
-      "name": "api.root"
-    },
-    {
-      "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
+      "method": "POST",
+      "path": "login",
+      "name": "login"
     },
     {
       "method": "GET",
@@ -68,18 +63,23 @@
     },
     {
       "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
+    },
+    {
+      "method": "GET",
+      "path": "captcha/:id",
+      "name": "captcha"
     },
     {
       "method": "DELETE",
       "path": "logout",
       "name": "logout"
-    },
-    {
-      "method": "POST",
-      "path": "register",
-      "name": "register"
     }
   ]
 }

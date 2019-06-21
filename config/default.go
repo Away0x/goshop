@@ -16,13 +16,14 @@ var now = time.Now()
 // 默认配置
 var defaultConfigMap = map[string]interface{}{
 	// app
-	"APP.NAME":         "app",
-	"APP.RUNMODE":      "production", // 环境
-	"APP.ADDR":         ":9000",
-	"APP.KEY":          "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5",
-	"APP.TEMP_DIR":     defaultTempDir,    // 临时文件存储位置 (log ...)
-	"APP.PUBLIC_DIR":   "public",          // public 文件夹
-	"APP.TEMPLATE_DIR": "resources/views", // 模板文件存放文件夹
+	"APP.NAME":              "app",
+	"APP.RUNMODE":           "production", // 环境
+	"APP.ADDR":              ":9000",
+	"APP.KEY":               "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5",
+	"APP.TEMP_DIR":          defaultTempDir,    // 临时文件存储位置 (log ...)
+	"APP.PUBLIC_DIR":        "public",          // public 文件夹
+	"APP.TEMPLATE_DIR":      "resources/views", // 模板文件存放文件夹
+	"APP.SHOW_ERROR_DETAIL": true,              // response 是否会输出错误详情
 
 	// db
 	"DB.CONNECTION": "mysql",

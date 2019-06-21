@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"echo_shop/config"
 	"echo_shop/pkg/errno"
 	"strings"
 
@@ -13,17 +14,18 @@ func notFoundHandler(c echo.Context) error {
 		return errno.NotFoundErr
 	}
 
-	return errno.NotFoundErr.SetMessage("很抱歉！您浏览的页面不存在。").RenderNoContent()
+	return errno.NotFoundErr.SetMessage("很抱歉！您浏览的页面不存在。").HTML()
 }
 
 // 统一错误处理 handler
 func errorHandler(c echo.Context, e *errno.Errno) error {
-	if e.RenderTpl != "" {
-		if d, ok := e.Errors.(map[string]interface{}); ok {
-			return c.Render(e.HTTPCode, e.RenderTpl, d)
-		}
+	if (e.Detail != nil) && (e.Detail.Type == errno.RenderDetailTypeHTML) && (e.Detail.Template != "") {
+		return c.Render(e.HTTPCode, e.Detail.Template, e.Detail.Content)
+	}
 
-		return c.Render(e.HTTPCode, e.RenderTpl, map[string]interface{}{})
+	// 隐藏错误详情 (默认开启)
+	if !config.Bool("APP.SHOW_ERROR_DETAIL") {
+		e = e.HideErrorDetail()
 	}
 
 	return c.JSON(e.HTTPCode, e)

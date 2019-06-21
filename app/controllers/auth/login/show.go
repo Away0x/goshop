@@ -1,13 +1,12 @@
-/// 展示登录页面
 package login
 
 import (
-	"echo_shop/pkg/errno"
+	"echo_shop/app/controllers"
 
 	"github.com/labstack/echo/v4"
 )
 
+// Show 展示登录页面
 func Show(c echo.Context) error {
-	// return c.String(200, "login.show")
-	return errno.NotImplemented.RenderNoContent()
+	return controllers.Render(c, "auth/login")
 }

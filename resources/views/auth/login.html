@@ -11,18 +11,18 @@
 
         <div class="card-body">
           <form method="POST" action="{% route 'login' %}">
-            {{ csrfInput | safe }}
+            {{ csrf_field | safe }}
 
             <div class="form-group row">
               <label for="email" class="col-md-4 col-form-label text-md-right">E-mail</label>
 
               <div class="col-md-6">
-                <input id="email" type="email" class="form-control {% if validatorMessageMap.email %} is-invalid {% endif %}"
-                  name="email" value="{{ oldValue.email }}" required autofocus>
+                <input id="email" type="email" class="form-control {% if errors.email %} is-invalid {% endif %}"
+                  name="email" value="{{ old_value.email.0 }}" required autofocus>
 
-                {% if validatorMessageMap.email %}
+                {% if errors.email %}
                   <span class="invalid-feedback" role="alert">
-                    <strong>{{ validatorMessageMap.email.0 }}</strong>
+                    <strong>{{ errors.email.0 }}</strong>
                   </span>
                 {% endif %}
               </div>
@@ -32,12 +32,12 @@
               <label for="password" class="col-md-4 col-form-label text-md-right">密码</label>
 
               <div class="col-md-6">
-                <input id="password" type="password" class="form-control {% if validatorMessageMap.password %} is-invalid {% endif %}"
+                <input id="password" type="password" class="form-control {% if errors.password %} is-invalid {% endif %}"
                   name="password" required>
 
-                 {% if validatorMessageMap.password %}
+                 {% if errors.password %}
                   <span class="invalid-feedback" role="alert">
-                    <strong>{{ validatorMessageMap.password.0 }}</strong>
+                    <strong>{{ errors.password.0 }}</strong>
                   </span>
                 {% endif %}
               </div>
@@ -47,7 +47,7 @@
               <div class="col-md-6 offset-md-4">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                    {% if oldValue.remember %} checked {% else %} '' {% endif %}>
+                    {% if old_value.remember.0 %} checked {% else %} '' {% endif %}>
 
                   <label class="form-check-label" for="remember">
                     记住我
