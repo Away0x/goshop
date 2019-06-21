@@ -3,6 +3,7 @@ module echo_shop
 go 1.12
 
 require (
+	github.com/PuerkitoBio/goquery v1.5.0
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/antonlindstrom/pgstore v0.0.0-20170604072116-a407030ba6d0
 	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff

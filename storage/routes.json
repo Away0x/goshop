@@ -1,21 +1,6 @@
 {
-  "count": 16,
+  "count": 17,
   "routes": [
-    {
-      "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
-    },
-    {
-      "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
-    },
     {
       "method": "POST",
       "path": "/password/email",
@@ -23,13 +8,18 @@
     },
     {
       "method": "GET",
-      "path": "/",
-      "name": "root"
+      "path": "/api/v1",
+      "name": "api.root"
     },
     {
-      "method": "POST",
-      "path": "register",
-      "name": "register"
+      "method": "GET",
+      "path": "/hello",
+      "name": "echo_shop/routes.Register.func1"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
     },
     {
       "method": "GET",
@@ -38,18 +28,18 @@
     },
     {
       "method": "GET",
-      "path": "/api/v1",
-      "name": "api.root"
-    },
-    {
-      "method": "POST",
       "path": "/",
-      "name": "echo_shop/app/controllers/page.Root"
+      "name": "root"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
     },
     {
       "method": "POST",
-      "path": "login",
-      "name": "login"
+      "path": "register",
+      "name": "register"
     },
     {
       "method": "GET",
@@ -57,14 +47,24 @@
       "name": "captcha"
     },
     {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
+    },
+    {
+      "method": "GET",
+      "path": "register",
+      "name": "register.show"
+    },
+    {
       "method": "GET",
       "path": "/verification/verify/:token",
       "name": "verification.verify"
     },
     {
-      "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
+      "method": "POST",
+      "path": "login",
+      "name": "login"
     },
     {
       "method": "POST",
@@ -72,9 +72,14 @@
       "name": "password.update"
     },
     {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
+    },
+    {
+      "method": "POST",
+      "path": "/",
+      "name": "echo_shop/app/controllers/page.Root"
     },
     {
       "method": "GET",

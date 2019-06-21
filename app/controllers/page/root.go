@@ -1,6 +1,8 @@
 package page
 
 import (
+	"echo_shop/app/controllers"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -42,6 +44,6 @@ import (
 
 // Root -
 func Root(c echo.Context) error {
-	// return controllers.Render(c, "root")
-	return c.String(200, "hello")
+	return controllers.Render(c, "root")
+	// return c.String(200, "hello")
 }

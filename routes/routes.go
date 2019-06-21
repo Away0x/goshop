@@ -52,6 +52,10 @@ func Register(e *echo.Echo) *SpecialHandlers {
 		RedirectCode: http.StatusMovedPermanently,
 	}))
 
+	e.GET("/hello", func(c echo.Context) error {
+		return c.String(200, "hello")
+	})
+
 	// 注册 web routes
 	registerWeb(e)
 
