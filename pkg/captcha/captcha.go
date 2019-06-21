@@ -12,13 +12,14 @@ type Captcha struct {
 }
 
 // New 获取验证码
-func New(baseURL string) Captcha {
+func New(getURL func(id string) string) Captcha {
 	id := captcha.New()
+	url := getURL(id)
 
 	return Captcha{
 		ID:       id,
-		ImageURL: baseURL + "/" + id + ".png",
-		AudioURL: baseURL + "/" + id + ".wav",
+		ImageURL: url + ".png",
+		AudioURL: url + ".wav",
 	}
 }
 

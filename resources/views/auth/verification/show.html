@@ -1,0 +1,20 @@
+{% extends "../../layouts/app.html" %}
+
+{% block title %}用户激活{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">验证 E-mail</div>
+
+        <div class="card-body">
+            在继续之前请先验证您的 E-mail。如果您没有收到。<a href="{% route 'verification.resend' %}">点击重新发送 E-mail</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -2,14 +2,34 @@
   "count": 16,
   "routes": [
     {
+      "method": "GET",
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
+    },
+    {
+      "method": "POST",
+      "path": "/",
+      "name": "echo_shop/app/controllers/page.Root"
+    },
+    {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
+    },
+    {
       "method": "POST",
       "path": "register",
       "name": "register"
     },
     {
       "method": "GET",
-      "path": "/",
-      "name": "root"
+      "path": "/password/reset",
+      "name": "password.show_link_form"
     },
     {
       "method": "GET",
@@ -18,23 +38,18 @@
     },
     {
       "method": "GET",
-      "path": "login",
-      "name": "login.show"
+      "path": "captcha/:id",
+      "name": "captcha"
     },
     {
       "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
+      "path": "register",
+      "name": "register.show"
     },
     {
       "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
+      "path": "/password/reset",
+      "name": "password.update"
     },
     {
       "method": "GET",
@@ -43,28 +58,8 @@
     },
     {
       "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
-    },
-    {
-      "method": "POST",
-      "path": "/",
-      "name": "echo_shop/app/controllers/page.Root"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
-    },
-    {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
+      "path": "/password/email",
+      "name": "password.email"
     },
     {
       "method": "GET",
@@ -73,13 +68,18 @@
     },
     {
       "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
+      "path": "/",
+      "name": "root"
     },
     {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
     }
   ]
 }

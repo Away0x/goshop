@@ -17831,8 +17831,8 @@ window.jQuery = jquery__WEBPACK_IMPORTED_MODULE_1___default.a;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\playground\goPlayground\echo_forum\resources\js\app.ts */"./resources/js/app.ts");
-module.exports = __webpack_require__(/*! E:\playground\goPlayground\echo_forum\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\playground\goPlayground\echo_shop\resources\js\app.ts */"./resources/js/app.ts");
+module.exports = __webpack_require__(/*! E:\playground\goPlayground\echo_shop\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
