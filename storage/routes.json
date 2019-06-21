@@ -3,23 +3,28 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
+      "path": "/verification/resend",
+      "name": "verification.resend"
     },
     {
-      "method": "POST",
+      "method": "GET",
       "path": "login",
-      "name": "login"
+      "name": "login.show"
+    },
+    {
+      "method": "GET",
+      "path": "register",
+      "name": "register.show"
     },
     {
       "method": "POST",
-      "path": "/",
-      "name": "echo_shop/app/controllers/page.Root"
+      "path": "/password/email",
+      "name": "password.email"
     },
     {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
+      "method": "GET",
+      "path": "/",
+      "name": "root"
     },
     {
       "method": "POST",
@@ -33,8 +38,18 @@
     },
     {
       "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
+      "path": "/api/v1",
+      "name": "api.root"
+    },
+    {
+      "method": "POST",
+      "path": "/",
+      "name": "echo_shop/app/controllers/page.Root"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
     },
     {
       "method": "GET",
@@ -43,8 +58,13 @@
     },
     {
       "method": "GET",
-      "path": "register",
-      "name": "register.show"
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
     },
     {
       "method": "POST",
@@ -52,29 +72,9 @@
       "name": "password.update"
     },
     {
-      "method": "GET",
-      "path": "/api/v1",
-      "name": "api.root"
-    },
-    {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
-    },
-    {
-      "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "GET",
-      "path": "login",
-      "name": "login.show"
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     },
     {
       "method": "GET",

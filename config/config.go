@@ -10,11 +10,6 @@ import (
 )
 
 const (
-	// 配置文件路径
-	configFilePath = "./config.yaml"
-	// 配置文件格式
-	configFileType = "yaml"
-
 	// RunmodeProduction 生产模式
 	RunmodeProduction = "production"
 	// RunmodeDevelopment 调试、开发模式
@@ -23,13 +18,14 @@ const (
 	RunmodeTest = "test"
 )
 
-func init() {
+// InitConfig 初始化 config
+func InitConfig(configFilePath, configFileType string) {
 	// 初始化 viper 配置
 	viper.SetConfigFile(configFilePath)
 	viper.SetConfigType(configFileType)
 
 	if err := viper.ReadInConfig(); err != nil {
-		panic(fmt.Sprintf("读取配置文件失败，请检查 config.yaml 配置文件是否存在: %v", err))
+		panic(fmt.Sprintf("读取配置文件失败，请检查 %s 配置文件是否存在: %v", configFilePath, err))
 	}
 
 	// 设置配置默认值
