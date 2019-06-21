@@ -27,6 +27,9 @@ var defaultConfigMap = map[string]interface{}{
 	"APP.TEMPLATE_DIR":      "resources/views", // 模板文件存放文件夹
 	"APP.SHOW_ERROR_DETAIL": true,              // response 是否会输出错误详情
 
+	// https
+	"TLS.ADDR": ":9001",
+
 	// db
 	"DB.CONNECTION": "mysql",
 	"DB.HOST":       "127.0.0.1",

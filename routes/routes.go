@@ -8,6 +8,8 @@ import (
 	mymiddleware "echo_shop/routes/middleware"
 	"net/http"
 
+	"echo_shop/app/controllers/sd"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -52,9 +54,14 @@ func Register(e *echo.Echo) *SpecialHandlers {
 		RedirectCode: http.StatusMovedPermanently,
 	}))
 
-	e.GET("/hello", func(c echo.Context) error {
-		return c.String(200, "hello")
-	})
+	// 服务器健康自检
+	sdRouter := e.Group("/sd")
+	{
+		sdRouter.GET("/health", sd.HealthCheck).Name = "sd.health"
+		sdRouter.GET("/disk", sd.DiskCheck).Name = "sd.disk"
+		sdRouter.GET("/cpu", sd.CPUCheck).Name = "sd.cpu"
+		sdRouter.GET("/ram", sd.RAMCheck).Name = "sd.ram"
+	}
 
 	// 注册 web routes
 	registerWeb(e)

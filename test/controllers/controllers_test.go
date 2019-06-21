@@ -35,11 +35,11 @@ func TestControllers(t *testing.T) {
 }
 
 func helloHandler(t *testing.T, e *httpexpect.Expect) {
-	e.GET("/hello").
+	e.GET("/sd/health").
 		Expect().
 		Status(http.StatusOK).
 		Body().
-		Equal("hello")
+		Equal("OK")
 }
 
 func rootHandler(t *testing.T, e *httpexpect.Expect) {
