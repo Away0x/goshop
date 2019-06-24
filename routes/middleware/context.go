@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"echo_shop/pkg/context"
+	"echo_shop/app/helpers/context"
 
 	"github.com/labstack/echo/v4"
 )
