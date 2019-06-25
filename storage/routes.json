@@ -2,14 +2,14 @@
   "count": 20,
   "routes": [
     {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
     },
     {
       "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
     },
     {
       "method": "DELETE",
@@ -18,23 +18,18 @@
     },
     {
       "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
+      "path": "/password/reset",
+      "name": "password.show_link_form"
     },
     {
       "method": "GET",
-      "path": "/captcha/:id",
-      "name": "captcha"
+      "path": "/verification/resend",
+      "name": "verification.resend"
     },
     {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
+      "method": "POST",
+      "path": "/password/email",
+      "name": "password.email"
     },
     {
       "method": "GET",
@@ -43,18 +38,8 @@
     },
     {
       "method": "GET",
-      "path": "/sd/cpu",
-      "name": "sd.cpu"
-    },
-    {
-      "method": "GET",
       "path": "/sd/ram",
       "name": "sd.ram"
-    },
-    {
-      "method": "GET",
-      "path": "/sd/health",
-      "name": "sd.health"
     },
     {
       "method": "GET",
@@ -63,18 +48,8 @@
     },
     {
       "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
-    },
-    {
-      "method": "POST",
-      "path": "/",
-      "name": "echo_shop/routes.registerHandler.func1"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
+      "path": "/captcha/:id",
+      "name": "captcha"
     },
     {
       "method": "POST",
@@ -83,13 +58,8 @@
     },
     {
       "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "POST",
-      "path": "register",
-      "name": "register"
+      "path": "/sd/health",
+      "name": "sd.health"
     },
     {
       "method": "GET",
@@ -97,9 +67,39 @@
       "name": "api.root"
     },
     {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
+    },
+    {
+      "method": "GET",
+      "path": "/sd/cpu",
+      "name": "sd.cpu"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
+    },
+    {
       "method": "POST",
       "path": "/password/reset",
       "name": "password.update"
+    },
+    {
+      "method": "POST",
+      "path": "/",
+      "name": "echo_shop/app/context.RegisterHandler.func1"
+    },
+    {
+      "method": "GET",
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
     }
   ]
 }

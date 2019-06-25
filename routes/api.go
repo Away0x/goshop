@@ -13,7 +13,7 @@ const (
 func registerAPI(e *echo.Echo, apiPrefix string) {
 	ee := e.Group(apiPrefix + "/" + apiVersion)
 
-	registerHandler(ee.GET, "", func(c *context.AppContext) error {
+	context.RegisterHandler(ee.GET, "", func(c *context.AppContext) error {
 		return c.JSON(200, map[string]string{
 			"test": "test",
 		})

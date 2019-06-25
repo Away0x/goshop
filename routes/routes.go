@@ -5,7 +5,6 @@ import (
 	"echo_shop/config"
 	"echo_shop/pkg/constants"
 	"echo_shop/pkg/errno"
-	AppContext "echo_shop/routes/middleware"
 	mymiddleware "echo_shop/routes/middleware"
 	"net/http"
 	"strings"
@@ -19,7 +18,6 @@ import (
 )
 
 type (
-	echoRegisterFn = func(path string, h echo.HandlerFunc, m ...echo.MiddlewareFunc) *echo.Route
 	// SpecialHandlers -
 	SpecialHandlers struct {
 		// 错误处理的 handler
@@ -31,22 +29,6 @@ const (
 	restfulAPIPrefix = "/api"
 )
 
-// 使用该函数注册 handler，会包装 echo.Context 为 *context.AppContext
-func registerHandler(fn echoRegisterFn, path string, h context.AppHandlerFunc, m ...echo.MiddlewareFunc) *echo.Route {
-	return fn(path, func(c echo.Context) error {
-		cc, ok := c.(*context.AppContext)
-		if !ok {
-			cc = &context.AppContext{
-				Context: c,
-			}
-
-			return h(cc)
-		}
-
-		return h(cc)
-	}, m...)
-}
-
 // 判断该请求是否是一个 api 请求 (即不渲染 html，而是响应 json)
 func needResponseJSON(c echo.Context) bool {
 	path := c.Request().URL.Path
@@ -56,7 +38,7 @@ func needResponseJSON(c echo.Context) bool {
 // Register 注册路由
 func Register(e *echo.Echo) *SpecialHandlers {
 	// 自定义 context
-	e.Use(AppContext.Context)
+	e.Use(context.WrapContextMiddleware)
 
 	// recover
 	// e.Use(middleware.Recover())
@@ -86,14 +68,14 @@ func Register(e *echo.Echo) *SpecialHandlers {
 	// 服务器健康自检
 	sdRouter := e.Group("/sd")
 	{
-		registerHandler(sdRouter.GET, "/health", sd.HealthCheck).Name = "sd.health"
-		registerHandler(sdRouter.GET, "/disk", sd.DiskCheck).Name = "sd.disk"
-		registerHandler(sdRouter.GET, "/cpu", sd.CPUCheck).Name = "sd.cpu"
-		registerHandler(sdRouter.GET, "/ram", sd.HealthCheck).Name = "sd.ram"
+		context.RegisterHandler(sdRouter.GET, "/health", sd.HealthCheck).Name = "sd.health"
+		context.RegisterHandler(sdRouter.GET, "/disk", sd.DiskCheck).Name = "sd.disk"
+		context.RegisterHandler(sdRouter.GET, "/cpu", sd.CPUCheck).Name = "sd.cpu"
+		context.RegisterHandler(sdRouter.GET, "/ram", sd.HealthCheck).Name = "sd.ram"
 	}
 
 	// 验证码
-	registerHandler(e.GET, "/captcha/:id", func(c *context.AppContext) error {
+	context.RegisterHandler(e.GET, "/captcha/:id", func(c *context.AppContext) error {
 		return captcha.Handler(c)
 	}).Name = "captcha"
 

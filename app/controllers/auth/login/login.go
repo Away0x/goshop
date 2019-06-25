@@ -16,7 +16,7 @@ func (f *loginForm) Validators() validate.Validators {
 		"email": {
 			validate.RequiredValidator(f.Email),
 			validate.EmailValidator(f.Email),
-			validate.MaxLengthValidator(f.Email, 10),
+			validate.MaxLengthValidator(f.Email, 255),
 		},
 		"password": {
 			validate.RequiredValidator(f.Password),
@@ -46,6 +46,6 @@ func Login(c *context.AppContext) error {
 		return c.RouteRedirect("login.show")
 	}
 
-	c.FlashSuccessMessage("登录成功" + req.Email + req.Password)
+	c.FlashSuccessMessage("登录成功")
 	return c.RouteRedirect("login.show")
 }
