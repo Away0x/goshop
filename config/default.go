@@ -10,6 +10,7 @@ import (
 const (
 	defaultTempDir = "storage"
 	defaultAppPort = ":9000"
+	defaultAppName = "app"
 )
 
 var now = time.Now()
@@ -17,7 +18,7 @@ var now = time.Now()
 // 默认配置
 var defaultConfigMap = map[string]interface{}{
 	// app
-	"APP.NAME":              "app",
+	"APP.NAME":              defaultAppName,
 	"APP.RUNMODE":           "production", // 环境
 	"APP.ADDR":              defaultAppPort,
 	"APP.URL":               "http://localhost" + defaultAppPort,
@@ -34,9 +35,17 @@ var defaultConfigMap = map[string]interface{}{
 	"DB.CONNECTION": "mysql",
 	"DB.HOST":       "127.0.0.1",
 	"DB.PORT":       "3306",
-	"DB.DATABASE":   "app",
+	"DB.DATABASE":   defaultAppName,
 	"DB.USERNAME":   "root",
 	"DB.PASSWORD":   "",
+
+	// mail
+	"MAIL.DRIVER":    "smtp",
+	"MAIL.HOST":      "smtp.mailtrap.io",
+	"MAIL.PORT":      2525,
+	"MAIL.USERNAME":  "",
+	"MAIL.PASSWORD":  "",
+	"MAIL.FROM_NAME": defaultAppName,
 
 	// log
 	"LOG.WRITERS":          "file,stdout",

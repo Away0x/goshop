@@ -12,6 +12,8 @@ type (
 	Validators map[string][]ValidatorFunc
 	// Messages 错误信息
 	Messages map[string][]string
+	// plugin 聚合 Validators 和 Messages 的方法
+	PluginFunc func() (Validators, Messages)
 
 	// Validater -
 	Validater interface {
@@ -19,8 +21,11 @@ type (
 		IsStrict() bool
 		// Validators : 注册验证器 map
 		Validators() Validators
-		// RegisterMessages : 注册错误信息 map
+		// Messages : 注册错误信息 map
 		Messages() Messages
+		// Plugins : 提供一个聚合验证器和错误信息的方法
+		// (Plugins 方法中注册的数据会被 Validators/Messages 方法注册的数据覆盖)
+		Plugins() (Validators, Messages)
 	}
 )
 
@@ -52,6 +57,15 @@ func (*BaseValidate) Validators() Validators {
 func (*BaseValidate) Messages() Messages {
 	return Messages{}
 }
+
+// Plugins 注册 plugin
+func (*BaseValidate) Plugins() (Validators, Messages) {
+	return nil, nil
+}
+
+// func RegisterPlugins(plugins ...Plugins) (Validators, Messages) {
+//   return
+// }
 
 // Run 执行验证
 func Run(v Validater) (errMap Messages, ok bool) {

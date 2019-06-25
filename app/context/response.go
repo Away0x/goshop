@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-// RouteRedirect 重定向
+// RedirectByName 重定向
 // routeName: 路由名
-func (a *AppContext) RouteRedirect(routeName string) error {
+func (a *AppContext) RedirectByName(routeName string) error {
 	return a.Context.Redirect(http.StatusFound, config.Application.Reverse(routeName))
 }
 

@@ -12,3 +12,11 @@ DB:
   DATABASE: echo_shop
   USERNAME: root
   PASSWORD: secret
+
+MAIL:
+  DRIVER: smtp # smtp or log (smtp: 使用支持 ESMTP 的 SMTP 服务器发送邮件，log: 适用于调试，会将邮件内容写入 log 中)
+  HOST: smtp.mailtrap.io # 邮箱的 SMTP 服务器地址
+  PORT: 2525 # 邮箱的 SMTP 服务器端口
+  USERNAME:
+  PASSWORD: # 授权码或密码
+  FROM_NAME: echo_shop # 用来作为邮件的发送者名称

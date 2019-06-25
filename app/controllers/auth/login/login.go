@@ -43,9 +43,9 @@ func Login(c *context.AppContext) error {
 
 	if err := c.BindAndValidate(req); err != nil {
 		c.ErrorFlash(err)
-		return c.RouteRedirect("login.show")
+		return c.RedirectByName("login.show")
 	}
 
 	c.FlashSuccessMessage("登录成功")
-	return c.RouteRedirect("login.show")
+	return c.RedirectByName("login.show")
 }

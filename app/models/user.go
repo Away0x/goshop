@@ -24,7 +24,7 @@ type User struct {
 	Activated       uint       `gorm:"column:activated;type:tinyint(1);not null"`
 	EmailVerifiedAt *time.Time `gorm:"column:email_verified_at"` // 激活时间
 
-	RememberToken string `gorm:"column:remember_token;type:varchar(100)"` // 用于实现记住我功能，存入 cookie 中，下次带上时，即可直接登录
+	// RememberToken string `gorm:"column:remember_token;type:varchar(100)"` // 用于实现记住我功能，存入 cookie 中，下次带上时，即可直接登录
 }
 
 // TableName 表名
