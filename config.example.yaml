@@ -1,6 +1,6 @@
 APP:
   NAME: echo_shop
-  RUNMODE: development # 模式: development, production, test
+  RUNMODE: development # 模式: development, production, staging, test
   Addr: :9000 # 端口
   URL: http://localhost:9000 # 网站地址
   KEY: Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5

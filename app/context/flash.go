@@ -28,28 +28,28 @@ func (a *AppContext) Flash(flashType string, msg string) {
 	case FLashTypeDanger:
 		flash.NewDangerMessage(a, msg)
 	default:
-		flash.NewOtherMessage(a, flashType, msg)
+		flash.NewMessage(a, flashType, msg)
 	}
 }
 
 // FlashSuccessMessage success message flash
 func (a *AppContext) FlashSuccessMessage(msg string) {
-  a.Flash(FLashTypeSuccess, msg)
+	a.Flash(FLashTypeSuccess, msg)
 }
 
 // FlashInfoMessage info message flash
 func (a *AppContext) FlashInfoMessage(msg string) {
-  a.Flash(FLashTypeInfo, msg)
+	a.Flash(FLashTypeInfo, msg)
 }
 
 // FlashWarningMessage warning message flash
 func (a *AppContext) FlashWarningMessage(msg string) {
-  a.Flash(FLashTypeWarning, msg)
+	a.Flash(FLashTypeWarning, msg)
 }
 
 // FlashDangerMessage danger message flash
 func (a *AppContext) FlashDangerMessage(msg string) {
-  a.Flash(FLashTypeDanger, msg)
+	a.Flash(FLashTypeDanger, msg)
 }
 
 // ErrorFlash 错误信息的 flash

@@ -10,11 +10,13 @@ import (
 )
 
 const (
-	// RunmodeProduction 生产模式
+	// RunmodeProduction 生产环境
 	RunmodeProduction = "production"
-	// RunmodeDevelopment 调试、开发模式
+	// RunmodeStaging 准生产环境
+	RunmodeStaging = "staging"
+	// RunmodeDevelopment 调试、开发环境
 	RunmodeDevelopment = "development"
-	// RunmodeTest 测试模式
+	// RunmodeTest 测试环境
 	RunmodeTest = "test"
 )
 

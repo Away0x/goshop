@@ -69,7 +69,7 @@ func (m *messageFlash) AddDanger(msg string) *messageFlash {
 	return m
 }
 
-func (m *messageFlash) AddOther(key, msg string) *messageFlash {
+func (m *messageFlash) Add(key, msg string) *messageFlash {
 	m.add(key, msg)
 	return m
 }
@@ -94,7 +94,7 @@ func NewDangerMessage(c echo.Context, msg string) {
 	NewMessageFlash(c).AddDanger(msg).Save()
 }
 
-// NewOtherMessage -
-func NewOtherMessage(c echo.Context, key, msg string) {
-	NewMessageFlash(c).AddOther(key, msg).Save()
+// NewMessage -
+func NewMessage(c echo.Context, key, msg string) {
+	NewMessageFlash(c).Add(key, msg).Save()
 }
