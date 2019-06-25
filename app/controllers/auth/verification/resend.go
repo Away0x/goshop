@@ -2,9 +2,9 @@
 package verification
 
 import (
-	"github.com/labstack/echo/v4"
+	"echo_shop/app/context"
 )
 
-func Resend(c echo.Context) error {
+func Resend(c *context.AppContext) error {
 	return c.String(200, "verification.resend")
 }

@@ -3,14 +3,13 @@ package routes
 import (
 	"echo_shop/config"
 	"echo_shop/pkg/errno"
-	"strings"
 
 	"github.com/labstack/echo/v4"
 )
 
 // 未找到路由时的 handler
 func notFoundHandler(c echo.Context) error {
-	if strings.HasPrefix(c.Path(), restfulAPIPrefix) {
+	if needResponseJSON(c) {
 		return errno.NotFoundErr
 	}
 

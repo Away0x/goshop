@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"echo_shop/app/helpers/context"
+	"echo_shop/app/context"
 
 	"github.com/labstack/echo/v4"
 )
@@ -9,7 +9,7 @@ import (
 // Context -
 func Context(h echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		cc := &context.CustomContext{
+		cc := &context.AppContext{
 			Context: c,
 		}
 

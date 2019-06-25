@@ -2,44 +2,9 @@
   "count": 20,
   "routes": [
     {
-      "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
       "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
-    },
-    {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
-    },
-    {
-      "method": "GET",
-      "path": "/sd/health",
-      "name": "sd.health"
-    },
-    {
-      "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "GET",
-      "path": "/sd/cpu",
-      "name": "sd.cpu"
+      "path": "register",
+      "name": "register"
     },
     {
       "method": "GET",
@@ -48,23 +13,23 @@
     },
     {
       "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
+    },
+    {
+      "method": "POST",
+      "path": "/",
+      "name": "echo_shop/routes.registerHandler.func1"
     },
     {
       "method": "GET",
-      "path": "/sd/disk",
-      "name": "sd.disk"
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
     },
     {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     },
     {
       "method": "POST",
@@ -73,8 +38,8 @@
     },
     {
       "method": "GET",
-      "path": "captcha/:id",
-      "name": "captcha"
+      "path": "register",
+      "name": "register.show"
     },
     {
       "method": "GET",
@@ -83,23 +48,58 @@
     },
     {
       "method": "GET",
+      "path": "/sd/disk",
+      "name": "sd.disk"
+    },
+    {
+      "method": "GET",
       "path": "/api/v1",
       "name": "api.root"
     },
     {
-      "method": "POST",
-      "path": "/",
-      "name": "echo_shop/app/controllers/page.Root"
+      "method": "GET",
+      "path": "/captcha/:id",
+      "name": "captcha"
     },
     {
       "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
     },
     {
       "method": "POST",
-      "path": "register",
-      "name": "register"
+      "path": "/password/reset",
+      "name": "password.update"
+    },
+    {
+      "method": "GET",
+      "path": "/sd/cpu",
+      "name": "sd.cpu"
+    },
+    {
+      "method": "POST",
+      "path": "/password/email",
+      "name": "password.email"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset",
+      "name": "password.show_link_form"
+    },
+    {
+      "method": "GET",
+      "path": "/sd/health",
+      "name": "sd.health"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
     }
   ]
 }

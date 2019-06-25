@@ -2,9 +2,9 @@
 package password
 
 import (
-	"github.com/labstack/echo/v4"
+	"echo_shop/app/context"
 )
 
-func Update(c echo.Context) error {
+func Update(c *context.AppContext) error {
 	return c.String(200, "password.update")
 }

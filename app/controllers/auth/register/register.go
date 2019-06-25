@@ -2,9 +2,9 @@
 package register
 
 import (
-	"github.com/labstack/echo/v4"
+	"echo_shop/app/context"
 )
 
-func Register(c echo.Context) error {
+func Register(c *context.AppContext) error {
 	return c.String(200, "register")
 }

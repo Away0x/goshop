@@ -1,14 +1,13 @@
 package register
 
 import (
-	"echo_shop/app/controllers"
-
-	"github.com/labstack/echo/v4"
+	"echo_shop/app/context"
+	"echo_shop/app/helpers/captcha"
 )
 
 // Show 展示注册页面
-func Show(c echo.Context) error {
-	return controllers.Render(c, "auth/register", map[string]interface{}{
-		"captcha": controllers.CreateCaptcha(),
+func Show(c *context.AppContext) error {
+	return c.RenderHTML("auth/register", map[string]interface{}{
+		"captcha": captcha.CreateCaptcha(),
 	})
 }

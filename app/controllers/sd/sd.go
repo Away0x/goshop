@@ -1,10 +1,10 @@
 package sd
 
 import (
+	"echo_shop/app/context"
 	"fmt"
 	"net/http"
 
-	"github.com/labstack/echo/v4"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/load"
@@ -19,12 +19,12 @@ const (
 )
 
 // HealthCheck shows `OK` as the ping-pong result.
-func HealthCheck(c echo.Context) error {
+func HealthCheck(c *context.AppContext) error {
 	return c.String(http.StatusOK, "\nOK")
 }
 
 // DiskCheck checks the disk usage.
-func DiskCheck(c echo.Context) error {
+func DiskCheck(c *context.AppContext) error {
 	u, _ := disk.Usage("/")
 
 	usedMB := int(u.Used) / MB
@@ -51,7 +51,7 @@ func DiskCheck(c echo.Context) error {
 }
 
 // CPUCheck checks the cpu usage.
-func CPUCheck(c echo.Context) error {
+func CPUCheck(c *context.AppContext) error {
 	cores, _ := cpu.Counts(false)
 
 	a, _ := load.Avg()
@@ -77,7 +77,7 @@ func CPUCheck(c echo.Context) error {
 }
 
 // RAMCheck checks the disk usage.
-func RAMCheck(c echo.Context) error {
+func RAMCheck(c *context.AppContext) error {
 	u, _ := mem.VirtualMemory()
 
 	usedMB := int(u.Used) / MB
