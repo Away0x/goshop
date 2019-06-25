@@ -3,43 +3,8 @@
   "routes": [
     {
       "method": "POST",
-      "path": "register",
-      "name": "register"
-    },
-    {
-      "method": "GET",
-      "path": "/sd/ram",
-      "name": "sd.ram"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
-    },
-    {
-      "method": "POST",
-      "path": "/",
-      "name": "echo_shop/routes.registerHandler.func1"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset/:token",
-      "name": "password.show_reset_form"
-    },
-    {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
+      "path": "/password/email",
+      "name": "password.email"
     },
     {
       "method": "GET",
@@ -47,14 +12,14 @@
       "name": "verification.resend"
     },
     {
-      "method": "GET",
-      "path": "/sd/disk",
-      "name": "sd.disk"
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     },
     {
       "method": "GET",
-      "path": "/api/v1",
-      "name": "api.root"
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
     },
     {
       "method": "GET",
@@ -63,13 +28,18 @@
     },
     {
       "method": "GET",
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "GET",
       "path": "/verification/verify",
       "name": "verification.show_link_form"
     },
     {
-      "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
     },
     {
       "method": "GET",
@@ -77,19 +47,9 @@
       "name": "sd.cpu"
     },
     {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
-    },
-    {
       "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
+      "path": "/sd/ram",
+      "name": "sd.ram"
     },
     {
       "method": "GET",
@@ -98,8 +58,48 @@
     },
     {
       "method": "GET",
+      "path": "/sd/disk",
+      "name": "sd.disk"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset/:token",
+      "name": "password.show_reset_form"
+    },
+    {
+      "method": "POST",
+      "path": "/",
+      "name": "echo_shop/routes.registerHandler.func1"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset",
+      "name": "password.show_link_form"
+    },
+    {
+      "method": "POST",
       "path": "login",
-      "name": "login.show"
+      "name": "login"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "name": "root"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1",
+      "name": "api.root"
+    },
+    {
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
     }
   ]
 }

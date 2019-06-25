@@ -8,10 +8,14 @@ import (
 const (
 	flashMessageKeyName = "_flash_message"
 
-	flashMessageSuccess = "success"
-	flashMessageInfo    = "info"
-	flashMessageWarning = "warning"
-	flashMessageDanger  = "danger"
+	// FlashMessageSuccessType -
+	FlashMessageSuccessType = "success"
+	// FlashMessageInfoType -
+	FlashMessageInfoType = "info"
+	// FlashMessageWarningType -
+	FlashMessageWarningType = "warning"
+	// FlashMessageDangerType -
+	FlashMessageDangerType = "danger"
 )
 
 type messageFlash struct {
@@ -46,22 +50,27 @@ func (m *messageFlash) Read() flashDataValue {
 }
 
 func (m *messageFlash) AddSuccess(msg string) *messageFlash {
-	m.add(flashMessageSuccess, msg)
+	m.add(FlashMessageSuccessType, msg)
 	return m
 }
 
 func (m *messageFlash) AddInfo(msg string) *messageFlash {
-	m.add(flashMessageInfo, msg)
+	m.add(FlashMessageInfoType, msg)
 	return m
 }
 
 func (m *messageFlash) AddWarning(msg string) *messageFlash {
-	m.add(flashMessageWarning, msg)
+	m.add(FlashMessageWarningType, msg)
 	return m
 }
 
 func (m *messageFlash) AddDanger(msg string) *messageFlash {
-	m.add(flashMessageDanger, msg)
+	m.add(FlashMessageDangerType, msg)
+	return m
+}
+
+func (m *messageFlash) AddOther(key, msg string) *messageFlash {
+	m.add(key, msg)
 	return m
 }
 
@@ -83,4 +92,9 @@ func NewWarningMessage(c echo.Context, msg string) {
 // NewDangerMessage -
 func NewDangerMessage(c echo.Context, msg string) {
 	NewMessageFlash(c).AddDanger(msg).Save()
+}
+
+// NewOtherMessage -
+func NewOtherMessage(c echo.Context, key, msg string) {
+	NewMessageFlash(c).AddOther(key, msg).Save()
 }

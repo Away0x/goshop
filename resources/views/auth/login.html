@@ -17,12 +17,12 @@
               <label for="email" class="col-md-4 col-form-label text-md-right">E-mail</label>
 
               <div class="col-md-6">
-                <input id="email" type="email" class="form-control {% if errors.Email %} is-invalid {% endif %}"
+                <input id="email" type="email" class="form-control {% if errors.email %} is-invalid {% endif %}"
                   name="email" value="{{ old_value.email.0 }}" required autofocus>
 
-                {% if errors.Email %}
+                {% if errors.email %}
                   <span class="invalid-feedback" role="alert">
-                    <strong>{{ errors.Email.0 }}</strong>
+                    <strong>{{ errors.email.0 }}</strong>
                   </span>
                 {% endif %}
               </div>
@@ -32,12 +32,12 @@
               <label for="password" class="col-md-4 col-form-label text-md-right">密码</label>
 
               <div class="col-md-6">
-                <input id="password" type="password" class="form-control {% if errors.Password %} is-invalid {% endif %}"
+                <input id="password" type="password" class="form-control {% if errors.password %} is-invalid {% endif %}"
                   name="password" required>
 
-                 {% if errors.Password %}
+                 {% if errors.password %}
                   <span class="invalid-feedback" role="alert">
-                    <strong>{{ errors.Password.0 }}</strong>
+                    <strong>{{ errors.password.0 }}</strong>
                   </span>
                 {% endif %}
               </div>

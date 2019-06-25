@@ -2,7 +2,8 @@
 package flash
 
 import (
-	"github.com/gookit/validate"
+	"echo_shop/pkg/validate"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,9 +25,9 @@ func NewErrorsFlash(c echo.Context) *errorsFlash {
 }
 
 func (e *errorsFlash) Save(err error) {
-	data, ok := err.(validate.Errors)
+	data, ok := err.(validate.Messages)
 	if !ok {
-		data = validate.Errors{"unknown": {err.Error()}}
+		data = validate.Messages{"unknown": {err.Error()}}
 	}
 
 	NewFlashData(flashErrorsKeyName, e.EchoContext.Request()).
