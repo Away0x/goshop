@@ -1,6 +1,7 @@
 package models
 
 import (
+	"echo_shop/database"
 	"strconv"
 	"time"
 )
@@ -25,4 +26,20 @@ type BaseModel struct {
 // IDString 获取字符串形式的 id
 func (m *BaseModel) IDString() string {
 	return strconv.Itoa(int(m.ID))
+}
+
+// NewRecord model 是否已创建
+func (m *BaseModel) NewRecord() bool {
+	return m.ID <= 0
+}
+
+// Destroy 删除 model
+func (m *BaseModel) Destroy() error {
+	err := database.DBManager().Delete(&m).Error
+	return err
+}
+
+// IsDeleted model 是否已被删除了
+func (m *BaseModel) IsDeleted() bool {
+	return m.DeletedAt != nil
 }

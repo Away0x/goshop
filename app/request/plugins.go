@@ -29,3 +29,44 @@ func PasswordPlugin(password string) validate.PluginFunc {
 			}
 	}
 }
+
+// RegisterPasswordPlugin 注册用户时的 password 字段验证
+func RegisterPasswordPlugin(password, confirm string) validate.PluginFunc {
+	return validate.AssignPlugin(
+		PasswordPlugin(password),
+		[]validate.ValidatorFunc{
+			validate.MinLengthValidator(password, 6),
+			validate.EqualValidator(password, confirm),
+		},
+		[]string{
+			"密码长度不能小于 6 个字符",
+			"两次输入的密码不一致",
+		},
+	)
+}
+
+// UserNamePlugin 用户名字段请求参数的验证
+func UserNamePlugin(name string) validate.PluginFunc {
+	return func() (string, []validate.ValidatorFunc, []string) {
+		return "name", []validate.ValidatorFunc{
+				validate.RequiredValidator(name),
+				validate.MaxLengthValidator(name, 50),
+			}, []string{
+				"名称不能为空",
+				"名称长度不能大于 50 个字符",
+			}
+	}
+}
+
+// CaptchaPlugin 验证码验证
+func CaptchaPlugin(captchaID, captchaVal string) validate.PluginFunc {
+	return func() (string, []validate.ValidatorFunc, []string) {
+		return "captcha", []validate.ValidatorFunc{
+				validate.RequiredValidator(captchaVal),
+				CaptchaValidator(captchaID, captchaVal),
+			}, []string{
+				"验证码不能为空",
+				"验证码错误",
+			}
+	}
+}

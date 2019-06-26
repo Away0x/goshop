@@ -37,19 +37,17 @@ func GetCurrentUserFromSession(c echo.Context) (*models.User, bool) {
 
 	if user, ok := fromContextGetUser(c); ok {
 		if int(user.ID) == id {
-			Login(c, user)
 			return user, ok
 		}
 		c.Set(authContextKey, nil)
 	}
 
 	user, err := models.GetUser(uint(id))
-	if err != nil {
+	if err != nil || user == nil {
 		return nil, false
 	}
 
 	c.Set(authContextKey, user)
-	Login(c, user)
 	return user, true
 }
 

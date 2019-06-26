@@ -1,10 +1,12 @@
-/// 登出
 package login
 
 import (
 	"echo_shop/app/context"
 )
 
+// Logout 登出
 func Logout(c *context.AppContext) error {
-	return c.String(200, "logout")
+	c.Logout()
+	c.FlashSuccessMessage("您已成功退出！")
+	return c.RedirectToLoginPage()
 }

@@ -77,15 +77,16 @@ func (u *User) Create() (err error) {
 	return
 }
 
-// Delete 删除用户
-func (u *User) Delete() (err error) {
-	err = database.DBManager().Delete(&u).Error
-	return
-}
-
 // GetUser 根据 id 获取 user
 func GetUser(id uint) (user *User, err error) {
 	user = new(User)
 	err = database.DBManager().First(&user, id).Error
+	return
+}
+
+// GetUserByEmail 根据 email 获取 user
+func GetUserByEmail(email string) (user *User, err error) {
+	user = new(User)
+	err = database.DBManager().Where("email = ?", email).First(&user).Error
 	return
 }
