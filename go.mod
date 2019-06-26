@@ -3,6 +3,7 @@ module echo_shop
 go 1.12
 
 require (
+	github.com/Away0x/validate v0.0.0-20190626033635-e8a47008a7d6
 	github.com/PuerkitoBio/goquery v1.5.0
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/ajg/form v1.5.1 // indirect

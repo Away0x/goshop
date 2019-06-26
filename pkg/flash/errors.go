@@ -2,7 +2,7 @@
 package flash
 
 import (
-	"echo_shop/pkg/validate"
+	"github.com/Away0x/validate"
 
 	"github.com/labstack/echo/v4"
 )

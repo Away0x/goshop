@@ -2,7 +2,7 @@ package context
 
 import (
 	"echo_shop/pkg/flash"
-	"echo_shop/pkg/validate"
+	"github.com/Away0x/validate"
 )
 
 const (

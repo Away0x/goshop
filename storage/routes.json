@@ -3,8 +3,13 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/captcha/:id",
-      "name": "captcha"
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "GET",
+      "path": "/sd/cpu",
+      "name": "sd.cpu"
     },
     {
       "method": "GET",
@@ -13,33 +18,13 @@
     },
     {
       "method": "GET",
-      "path": "/api/v1",
-      "name": "api.root"
-    },
-    {
-      "method": "GET",
-      "path": "/sd/health",
-      "name": "sd.health"
-    },
-    {
-      "method": "GET",
-      "path": "/sd/disk",
-      "name": "sd.disk"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
-    },
-    {
-      "method": "GET",
       "path": "/verification/resend",
       "name": "verification.resend"
+    },
+    {
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     },
     {
       "method": "POST",
@@ -48,13 +33,23 @@
     },
     {
       "method": "GET",
-      "path": "/sd/ram",
-      "name": "sd.ram"
+      "path": "/sd/disk",
+      "name": "sd.disk"
+    },
+    {
+      "method": "GET",
+      "path": "/sd/health",
+      "name": "sd.health"
     },
     {
       "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
+      "path": "login",
+      "name": "login"
+    },
+    {
+      "method": "GET",
+      "path": "/captcha/:id",
+      "name": "captcha"
     },
     {
       "method": "GET",
@@ -63,13 +58,38 @@
     },
     {
       "method": "GET",
-      "path": "/sd/cpu",
-      "name": "sd.cpu"
+      "path": "/sd/ram",
+      "name": "sd.ram"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
     },
     {
       "method": "POST",
       "path": "/",
       "name": "echo_shop/app/context.RegisterHandler.func1"
+    },
+    {
+      "method": "GET",
+      "path": "/password/reset",
+      "name": "password.show_link_form"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1",
+      "name": "api.root"
+    },
+    {
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
     },
     {
       "method": "POST",
@@ -78,28 +98,8 @@
     },
     {
       "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
-    },
-    {
-      "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
-      "method": "GET",
       "path": "/password/reset/:token",
       "name": "password.show_reset_form"
-    },
-    {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
     }
   ]
 }

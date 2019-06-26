@@ -2,7 +2,8 @@ package login
 
 import (
 	"echo_shop/app/context"
-	"echo_shop/pkg/validate"
+	"echo_shop/app/request"
+	"github.com/Away0x/validate"
 )
 
 type loginForm struct {
@@ -11,29 +12,14 @@ type loginForm struct {
 	Password string
 }
 
-func (f *loginForm) Validators() validate.Validators {
-	return validate.Validators{
-		"email": {
-			validate.RequiredValidator(f.Email),
-			validate.EmailValidator(f.Email),
-			validate.MaxLengthValidator(f.Email, 255),
-		},
-		"password": {
-			validate.RequiredValidator(f.Password),
-		},
-	}
+func (*loginForm) IsStrict() bool {
+	return false
 }
 
-func (f *loginForm) Messages() validate.Messages {
-	return validate.Messages{
-		"email": {
-			"邮箱不能为空",
-			"邮箱格式错误",
-			"邮箱长度不能大于 255 个字符",
-		},
-		"password": {
-			"密码不能为空",
-		},
+func (f *loginForm) Plugins() validate.Plugins {
+	return validate.Plugins{
+		request.EmailPlugin(f.Email),
+		request.PasswordPlugin(f.Password),
 	}
 }
 
