@@ -2,59 +2,24 @@
   "count": 20,
   "routes": [
     {
-      "method": "GET",
-      "path": "register",
-      "name": "register.show"
-    },
-    {
-      "method": "GET",
-      "path": "/sd/cpu",
-      "name": "sd.cpu"
-    },
-    {
-      "method": "GET",
-      "path": "/",
-      "name": "root"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
-    },
-    {
       "method": "DELETE",
       "path": "logout",
       "name": "logout"
     },
     {
       "method": "POST",
-      "path": "register",
-      "name": "register"
+      "path": "/password/email",
+      "name": "password.email"
     },
     {
-      "method": "GET",
-      "path": "/sd/disk",
-      "name": "sd.disk"
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
     },
     {
       "method": "GET",
       "path": "/sd/health",
       "name": "sd.health"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
-      "method": "GET",
-      "path": "/captcha/:id",
-      "name": "captcha"
-    },
-    {
-      "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
     },
     {
       "method": "GET",
@@ -63,8 +28,43 @@
     },
     {
       "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
+      "path": "/captcha/:id",
+      "name": "captcha"
+    },
+    {
+      "method": "GET",
+      "path": "/sd/cpu",
+      "name": "sd.cpu"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1",
+      "name": "api.root"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
+    },
+    {
+      "method": "GET",
+      "path": "/sd/disk",
+      "name": "sd.disk"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
+    },
+    {
+      "method": "GET",
+      "path": "register",
+      "name": "register.show"
     },
     {
       "method": "POST",
@@ -78,28 +78,28 @@
     },
     {
       "method": "GET",
-      "path": "/api/v1",
-      "name": "api.root"
-    },
-    {
-      "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
     },
     {
       "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
+      "path": "/",
+      "name": "root"
     },
     {
       "method": "GET",
       "path": "/password/reset/:token",
       "name": "password.show_reset_form"
+    },
+    {
+      "method": "POST",
+      "path": "register",
+      "name": "register"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
     }
   ]
 }

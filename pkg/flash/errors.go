@@ -2,6 +2,7 @@
 package flash
 
 import (
+	"github.com/Away0x/flash"
 	"github.com/Away0x/validate"
 
 	"github.com/labstack/echo/v4"
@@ -11,32 +12,32 @@ const (
 	flashErrorsKeyName = "_flash_errors"
 )
 
-type errorsFlash struct {
+type ErrorsFlash struct {
 	EchoContext echo.Context
-	Data        flashDataValue
+	Data        flash.DataValue
 }
 
 // NewErrorsFlash -
-func NewErrorsFlash(c echo.Context) *errorsFlash {
-	return &errorsFlash{
+func NewErrorsFlash(c echo.Context) *ErrorsFlash {
+	return &ErrorsFlash{
 		EchoContext: c,
-		Data:        make(flashDataValue),
+		Data:        make(flash.DataValue),
 	}
 }
 
-func (e *errorsFlash) Save(err error) {
+func (e *ErrorsFlash) Save(err error) {
 	data, ok := err.(validate.Messages)
 	if !ok {
 		data = validate.Messages{"unknown": {err.Error()}}
 	}
 
-	NewFlashData(flashErrorsKeyName, e.EchoContext.Request()).
-		Set(flashDataValue(data)).
+	flash.NewFlash(flashErrorsKeyName, e.EchoContext.Request()).
+		Set(flash.DataValue(data)).
 		Save(e.EchoContext.Response())
 }
 
-func (e *errorsFlash) Read() flashDataValue {
-	return NewFlashData(flashErrorsKeyName, e.EchoContext.Request()).
+func (e *ErrorsFlash) Read() flash.DataValue {
+	return flash.NewFlash(flashErrorsKeyName, e.EchoContext.Request()).
 		Read(e.EchoContext.Response())
 }
 
@@ -46,7 +47,7 @@ func NewErrors(c echo.Context, err error) {
 }
 
 // GetAllErrors 获取平铺的错误信息列表
-func GetAllErrors(data flashDataValue) []string {
+func GetAllErrors(data flash.DataValue) []string {
 	flatErrors := make([]string, 0)
 
 	if data == nil {

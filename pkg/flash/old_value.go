@@ -4,6 +4,7 @@ package flash
 import (
 	"net/http"
 
+	"github.com/Away0x/flash"
 	"github.com/labstack/echo/v4"
 )
 
@@ -11,27 +12,29 @@ const (
 	flashOldValueKeyName = "_flash_old_value"
 )
 
-type oldValueFlash struct {
+// OldValueFlash -
+type OldValueFlash struct {
 	EchoContext echo.Context
-	Data        flashDataValue
+	Data        flash.DataValue
 }
 
 // NewOldValueFlash -
-func NewOldValueFlash(c echo.Context) *oldValueFlash {
-	return &oldValueFlash{
+func NewOldValueFlash(c echo.Context) *OldValueFlash {
+	return &OldValueFlash{
 		EchoContext: c,
-		Data:        make(flashDataValue),
+		Data:        make(flash.DataValue),
 	}
 }
 
-func (o *oldValueFlash) Save(data flashDataValue) {
-	NewFlashData(flashOldValueKeyName, o.EchoContext.Request()).
+// Save -
+func (o *OldValueFlash) Save(data flash.DataValue) {
+	flash.NewFlash(flashOldValueKeyName, o.EchoContext.Request()).
 		Set(data).
 		Save(o.EchoContext.Response())
 }
 
-func (o *oldValueFlash) Read() flashDataValue {
-	return NewFlashData(flashOldValueKeyName, o.EchoContext.Request()).
+func (o *OldValueFlash) Read() flash.DataValue {
+	return flash.NewFlash(flashOldValueKeyName, o.EchoContext.Request()).
 		Read(o.EchoContext.Response())
 }
 
@@ -49,7 +52,7 @@ func OldValueFlashMiddleware() echo.MiddlewareFunc {
 					req.ParseForm()
 				}
 
-				olaValue := make(flashDataValue)
+				olaValue := make(flash.DataValue)
 				for k, v := range req.Form {
 					olaValue[k] = []string{v[0]}
 				}

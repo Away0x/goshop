@@ -24,9 +24,10 @@ import (
 	"path/filepath"
 	"sync"
 
+	"errors"
+
 	"github.com/flosch/pongo2"
 	"github.com/labstack/echo/v4"
-	"github.com/pkg/errors"
 )
 
 // Pongo2Echo implements custom pongo2 rendering engine for echo.

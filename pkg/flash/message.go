@@ -2,6 +2,7 @@
 package flash
 
 import (
+	"github.com/Away0x/flash"
 	"github.com/labstack/echo/v4"
 )
 
@@ -18,58 +19,59 @@ const (
 	FlashMessageDangerType = "danger"
 )
 
-type messageFlash struct {
+// MessageFlash -
+type MessageFlash struct {
 	EchoContext echo.Context
-	Data        flashDataValue
+	Data        flash.DataValue
 }
 
 // NewMessageFlash -
-func NewMessageFlash(c echo.Context) *messageFlash {
-	return &messageFlash{
+func NewMessageFlash(c echo.Context) *MessageFlash {
+	return &MessageFlash{
 		EchoContext: c,
-		Data:        make(flashDataValue),
+		Data:        make(flash.DataValue),
 	}
 }
 
-func (m *messageFlash) add(typeName string, msg string) {
+func (m *MessageFlash) add(typeName string, msg string) {
 	if m.Data[typeName] == nil {
 		m.Data[typeName] = make([]string, 0)
 	}
 	m.Data[typeName] = append(m.Data[typeName], msg)
 }
 
-func (m *messageFlash) Save() {
-	NewFlashData(flashMessageKeyName, m.EchoContext.Request()).
+func (m *MessageFlash) Save() {
+	flash.NewFlash(flashMessageKeyName, m.EchoContext.Request()).
 		Set(m.Data).
 		Save(m.EchoContext.Response())
 }
 
-func (m *messageFlash) Read() flashDataValue {
-	return NewFlashData(flashMessageKeyName, m.EchoContext.Request()).
+func (m *MessageFlash) Read() flash.DataValue {
+	return flash.NewFlash(flashMessageKeyName, m.EchoContext.Request()).
 		Read(m.EchoContext.Response())
 }
 
-func (m *messageFlash) AddSuccess(msg string) *messageFlash {
+func (m *MessageFlash) AddSuccess(msg string) *MessageFlash {
 	m.add(FlashMessageSuccessType, msg)
 	return m
 }
 
-func (m *messageFlash) AddInfo(msg string) *messageFlash {
+func (m *MessageFlash) AddInfo(msg string) *MessageFlash {
 	m.add(FlashMessageInfoType, msg)
 	return m
 }
 
-func (m *messageFlash) AddWarning(msg string) *messageFlash {
+func (m *MessageFlash) AddWarning(msg string) *MessageFlash {
 	m.add(FlashMessageWarningType, msg)
 	return m
 }
 
-func (m *messageFlash) AddDanger(msg string) *messageFlash {
+func (m *MessageFlash) AddDanger(msg string) *MessageFlash {
 	m.add(FlashMessageDangerType, msg)
 	return m
 }
 
-func (m *messageFlash) Add(key, msg string) *messageFlash {
+func (m *MessageFlash) Add(key, msg string) *MessageFlash {
 	m.add(key, msg)
 	return m
 }
