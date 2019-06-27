@@ -14,15 +14,15 @@ m-test:
 	env ECHO_SHOP_APP_RUNMODE=test go test -v ./test/models/...
 
 dev:
-  # go get github.com/pilu/fresh
+  # go get -u github.com/Away0x/fresh
 	env ECHO_SHOP_APP_RUNMODE=development fresh -c ./fresh.conf
+
+mock:
+	env ECHO_SHOP_APP_RUNMODE=development go run main.go mock
 
 api-doc:
   # go get -u github.com/swaggo/swag/cmd/swag
 	swag init
-
-mock:
-	go run ./main.go -m
 
 clean:
 	if [ -f ${APP_NAME} ]; then rm ${APP_NAME}; fi

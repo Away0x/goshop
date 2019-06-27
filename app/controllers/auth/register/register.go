@@ -19,6 +19,10 @@ type registerForm struct {
 	CaptchaID            string `json:"captcha_id" form:"captcha_id"`
 }
 
+func (*registerForm) IsStrict() bool {
+	return false
+}
+
 func (r *registerForm) Plugins() validate.Plugins {
 	return validate.Plugins{
 		request.UserNamePlugin(r.Name),

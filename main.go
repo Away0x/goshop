@@ -1,9 +1,9 @@
 package main
 
 import (
-	"echo_shop/bootstrap"
+	"echo_shop/cmd"
 )
 
 func main() {
-	bootstrap.Run()
+	cmd.Execute()
 }

@@ -12,8 +12,16 @@ import (
 	"github.com/gavv/httpexpect"
 )
 
+const (
+	// 默认配置文件路径
+	defaultConfigFilePath = "config.yaml"
+	// 配置文件格式
+	configFileType = "yaml"
+)
+
 func TestControllers(t *testing.T) {
 	os.Chdir("../..") // 移动工作目录
+	config.InitConfig(defaultConfigFilePath, configFileType)
 
 	go func() {
 		bootstrap.Run()

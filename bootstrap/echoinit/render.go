@@ -1,6 +1,7 @@
 package echoinit
 
 import (
+	"echo_shop/app/context"
 	"echo_shop/config"
 	"echo_shop/pkg/constants"
 	pongo2utils "echo_shop/pkg/pongo2"
@@ -33,16 +34,17 @@ func SetupRender(e *echo.Echo) {
 
 	// render action
 	render.UseContextProcessor(func(echoCtx echo.Context, pongoCtx pongo2.Context) {
+		appCtx := context.NewAppContext(echoCtx)
 		pongoCtx.Update(globalVar)
 
 		other := pongo2.Context{}
 
 		// url
-		urlPath := echoCtx.Request().URL.Path
+		urlPath := appCtx.Request().URL.Path
 		other["route_path"] = urlPath
 
 		// csrf
-		csrf := echoCtx.Get(constants.CsrfContexntName)
+		csrf := appCtx.Get(constants.CsrfContexntName)
 		if c, ok := csrf.(string); ok && c != "" {
 			other["csrf_token"] = c
 			other["csrf_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="%s">`, constants.CsrfValueName, c)
@@ -55,13 +57,17 @@ func SetupRender(e *echo.Echo) {
 		other["patch_method_field"] = fmt.Sprintf(`<input type="hidden" name="%s" value="PATCH">`, constants.MethodOverrideFromFormKeyName)
 
 		// flash
-		messageFlash := flash.NewMessageFlash(echoCtx).Read()
+		messageFlash := flash.NewMessageFlash(appCtx).Read()
 		other["messages"] = messageFlash
-		oldvalueFlash := flash.NewOldValueFlash(echoCtx).Read()
+		oldvalueFlash := flash.NewOldValueFlash(appCtx).Read()
 		other["old_value"] = oldvalueFlash
-		errorsFlash := flash.NewErrorsFlash(echoCtx).Read()
+		errorsFlash := flash.NewErrorsFlash(appCtx).Read()
 		other["errors"] = errorsFlash
 		other["all_errors"] = flash.GetAllErrors(errorsFlash)
+
+		// method
+		other["current_user"] = appCtx.CurrentUser
+		other["is_login"] = appCtx.IsLogin
 
 		pongoCtx.Update(other)
 	})

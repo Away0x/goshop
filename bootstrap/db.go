@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"echo_shop/app/models"
 	"echo_shop/database"
 
 	"github.com/jinzhu/gorm"
@@ -11,7 +12,9 @@ func SetupDB() (*gorm.DB, error) {
 	database.InitDB()
 	db := database.DBManager()
 
-	db.AutoMigrate()
+	db.AutoMigrate(
+		&models.User{},
+	)
 
 	return db, nil
 }

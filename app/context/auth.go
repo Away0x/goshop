@@ -6,8 +6,12 @@ import (
 )
 
 // CurrentUser 获取当前 user model
-func (a *AppContext) CurrentUser() (*models.User, bool) {
-	return auth.GetCurrentUserFromSession(a.Context)
+func (a *AppContext) CurrentUser() *models.User {
+	if user, ok := auth.GetCurrentUserFromSession(a.Context); ok {
+		return user
+	}
+
+	return nil
 }
 
 // IsLogin 判断用户是否已登录

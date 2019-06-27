@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	github.com/Away0x/flash v0.0.0-20190626055457-fd976bb08c5a
+	github.com/Away0x/fresh v0.0.0-20190627032342-ac8c8eac464b // indirect
 	github.com/Away0x/validate v0.0.0-20190626095309-0e38dc18ded8
 	github.com/PuerkitoBio/goquery v1.5.0
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
@@ -23,6 +24,7 @@ require (
 	github.com/gorilla/context v1.1.1
 	github.com/gorilla/sessions v1.1.3
 	github.com/gorilla/websocket v1.4.0 // indirect
+	github.com/howeyc/fsnotify v0.9.0 // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
 	github.com/jinzhu/gorm v1.9.8
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
@@ -31,10 +33,12 @@ require (
 	github.com/mattn/go-colorable v0.1.1 // indirect
 	github.com/mattn/go-isatty v0.0.8 // indirect
 	github.com/moul/http2curl v1.0.0 // indirect
+	github.com/pilu/config v0.0.0-20131214182432-3eb99e6c0b9a // indirect
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/shirou/gopsutil v2.18.12+incompatible
 	github.com/smartystreets/goconvey v0.0.0-20190330032615-68dc04aab96a // indirect
+	github.com/spf13/cobra v0.0.4
 	github.com/spf13/viper v1.3.2
 	github.com/valyala/fasthttp v1.3.0 // indirect
 	github.com/valyala/fasttemplate v1.0.1 // indirect
