@@ -6,6 +6,7 @@ import (
 
 const (
 	// csrf -------------------------------
+
 	// CsrfContexntName csrf token 在 echo context 中的 key name
 	CsrfContexntName = "csrf"
 	// CsrfCookieName csrf token 在 cookie 中的 key name
@@ -14,6 +15,12 @@ const (
 	CsrfValueName = echo.HeaderXCSRFToken
 
 	// method 重写 -------------------------------
+
 	// MethodOverrideFromFormKeyName form 中的 key name
 	MethodOverrideFromFormKeyName = "_method"
+
+	// session -------------------------------
+
+	// PreviousURL : session 中记录上一次请求的地址
+	PreviousURL = "_previous_url"
 )

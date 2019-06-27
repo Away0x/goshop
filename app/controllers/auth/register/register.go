@@ -2,6 +2,7 @@ package register
 
 import (
 	"echo_shop/app/context"
+	"echo_shop/app/helpers/mail"
 	"echo_shop/app/models"
 	"echo_shop/app/request"
 	"errors"
@@ -54,6 +55,11 @@ func Register(c *context.AppContext) error {
 	}
 
 	c.Login(user)
-	c.FlashSuccessMessage("注册成功")
+	if err := mail.SendVerifyEmail(user); err != nil {
+		c.FlashDangerMessage("邮件发送失败: " + err.Error())
+	} else {
+		c.FlashSuccessMessage("新的验证链接已发送到您的 E-mail")
+	}
+
 	return c.RedirectToHomePage()
 }

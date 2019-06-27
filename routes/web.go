@@ -3,8 +3,12 @@ package routes
 import (
 	"echo_shop/app/context"
 	"echo_shop/app/controllers/page"
+	"echo_shop/pkg/constants"
+	"echo_shop/pkg/session"
+	"net/http"
 
 	mymiddleware "echo_shop/routes/middleware"
+	"echo_shop/routes/wrapper"
 
 	"github.com/labstack/echo/v4"
 
@@ -25,6 +29,17 @@ func registerWeb(e *echo.Echo) {
 	// old value
 	ee.Use(flash.OldValueFlashMiddleware())
 
+	ee.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			// session 存储请求 url
+			if c.Request().Method == http.MethodGet {
+				session.Set(c, constants.PreviousURL, c.Request().URL.String())
+			}
+
+			return next(c)
+		}
+	})
+
 	context.RegisterHandler(ee.GET, "/", page.Root).Name = "root"
 	context.RegisterHandler(ee.POST, "/", page.Root)
 
@@ -35,7 +50,7 @@ func registerWeb(e *echo.Echo) {
 	// 登录
 	context.RegisterHandler(ee.POST, "login", login.Login, mymiddleware.Guest).Name = "login"
 	// 登出
-	context.RegisterHandler(ee.DELETE, "logout", login.Logout, mymiddleware.Auth).Name = "logout"
+	context.RegisterHandler(ee.DELETE, "logout", login.Logout, mymiddleware.AuthAndNoCheckActived).Name = "logout"
 
 	// +++++++++++++++ 用户注册相关路由 +++++++++++++++
 	// 展示注册页面
@@ -57,13 +72,19 @@ func registerWeb(e *echo.Echo) {
 	}
 
 	// +++++++++++++++ Email 认证相关路由 +++++++++++++++
-	verificationRouter := ee.Group("/verification", mymiddleware.Auth)
+	verificationRouter := ee.Group("/verification")
 	{
 		// 展示发送激活用户链接邮件的页面
-		context.RegisterHandler(verificationRouter.GET, "/verify", verification.ShowLinkForm).Name = "verification.show_link_form"
+		context.RegisterHandler(verificationRouter.GET, "/verify",
+			wrapper.User(verification.ShowLinkForm), mymiddleware.AuthAndNoCheckActived).
+			Name = "verification.show_link_form"
 		// 激活用户
-		context.RegisterHandler(verificationRouter.GET, "/verify/:token", verification.Verify).Name = "verification.verify"
+		context.RegisterHandler(verificationRouter.GET, "/verify/:token",
+			verification.Verify).
+			Name = "verification.verify"
 		// 重新发送激活用户链接
-		context.RegisterHandler(verificationRouter.GET, "/resend", verification.Resend).Name = "verification.resend"
+		context.RegisterHandler(verificationRouter.GET, "/resend",
+			wrapper.User(verification.Resend), mymiddleware.Auth).
+			Name = "verification.resend"
 	}
 }

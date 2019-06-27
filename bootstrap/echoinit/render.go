@@ -66,7 +66,9 @@ func SetupRender(e *echo.Echo) {
 		other["all_errors"] = flash.GetAllErrors(errorsFlash)
 
 		// method
-		other["current_user"] = appCtx.CurrentUser
+		if currentUser := appCtx.CurrentUser(); currentUser != nil {
+			other["current_user"] = currentUser.Serialize()
+		}
 		other["is_login"] = appCtx.IsLogin
 
 		pongoCtx.Update(other)

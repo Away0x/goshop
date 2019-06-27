@@ -34,8 +34,8 @@ func Login(c *context.AppContext) error {
 		return c.RedirectToLoginPage()
 	}
 
-	user, err := models.GetUserByEmail(req.Email)
-	if err != nil {
+	user := new(models.User)
+	if err := models.Where("email = ?", req.Email).First(&user).Error; err != nil {
 		c.ErrorFlash(validate.Messages{
 			"email": {"该用户还没有注册过用户: " + err.Error()},
 		})
@@ -50,6 +50,12 @@ func Login(c *context.AppContext) error {
 	}
 
 	c.Login(user)
-	c.FlashSuccessMessage("登录成功")
-	return c.RedirectByName("root")
+	// 用户未激活
+	if !user.IsActivated() {
+		c.FlashWarningMessage("您的账号未激活，请检查邮箱中的注册邮件进行激活或重新发送注册邮件")
+		return c.RedirectToUserVerificationPage()
+	}
+
+	c.FlashSuccessMessage("欢迎回来！")
+	return c.RedirectBack("root")
 }

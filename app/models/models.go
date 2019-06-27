@@ -4,6 +4,8 @@ import (
 	"echo_shop/database"
 	"strconv"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 const (
@@ -23,6 +25,13 @@ type BaseModel struct {
 	DeletedAt *time.Time `gorm:"column:deleted_at" sql:"index"`
 }
 
+// Serialize viewmodel
+func (m *BaseModel) Serialize() map[string]interface{} {
+	return map[string]interface{}{
+		"id": m.ID,
+	}
+}
+
 // IDString 获取字符串形式的 id
 func (m *BaseModel) IDString() string {
 	return strconv.Itoa(int(m.ID))
@@ -39,7 +48,23 @@ func (m *BaseModel) Destroy() error {
 	return err
 }
 
+// Updates 更新 model
+func (m *BaseModel) Updates(d map[string]interface{}) error {
+	err := database.DBManager().Model(&m).Updates(d).Error
+	return err
+}
+
 // IsDeleted model 是否已被删除了
 func (m *BaseModel) IsDeleted() bool {
 	return m.DeletedAt != nil
+}
+
+// Where : db where
+func Where(query string, args ...interface{}) *gorm.DB {
+	return database.DBManager().Where(query, args...)
+}
+
+// Save : db save
+func Save(v interface{}) error {
+	return database.DBManager().Save(v).Error
 }

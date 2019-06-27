@@ -35,6 +35,16 @@ func (User) TableName() string {
 	return UserTableName
 }
 
+// Serialize viewmodel
+func (u *User) Serialize() map[string]interface{} {
+	return map[string]interface{}{
+		"id":     u.ID,
+		"name":   u.Name,
+		"email":  u.Email,
+		"avatar": u.Avatar,
+	}
+}
+
 // BeforeCreate - hook
 func (u *User) BeforeCreate() (err error) {
 	if u.Password != "" {
@@ -51,7 +61,7 @@ func (u *User) BeforeCreate() (err error) {
 	}
 
 	// 生成用户激活 token
-	if u.ActivationToken == "" {
+	if u.ActivationToken == "" && !u.IsActivated() {
 		u.ActivationToken = string(utils.RandomCreateBytes(30))
 	}
 
@@ -105,9 +115,7 @@ func GetUser(id uint) (user *User, err error) {
 	return
 }
 
-// GetUserByEmail 根据 email 获取 user
-func GetUserByEmail(email string) (user *User, err error) {
-	user = new(User)
-	err = database.DBManager().Where("email = ?", email).First(&user).Error
-	return
+// IsActivated 是否已激活
+func (u *User) IsActivated() bool {
+	return u.Activated == TrueTinyint
 }

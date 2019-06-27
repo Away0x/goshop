@@ -9,6 +9,9 @@ import (
 // Set 设置 session
 func Set(c echo.Context, key string, val string) {
 	s := sess.Default(c)
+	if s == nil {
+		return
+	}
 	s.Set(key, val)
 	s.Save()
 }
@@ -16,6 +19,9 @@ func Set(c echo.Context, key string, val string) {
 // Get 获取 session
 func Get(c echo.Context, key string) string {
 	s := sess.Default(c)
+	if s == nil {
+		return ""
+	}
 	v := s.Get(key)
 	if v == nil {
 		return ""
