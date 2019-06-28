@@ -8,7 +8,7 @@ import (
 )
 
 type passwordUpdateForm struct {
-	validate.BaseValidate
+	validate.Base
 	Email                string
 	Token                string
 	Password             string

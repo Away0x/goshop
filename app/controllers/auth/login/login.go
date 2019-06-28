@@ -9,7 +9,7 @@ import (
 )
 
 type loginForm struct {
-	validate.BaseValidate
+	validate.Base
 	Email    string
 	Password string
 }

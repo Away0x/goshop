@@ -11,7 +11,7 @@ import (
 )
 
 type registerForm struct {
-	validate.BaseValidate
+	validate.Base
 	Name                 string
 	Email                string
 	Password             string

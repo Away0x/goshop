@@ -5,7 +5,7 @@ default:
 	# env GOOS=linux GOARCH=amd64 go build -o ${APP_NAME}
 
 install:
-	go mod download
+	env GOPROXY=https://goproxy.io go mod download
 
 c-test:
 	env ECHO_SHOP_APP_RUNMODE=test go test -v ./test/controllers/...
