@@ -24,23 +24,12 @@
               {{ current_user.name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">
-                <i class="far fa-user mr-2"></i>
-                个人中心
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <i class="far fa-edit mr-2"></i>
-                编辑资料
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="logout" href="#">
-                <form action="{% route 'logout' %}" method="POST" onsubmit="return confirm('您确定要退出吗？');">
-                  {{ csrf_field | safe }}
-                  {{ delete_method_field | safe }}
-                  <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
-                </form>
-              </a>
+              <a class="dropdown-item" id="logout" href="#"
+                onclick="event.preventDefault();document.getElementById('logout-form').submit();">退出登录</a>
+              <form id="logout-form" action="{% route 'logout' %}" method="POST" style="display: none;">
+                {{ delete_method_field | safe }}
+                {{ csrf_field | safe }}
+              </form>
             </div>
           </li>
         {% else %}

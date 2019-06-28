@@ -6,6 +6,7 @@ import (
 	"echo_shop/pkg/constants"
 	"echo_shop/pkg/session"
 	"net/http"
+	"time"
 
 	mymiddleware "echo_shop/routes/middleware"
 	"echo_shop/routes/wrapper"
@@ -40,7 +41,7 @@ func registerWeb(e *echo.Echo) {
 		}
 	})
 
-	context.RegisterHandler(ee.GET, "/", page.Root).Name = "root"
+	context.RegisterHandler(ee.GET, "/", page.Root, mymiddleware.AuthIfLoginCheckActived).Name = "root"
 	context.RegisterHandler(ee.POST, "/", page.Root)
 
 	// ------------------------------------- Auth -------------------------------------
@@ -76,15 +77,18 @@ func registerWeb(e *echo.Echo) {
 	{
 		// 展示发送激活用户链接邮件的页面
 		context.RegisterHandler(verificationRouter.GET, "/verify",
-			wrapper.User(verification.ShowLinkForm), mymiddleware.AuthAndNoCheckActived).
-			Name = "verification.show_link_form"
+			wrapper.User(verification.ShowLinkForm),
+			mymiddleware.AuthAndNoCheckActived,
+		).Name = "verification.show_link_form"
 		// 激活用户
 		context.RegisterHandler(verificationRouter.GET, "/verify/:token",
-			verification.Verify).
-			Name = "verification.verify"
+			verification.Verify,
+			NewRateLimiter(1*time.Minute, 6),
+		).Name = "verification.verify"
 		// 重新发送激活用户链接
 		context.RegisterHandler(verificationRouter.GET, "/resend",
-			wrapper.User(verification.Resend), mymiddleware.Auth).
-			Name = "verification.resend"
+			wrapper.User(verification.Resend),
+			mymiddleware.Auth,
+		).Name = "verification.resend"
 	}
 }

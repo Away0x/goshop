@@ -17,17 +17,17 @@ const (
 // User 用户 Model
 type User struct {
 	BaseModel
-	Name     string `gorm:"column:name;type:varchar(255);not null" sql:"index"`
-	Email    string `gorm:"column:email;type:varchar(255);unique" sql:"index"`
-	Password string `gorm:"column:password;type:varchar(255);not null"`
-	Avatar   string `gorm:"column:avatar;type:varchar(255);not null"`
+	Name     string `sql:"not null; index"`
+	Email    string `sql:"unique; index"`
+	Password string `sql:"not null"`
+	Avatar   string `sql:"not null"`
 
 	// 用户激活
-	ActivationToken string     `gorm:"column:activation_token;type:varchar(255)"`
-	Activated       uint       `gorm:"column:activated;type:tinyint(1);default:0"`
-	EmailVerifiedAt *time.Time `gorm:"column:email_verified_at"` // 激活时间
+	ActivationToken string
+	Activated       uint       `gorm:"type:tinyint(1);default:0"`
+	EmailVerifiedAt *time.Time // 激活时间
 
-	RememberToken string `gorm:"column:remember_token;type:varchar(100)"` // 用于实现记住我功能，存入 cookie 中，下次带上时，即可直接登录
+	RememberToken string `gorm:"size:100"` // 用于实现记住我功能，存入 cookie 中，下次带上时，即可直接登录
 }
 
 // TableName 表名

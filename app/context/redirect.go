@@ -60,5 +60,6 @@ func (a *AppContext) RedirectToHomePage() error {
 
 // RedirectToUserVerificationPage 重定向到用户激活页面
 func (a *AppContext) RedirectToUserVerificationPage() error {
+	a.FlashUserVerification()
 	return a.Context.Redirect(http.StatusFound, config.Application.Reverse("verification.show_link_form"))
 }

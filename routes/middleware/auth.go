@@ -36,3 +36,17 @@ func AuthAndNoCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 		return next(c)
 	}
 }
+
+// AuthIfLoginCheckActived 如果用户登录需要验证用户是否激活
+func AuthIfLoginCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cc := context.NewAppContext(c)
+		user := cc.CurrentUser()
+
+		if user != nil && !user.IsActivated() {
+			return cc.RedirectToUserVerificationPage()
+		}
+
+		return next(c)
+	}
+}

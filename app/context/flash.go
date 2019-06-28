@@ -2,6 +2,7 @@ package context
 
 import (
 	"echo_shop/pkg/flash"
+
 	"github.com/Away0x/validate"
 )
 
@@ -63,4 +64,9 @@ func (a *AppContext) ErrorFlash(err error) {
 	default:
 		a.FlashDangerMessage(typed.Error())
 	}
+}
+
+// FlashUserVerification 用户需要激活
+func (a *AppContext) FlashUserVerification() {
+	a.FlashWarningMessage("您的账号未激活，请检查邮箱中的注册邮件进行激活或重新发送注册邮件")
 }

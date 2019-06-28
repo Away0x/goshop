@@ -52,7 +52,6 @@ func Login(c *context.AppContext) error {
 	c.Login(user)
 	// 用户未激活
 	if !user.IsActivated() {
-		c.FlashWarningMessage("您的账号未激活，请检查邮箱中的注册邮件进行激活或重新发送注册邮件")
 		return c.RedirectToUserVerificationPage()
 	}
 
