@@ -27,8 +27,8 @@ type BaseModel struct {
 }
 
 // Serialize viewmodel
-func (m *BaseModel) Serialize() viewmodel.ViewModelSerialize {
-	return viewmodel.ViewModelSerialize{
+func (m *BaseModel) Serialize() viewmodel.Serialize {
+	return viewmodel.Serialize{
 		"id": m.ID,
 	}
 }

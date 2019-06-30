@@ -18,6 +18,7 @@ import (
 func SetupEcho() *echo.Echo {
 	e := echo.New()
 	e.Debug = config.IsDev()
+	e.HideBanner = true
 
 	specialHandlers := echoinit.SetupRoute(e) // 配置路由
 	echoinit.SetupRender(e)                   // 配置 render

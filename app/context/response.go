@@ -14,3 +14,8 @@ func (a *AppContext) RenderHTML(tplName string, data ...map[string]interface{}) 
 
 	return a.Context.Render(http.StatusOK, tplName+renderTypeExt, map[string]interface{}{})
 }
+
+// RenderJSON resp json
+func (a *AppContext) RenderJSON(data map[string]interface{}) error {
+	return a.JSON(http.StatusOK, data)
+}

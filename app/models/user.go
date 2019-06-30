@@ -37,8 +37,8 @@ func (User) TableName() string {
 }
 
 // Serialize viewmodel
-func (u *User) Serialize() viewmodel.ViewModelSerialize {
-	return viewmodel.ViewModelSerialize{
+func (u *User) Serialize() viewmodel.Serialize {
+	return viewmodel.Serialize{
 		"id":     u.ID,
 		"name":   u.Name,
 		"email":  u.Email,

@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 const (
 	// UserAddressTableName table name
@@ -27,4 +30,13 @@ type UserAddress struct {
 // TableName 表名
 func (UserAddress) TableName() string {
 	return UserAddressTableName
+}
+
+func (u *UserAddress) GetFullAddressAttribute() string {
+	return fmt.Sprintf("{%s}{%s}{%s}{%s}",
+		u.Province,
+		u.City,
+		u.District,
+		u.Address,
+	)
 }
