@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"echo_shop/database"
 	"echo_shop/pkg/utils"
+	"echo_shop/pkg/viewmodel"
 	"encoding/hex"
 	"errors"
 	"time"
@@ -36,8 +37,8 @@ func (User) TableName() string {
 }
 
 // Serialize viewmodel
-func (u *User) Serialize() map[string]interface{} {
-	return map[string]interface{}{
+func (u *User) Serialize() viewmodel.ViewModelSerialize {
+	return viewmodel.ViewModelSerialize{
 		"id":     u.ID,
 		"name":   u.Name,
 		"email":  u.Email,

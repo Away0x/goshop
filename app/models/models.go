@@ -2,6 +2,7 @@ package models
 
 import (
 	"echo_shop/database"
+	"echo_shop/pkg/viewmodel"
 	"strconv"
 	"time"
 
@@ -26,8 +27,8 @@ type BaseModel struct {
 }
 
 // Serialize viewmodel
-func (m *BaseModel) Serialize() map[string]interface{} {
-	return map[string]interface{}{
+func (m *BaseModel) Serialize() viewmodel.ViewModelSerialize {
+	return viewmodel.ViewModelSerialize{
 		"id": m.ID,
 	}
 }
