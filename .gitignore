@@ -24,7 +24,7 @@ yarn-error.log
 /node_modules
 
 # temp
-/storage
+/storage/
 
 # private
 config.yaml
