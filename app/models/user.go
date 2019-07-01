@@ -29,6 +29,8 @@ type User struct {
 	EmailVerifiedAt *time.Time // 激活时间
 
 	RememberToken string `gorm:"size:100"` // 用于实现记住我功能，存入 cookie 中，下次带上时，即可直接登录
+
+	UserAddress []UserAddress
 }
 
 // TableName 表名
@@ -119,4 +121,11 @@ func GetUser(id uint) (user *User, err error) {
 // IsActivated 是否已激活
 func (u *User) IsActivated() bool {
 	return u.Activated == TrueTinyint
+}
+
+// Addresses 用户收货地址
+func (u *User) Addresses() (addresses []*UserAddress) {
+	addresses = make([]*UserAddress, 0)
+	database.DBManager().Model(&u).Related(&addresses)
+	return
 }

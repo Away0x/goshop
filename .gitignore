@@ -24,10 +24,7 @@ yarn-error.log
 /node_modules
 
 # temp
-/storage/fresh
-/storage/logs
-/storage/routes.json
-/public/uploads
+/storage
 
 # private
 config.yaml

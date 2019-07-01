@@ -17,6 +17,7 @@ import (
 	"echo_shop/app/controllers/auth/password"
 	"echo_shop/app/controllers/auth/register"
 	"echo_shop/app/controllers/auth/verification"
+	"echo_shop/app/controllers/user_address"
 	"echo_shop/pkg/flash"
 )
 
@@ -90,5 +91,13 @@ func registerWeb(e *echo.Echo) {
 			wrapper.User(verification.Resend),
 			mymiddleware.Auth,
 		).Name = "verification.resend"
+	}
+
+	// ------------------------------------- Page -------------------------------------
+	// +++++++++++++++ user address +++++++++++++++
+	userAddressRouter := ee.Group("/user_addresses")
+	{
+		context.RegisterHandler(userAddressRouter.GET, "",
+			wrapper.User(useraaddress.Index)).Name = "user_addresses.index"
 	}
 }

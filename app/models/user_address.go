@@ -1,6 +1,7 @@
 package models
 
 import (
+	"echo_shop/pkg/viewmodel"
 	"fmt"
 	"time"
 )
@@ -14,16 +15,16 @@ const (
 type UserAddress struct {
 	BaseModel
 
-	User   User `gorm:"foreignkey:UserRefer"`
+	User   User
 	UserID uint `sql:"not null; index"`
 
-	Province     string
-	City         string
-	District     string
-	Address      string
-	Zip          uint
-	ContactName  string
-	ContactPhone string
+	Province     string `sql:"not null"`
+	City         string `sql:"not null"`
+	District     string `sql:"not null"`
+	Address      string `sql:"not null"`
+	Zip          uint   `sql:"not null"`
+	ContactName  string `sql:"not null"`
+	ContactPhone string `sql:"not null"`
 	LastUsedAt   *time.Time
 }
 
@@ -32,8 +33,26 @@ func (UserAddress) TableName() string {
 	return UserAddressTableName
 }
 
+// Serialize viewmodel
+func (u *UserAddress) Serialize() viewmodel.Serialize {
+	v := viewmodel.Serialize{
+		"id":            u.ID,
+		"province":      u.Province,
+		"city":          u.City,
+		"district":      u.District,
+		"address":       u.Address,
+		"zip":           u.Zip,
+		"contact_name":  u.ContactName,
+		"contact_phone": u.ContactPhone,
+		"full_address":  u.GetFullAddressAttribute(),
+	}
+
+	return v
+}
+
+// GetFullAddressAttribute -
 func (u *UserAddress) GetFullAddressAttribute() string {
-	return fmt.Sprintf("{%s}{%s}{%s}{%s}",
+	return fmt.Sprintf("%s%s%s%s",
 		u.Province,
 		u.City,
 		u.District,

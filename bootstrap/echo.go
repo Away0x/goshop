@@ -22,7 +22,6 @@ func SetupEcho() *echo.Echo {
 
 	specialHandlers := echoinit.SetupRoute(e) // 配置路由
 	echoinit.SetupRender(e)                   // 配置 render
-	echoinit.SetupBinder(e)                   // 配置 binder
 	echoinit.SetupError(e, specialHandlers)   // 配置统一错误处理
 
 	return e

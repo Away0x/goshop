@@ -16,4 +16,5 @@ func Run() {
 	defer db.Close()
 
 	UsersTableSeeder()
+	UserAddressesTableSeeder()
 }

@@ -14,6 +14,7 @@ func SetupDB() (*gorm.DB, error) {
 
 	db.AutoMigrate(
 		&models.User{},
+		&models.UserAddress{},
 	)
 
 	return db, nil

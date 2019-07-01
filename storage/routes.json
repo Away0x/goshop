@@ -1,6 +1,11 @@
 {
-  "count": 20,
+  "count": 21,
   "routes": [
+    {
+      "method": "GET",
+      "path": "/password/reset",
+      "name": "password.show_link_form"
+    },
     {
       "method": "GET",
       "path": "/",
@@ -8,23 +13,28 @@
     },
     {
       "method": "GET",
-      "path": "/verification/verify/:token",
-      "name": "verification.verify"
+      "path": "register",
+      "name": "register.show"
+    },
+    {
+      "method": "POST",
+      "path": "login",
+      "name": "login"
     },
     {
       "method": "GET",
-      "path": "/verification/resend",
-      "name": "verification.resend"
+      "path": "/user_addresses",
+      "name": "user_addresses.index"
     },
     {
       "method": "GET",
-      "path": "/verification/verify",
-      "name": "verification.show_link_form"
+      "path": "/sd/disk",
+      "name": "sd.disk"
     },
     {
-      "method": "GET",
-      "path": "/sd/cpu",
-      "name": "sd.cpu"
+      "method": "DELETE",
+      "path": "logout",
+      "name": "logout"
     },
     {
       "method": "GET",
@@ -42,14 +52,9 @@
       "name": "register"
     },
     {
-      "method": "POST",
-      "path": "/password/email",
-      "name": "password.email"
-    },
-    {
       "method": "GET",
-      "path": "register",
-      "name": "register.show"
+      "path": "/verification/verify",
+      "name": "verification.show_link_form"
     },
     {
       "method": "POST",
@@ -58,28 +63,8 @@
     },
     {
       "method": "GET",
-      "path": "/sd/disk",
-      "name": "sd.disk"
-    },
-    {
-      "method": "GET",
-      "path": "/password/reset",
-      "name": "password.show_link_form"
-    },
-    {
-      "method": "GET",
-      "path": "login",
-      "name": "login.show"
-    },
-    {
-      "method": "DELETE",
-      "path": "logout",
-      "name": "logout"
-    },
-    {
-      "method": "GET",
-      "path": "/captcha/:id",
-      "name": "captcha"
+      "path": "/sd/cpu",
+      "name": "sd.cpu"
     },
     {
       "method": "GET",
@@ -87,19 +72,39 @@
       "name": "sd.health"
     },
     {
-      "method": "POST",
-      "path": "/password/reset",
-      "name": "password.update"
-    },
-    {
-      "method": "POST",
-      "path": "login",
-      "name": "login"
-    },
-    {
       "method": "GET",
       "path": "/sd/ram",
       "name": "sd.ram"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/verify/:token",
+      "name": "verification.verify"
+    },
+    {
+      "method": "GET",
+      "path": "login",
+      "name": "login.show"
+    },
+    {
+      "method": "POST",
+      "path": "/password/email",
+      "name": "password.email"
+    },
+    {
+      "method": "GET",
+      "path": "/verification/resend",
+      "name": "verification.resend"
+    },
+    {
+      "method": "GET",
+      "path": "/captcha/:id",
+      "name": "captcha"
+    },
+    {
+      "method": "POST",
+      "path": "/password/reset",
+      "name": "password.update"
     }
   ]
 }
