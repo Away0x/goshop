@@ -97,7 +97,11 @@ func registerWeb(e *echo.Echo) {
 	// +++++++++++++++ user address +++++++++++++++
 	userAddressRouter := ee.Group("/user_addresses")
 	{
+    // 用户收货地址列表
 		context.RegisterHandler(userAddressRouter.GET, "",
-			wrapper.User(useraaddress.Index)).Name = "user_addresses.index"
+      wrapper.User(useraaddress.Index)).Name = "user_addresses.index"
+    // 创建收货地址
+		context.RegisterHandler(userAddressRouter.GET, "/create",
+			wrapper.User(useraaddress.CreateAndEdit)).Name = "user_addresses.create"
 	}
 }

@@ -1,0 +1,23 @@
+{% extends "../layouts/app.html" %}
+
+{% block title %}新增收货地址{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-10 offset-lg-1">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center">
+          新增收货地址
+        </h2>
+      </div>
+      <div class="card-body">
+        <form class="form-horizontal" role="form">
+          <!-- inline-template 代表通过内联方式引入组件 -->
+          <select-district></select-district>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

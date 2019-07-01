@@ -17,12 +17,18 @@
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "ts-loader": "^5.3.3",
-    "typescript": "^3.4.3"
+    "typescript": "^3.4.3",
+    "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
     "@types/bootstrap": "^4.3.0",
+    "@types/lodash": "^4.14.135",
     "bootstrap": "^4.3.1",
+    "china-area-data": "^4.0.0",
     "jquery": "^3.4.0",
-    "popper.js": "^1.15.0"
+    "lodash": "^4.17.11",
+    "popper.js": "^1.15.0",
+    "vue": "^2.6.10",
+    "vue-property-decorator": "^8.2.1"
   }
 }
