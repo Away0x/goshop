@@ -38,34 +38,17 @@ func (m *BaseModel) IDString() string {
 	return strconv.Itoa(int(m.ID))
 }
 
-// NewRecord model 是否已创建
-func (m *BaseModel) NewRecord() bool {
-	return m.ID <= 0
+// Save : db save
+func Save(v interface{}) error {
+	return database.DBManager().Save(v).Error
 }
 
-// Destroy 删除 model
-func (m *BaseModel) Destroy() error {
-	err := database.DBManager().Delete(&m).Error
-	return err
-}
-
-// Updates 更新 model
-func (m *BaseModel) Updates(d map[string]interface{}) error {
-	err := database.DBManager().Model(&m).Updates(d).Error
-	return err
-}
-
-// IsDeleted model 是否已被删除了
-func (m *BaseModel) IsDeleted() bool {
-	return m.DeletedAt != nil
+// Create : db create
+func Create(v interface{}) error {
+	return database.DBManager().Create(v).Error
 }
 
 // Where : db where
 func Where(query string, args ...interface{}) *gorm.DB {
 	return database.DBManager().Where(query, args...)
-}
-
-// Save : db save
-func Save(v interface{}) error {
-	return database.DBManager().Save(v).Error
 }

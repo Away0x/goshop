@@ -1,4 +1,4 @@
-package useraaddress
+package useraddress
 
 import (
 	"echo_shop/app/context"

@@ -105,12 +105,6 @@ func (u *User) Compare(pwd string) (err error) {
 	return
 }
 
-// Create 创建 user
-func (u *User) Create() (err error) {
-	err = database.DBManager().Create(&u).Error
-	return
-}
-
 // GetUser 根据 id 获取 user
 func GetUser(id uint) (user *User, err error) {
 	user = new(User)
@@ -126,6 +120,6 @@ func (u *User) IsActivated() bool {
 // Addresses 用户收货地址
 func (u *User) Addresses() (addresses []*UserAddress) {
 	addresses = make([]*UserAddress, 0)
-	database.DBManager().Model(&u).Related(&addresses)
+	database.DBManager().Model(&u).Order("updated_at desc").Related(&addresses)
 	return
 }

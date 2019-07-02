@@ -2,6 +2,7 @@ package factory
 
 import (
 	"echo_shop/app/models"
+	"echo_shop/database"
 	"echo_shop/pkg/utils"
 	"fmt"
 	"time"
@@ -54,7 +55,7 @@ func UsersTableSeeder() {
 
 	for i := 0; i < 10; i++ {
 		user := userFactory(i).MustCreate().(*models.User)
-		if err := user.Create(); err != nil {
+		if err := database.DBManager().Create(&user); err != nil {
 			fmt.Printf("mock user error： %v\n", err)
 		}
 	}

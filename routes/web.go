@@ -99,9 +99,12 @@ func registerWeb(e *echo.Echo) {
 	{
     // 用户收货地址列表
 		context.RegisterHandler(userAddressRouter.GET, "",
-      wrapper.User(useraaddress.Index)).Name = "user_addresses.index"
+      wrapper.User(useraddress.Index)).Name = "user_addresses.index"
     // 创建收货地址
 		context.RegisterHandler(userAddressRouter.GET, "/create",
-			wrapper.User(useraaddress.CreateAndEdit)).Name = "user_addresses.create"
+			wrapper.User(useraddress.CreateAndEdit)).Name = "user_addresses.create"
+    // 新建收货地址
+		context.RegisterHandler(userAddressRouter.POST, "/create",
+			wrapper.User(useraddress.Store)).Name = "user_addresses.store"
 	}
 }

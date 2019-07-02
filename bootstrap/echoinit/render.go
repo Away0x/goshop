@@ -5,6 +5,7 @@ import (
 	"echo_shop/config"
 	"echo_shop/pkg/constants"
 	pongo2utils "echo_shop/pkg/pongo2"
+	"echo_shop/pkg/serializer"
 	"fmt"
 
 	"echo_shop/pkg/flash"
@@ -64,6 +65,15 @@ func SetupRender(e *echo.Echo) {
 		errorsFlash := flash.NewErrorsFlash(appCtx).Read()
 		other["errors"] = errorsFlash
 		other["all_errors"] = flash.GetAllErrors(errorsFlash)
+
+		// flash data
+		flashStore := serializer.Data{
+			"messages":   messageFlash,
+			"old_value":  oldvalueFlash,
+			"errors":     errorsFlash,
+			"all_errors": errorsFlash,
+		}
+		other["flash_json"] = flashStore.ToJSONString()
 
 		// method
 		if currentUser := appCtx.CurrentUser(); currentUser != nil {

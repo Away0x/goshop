@@ -1,6 +1,7 @@
 package serializer
 
 import (
+	"encoding/json"
 	"reflect"
 )
 
@@ -50,6 +51,16 @@ func getItemSerializeData(val interface{}) (data interface{}) {
 // ToJSON -
 func (s Data) ToJSON() map[string]interface{} {
 	return map[string]interface{}(s)
+}
+
+// ToJSONString -
+func (s Data) ToJSONString() string {
+	b, err := json.Marshal(s)
+	if err != nil {
+		return ""
+	}
+
+	return string(b)
 }
 
 // Include -

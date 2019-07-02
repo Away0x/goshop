@@ -9,6 +9,7 @@
     {{ csrf_meta | safe }}
     <title>{% block title %}Echo Shop{% endblock %}</title>
     <!-- 样式 -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{% mix 'css/app.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -23,7 +24,8 @@
 
     </div>
     <script>
-      window.errors = '{{ all_errors }}';
+      // 存储后端的 flash 数据，便于 vue 中使用
+      window.flash = '{{ flash_json | safe }}';
     </script>
     <!-- JS 脚本 -->
     <script src="{% mix 'js/app.js' %}"></script>

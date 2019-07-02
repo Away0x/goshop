@@ -49,7 +49,7 @@ func Register(c *context.AppContext) error {
 		Password: req.Password,
 	}
 
-	if err := user.Create(); err != nil {
+	if err := models.Create(user); err != nil {
 		c.ErrorFlash(errors.New("用户创建失败: " + err.Error()))
 		return c.RedirectToRegisterPage()
 	}
