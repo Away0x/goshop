@@ -3,8 +3,8 @@ package models
 import (
 	"crypto/md5"
 	"echo_shop/database"
+	"echo_shop/pkg/serializer"
 	"echo_shop/pkg/utils"
-	"echo_shop/pkg/viewmodel"
 	"encoding/hex"
 	"errors"
 	"time"
@@ -38,9 +38,9 @@ func (User) TableName() string {
 	return UserTableName
 }
 
-// Serialize viewmodel
-func (u *User) Serialize() viewmodel.Serialize {
-	return viewmodel.Serialize{
+// Serialize -
+func (u *User) Serialize() serializer.Data {
+	return serializer.Data{
 		"id":     u.ID,
 		"name":   u.Name,
 		"email":  u.Email,

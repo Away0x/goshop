@@ -2,7 +2,7 @@ package models
 
 import (
 	"echo_shop/database"
-	"echo_shop/pkg/viewmodel"
+	"echo_shop/pkg/serializer"
 	"strconv"
 	"time"
 
@@ -26,9 +26,9 @@ type BaseModel struct {
 	DeletedAt *time.Time `sql:"index"`
 }
 
-// Serialize viewmodel
-func (m *BaseModel) Serialize() viewmodel.Serialize {
-	return viewmodel.Serialize{
+// Serialize -
+func (m *BaseModel) Serialize() serializer.Data {
+	return serializer.Data{
 		"id": m.ID,
 	}
 }

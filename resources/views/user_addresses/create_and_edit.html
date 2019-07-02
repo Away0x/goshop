@@ -12,10 +12,19 @@
         </h2>
       </div>
       <div class="card-body">
-        <form class="form-horizontal" role="form">
-          <!-- inline-template 代表通过内联方式引入组件 -->
-          <select-district></select-district>
-        </form>
+        <!-- 输出后端报错开始 -->
+        {% if all_errors %}
+          <div class="alert alert-danger">
+            <h4>有错误发生：</h4>
+            <ul>
+              {% for err in all_errors %}
+                <li><i class="glyphicon glyphicon-remove"></i> {{ err }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <user-addresses-create-and-edit />
       </div>
     </div>
   </div>

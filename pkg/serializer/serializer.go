@@ -1,16 +1,16 @@
-package viewmodel
+package serializer
 
 import (
 	"reflect"
 )
 
-// Serialize -
-type Serialize map[string]interface{}
+// Data -
+type Data map[string]interface{}
 
-// ViewModel response face
-type ViewModel interface {
+// Serializer response face
+type Serializer interface {
 	// Serialize 序列化方法
-	Serialize() Serialize
+	Serialize() Data
 }
 
 func getSerializeData(val interface{}) (data interface{}) {
@@ -36,9 +36,9 @@ func getSerializeData(val interface{}) (data interface{}) {
 
 func getItemSerializeData(val interface{}) (data interface{}) {
 	switch typed := val.(type) {
-	case ViewModel:
+	case Serializer:
 		data = typed.Serialize()
-	case Serialize:
+	case Data:
 		data = typed
 	default:
 		data = typed
@@ -48,12 +48,12 @@ func getItemSerializeData(val interface{}) (data interface{}) {
 }
 
 // ToJSON -
-func (s Serialize) ToJSON() map[string]interface{} {
+func (s Data) ToJSON() map[string]interface{} {
 	return map[string]interface{}(s)
 }
 
 // Include -
-func (s Serialize) Include(key string, val interface{}) Serialize {
+func (s Data) Include(key string, val interface{}) Data {
 	data := getSerializeData(val)
 	s[key] = data
 
@@ -61,8 +61,8 @@ func (s Serialize) Include(key string, val interface{}) Serialize {
 }
 
 // Wrap -
-func Wrap(key string, val interface{}) Serialize {
-	s := Serialize{}
+func Wrap(key string, val interface{}) Data {
+	s := Data{}
 	data := getSerializeData(val)
 
 	s[key] = data

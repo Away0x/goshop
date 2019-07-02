@@ -15,11 +15,6 @@
     "types": [
       "node"
     ],
-    "paths": {
-      "@/*": [
-        "resources/js/*"
-      ]
-    },
     "lib": [
       "esnext",
       "dom",

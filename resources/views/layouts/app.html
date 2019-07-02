@@ -22,6 +22,9 @@
         {% include './_footer.html' %}
 
     </div>
+    <script>
+      window.errors = '{{ all_errors }}';
+    </script>
     <!-- JS 脚本 -->
     <script src="{% mix 'js/app.js' %}"></script>
 </body>

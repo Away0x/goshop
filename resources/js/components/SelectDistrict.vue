@@ -104,40 +104,36 @@ export default class SelectDistrict extends Vue {
       this.provinceId = '';
       return;
     }
-
     // 找到了，将当前省设置成对应的ID
     this.provinceId = provinceId;
+
     // 由于观察器的作用，这个时候城市列表已经变成了对应省的城市列表
     // 从当前城市列表找到与数组第二个元素同名的项的索引
     const cityId = findKey(addressData[provinceId], o => o === value[1]);
-
     // 没找到，清空城市的值
     if (!cityId) {
       this.cityId = '';
       return;
     }
-
     // 找到了，将当前城市设置成对应的ID
     this.cityId = cityId;
+
     // 由于观察器的作用，这个时候地区列表已经变成了对应城市的地区列表
     // 从当前地区列表找到与数组第三个元素同名的项的索引
     const districtId = findKey(addressData[cityId], o => o === value[2]);
-
     // 没找到，清空地区的值
     if (!districtId) {
       this.districtId = '';
       return;
     }
-
     // 找到了，将当前地区设置成对应的ID
     this.districtId = districtId;
   }
-
 }
 </script>
 
 <template>
-<div class="form-row">
+<div class="select-district-component form-group row">
   <label class="col-form-label col-sm-2 text-md-right">省市区</label>
   <div class="col-sm-3">
     <select class="form-control" v-model="provinceId">

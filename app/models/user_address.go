@@ -1,7 +1,7 @@
 package models
 
 import (
-	"echo_shop/pkg/viewmodel"
+	"echo_shop/pkg/serializer"
 	"fmt"
 	"time"
 )
@@ -33,9 +33,9 @@ func (UserAddress) TableName() string {
 	return UserAddressTableName
 }
 
-// Serialize viewmodel
-func (u *UserAddress) Serialize() viewmodel.Serialize {
-	v := viewmodel.Serialize{
+// Serialize -
+func (u *UserAddress) Serialize() serializer.Data {
+	v := serializer.Data{
 		"id":            u.ID,
 		"province":      u.Province,
 		"city":          u.City,

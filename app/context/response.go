@@ -1,12 +1,12 @@
 package context
 
 import (
-	"echo_shop/pkg/viewmodel"
+	"echo_shop/pkg/serializer"
 	"net/http"
 )
 
 // RenderHTML 渲染 html
-func (a *AppContext) RenderHTML(tplName string, data ...viewmodel.Serialize) error {
+func (a *AppContext) RenderHTML(tplName string, data ...serializer.Data) error {
 	renderTypeExt := ".html"
 
 	if len(data) != 0 {
@@ -17,6 +17,6 @@ func (a *AppContext) RenderHTML(tplName string, data ...viewmodel.Serialize) err
 }
 
 // RenderJSON resp json
-func (a *AppContext) RenderJSON(data viewmodel.Serialize) error {
+func (a *AppContext) RenderJSON(data serializer.Data) error {
 	return a.JSON(http.StatusOK, data.ToJSON())
 }
