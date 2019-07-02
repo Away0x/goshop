@@ -16,16 +16,16 @@ type UserAddress struct {
 	BaseModel
 
 	User   User
-	UserID uint `sql:"not null; index"`
+	UserID uint `sql:"not null; index"` // 该地址所属的用户
 
-	Province     string `sql:"not null"`
-	City         string `sql:"not null"`
-	District     string `sql:"not null"`
-	Address      string `sql:"not null"`
-	Zip          uint   `sql:"not null"`
-	ContactName  string `sql:"not null"`
-	ContactPhone string `sql:"not null"`
-	LastUsedAt   *time.Time
+	Province     string     `sql:"not null"` // 省
+	City         string     `sql:"not null"` // 市
+	District     string     `sql:"not null"` // 区
+	Address      string     `sql:"not null"` // 具体地址
+	Zip          uint       `sql:"not null"` // 邮编
+	ContactName  string     `sql:"not null"` // 联系人姓名
+	ContactPhone string     `sql:"not null"` // 联系人电话
+	LastUsedAt   *time.Time // 最后一次使用时间
 }
 
 // TableName 表名

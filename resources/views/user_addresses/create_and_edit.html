@@ -1,6 +1,6 @@
 {% extends "../layouts/app.html" %}
 
-{% block title %}新增收货地址{% endblock %}
+{% block title %}{% if address.id %}修改{% else %}新增{% endif %}收货地址{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -8,7 +8,7 @@
     <div class="card">
       <div class="card-header">
         <h2 class="text-center">
-          新增收货地址
+          {% if address.id %}修改{% else %}新增{% endif %}收货地址
         </h2>
       </div>
       <div class="card-body">
@@ -26,10 +26,20 @@
 
         <!-- inline-template 代表通过内联方式引入组件 -->
         <user-addresses-create-and-edit inline-template>
-          <form class="form-horizontal" role="form" method="POST" action="{% route 'user_addresses.store' %}">
+          {% if address.id %}
+            <form class="form-horizontal" role="form" action="{% route 'user_addresses.update' address.id %}" method="POST">
+              {{ put_method_field | safe }}
+          {% else %}
+            <form class="form-horizontal" role="form" method="POST" action="{% route 'user_addresses.store' %}"></form>
+          {% endif %}
             <!-- 引入 csrf token 字段 -->
-          {{ csrf_field | safe }}
-            <select-district @change="onDistrictChanged" inline-template>
+            {{ csrf_field | safe }}
+            <select-district :init-value="[
+              '{% firstof old_value.province.0 address.province %}',
+              '{% firstof old_value.city.0 address.city %}',
+              '{% firstof old_value.district.0 address.district %}',
+            ]"
+              @change="onDistrictChanged" inline-template>
               <div class="form-group row">
                 <label class="col-form-label col-sm-2 text-md-right">省市区</label>
                 <div class="col-sm-3">
@@ -58,29 +68,25 @@
             <div class="form-group row">
               <label class="col-form-label text-md-right col-sm-2">详细地址</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="address"
-                  value="{% if old_value.address.0 %}{{ old_value.address.0 }}{% else %}{{ address.address }}{% endif %}">
+                <input type="text" class="form-control" name="address" value="{% firstof old_value.address.0 address.address %}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-form-label text-md-right col-sm-2">邮编</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="zip"
-                  value="{% if old_value.zip.0 %}{{ old_value.zip.0 }}{% else %}{{ address.zip }}{% endif %}">
+                <input type="text" class="form-control" name="zip" value="{% firstof old_value.zip.0 address.zip %}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-form-label text-md-right col-sm-2">姓名</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="contact_name"
-                  value="{% if old_value.contact_name.0 %}{{ old_value.contact_name.0 }}{% else %}{{ address.contact_name }}{% endif %}">
+                <input type="text" class="form-control" name="contact_name" value="{% firstof old_value.contact_name.0 address.contact_name %}">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-form-label text-md-right col-sm-2">电话</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="contact_phone"
-                  value="{% if old_value.contact_phone.0 %}{{ old_value.contact_phone.0 }}{% else %}{{ address.contact_phone }}{% endif %}">
+                <input type="text" class="form-control" name="contact_phone" value="{% firstof old_value.contact_phone.0 address.contact_phone %}">
               </div>
             </div>
             <div class="form-group row text-center">

@@ -95,16 +95,22 @@ func registerWeb(e *echo.Echo) {
 
 	// ------------------------------------- Page -------------------------------------
 	// +++++++++++++++ user address +++++++++++++++
-	userAddressRouter := ee.Group("/user_addresses")
+	userAddressRouter := ee.Group("/user_addresses", mymiddleware.Auth)
 	{
     // 用户收货地址列表
 		context.RegisterHandler(userAddressRouter.GET, "",
       wrapper.User(useraddress.Index)).Name = "user_addresses.index"
-    // 创建收货地址
+    // 新建收货地址的页面
 		context.RegisterHandler(userAddressRouter.GET, "/create",
-			wrapper.User(useraddress.CreateAndEdit)).Name = "user_addresses.create"
+			wrapper.User(useraddress.Create)).Name = "user_addresses.create"
     // 新建收货地址
 		context.RegisterHandler(userAddressRouter.POST, "/create",
-			wrapper.User(useraddress.Store)).Name = "user_addresses.store"
+      wrapper.User(useraddress.Store)).Name = "user_addresses.store"
+    // 编辑收货地址的页面
+		context.RegisterHandler(userAddressRouter.GET, "/:user_address",
+			wrapper.User(useraddress.Edit)).Name = "user_addresses.edit"
+    // 编辑收货地址
+		context.RegisterHandler(userAddressRouter.PUT, "/:user_address",
+			wrapper.User(useraddress.Update)).Name = "user_addresses.update"
 	}
 }

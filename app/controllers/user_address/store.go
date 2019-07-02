@@ -4,7 +4,6 @@ import (
 	"echo_shop/app/context"
 	"echo_shop/app/models"
 	"errors"
-	"time"
 
 	"github.com/Away0x/validate"
 )
@@ -77,7 +76,6 @@ func Store(c *context.AppContext, u *models.User) error {
 	}
 
 	// 创建地址
-	now := time.Now()
 	address := &models.UserAddress{
 		UserID:       u.ID,
 		Province:     req.Province,
@@ -87,7 +85,6 @@ func Store(c *context.AppContext, u *models.User) error {
 		Zip:          req.Zip,
 		ContactName:  req.ContactName,
 		ContactPhone: req.ContactPhone,
-		LastUsedAt:   &now,
 	}
 	if err := models.Create(address); err != nil {
 		c.ErrorFlash(errors.New("收货地址创建失败: " + err.Error()))
