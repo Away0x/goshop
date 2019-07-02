@@ -10,11 +10,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// SetupRoute 路由配置
 func SetupRoute(e *echo.Echo) {
-	// 项目静态文件配置
-	e.Static("/public", config.String("APP.PUBLIC_DIR"))
-	e.File("/favicon.ico", config.String("APP.PUBLIC_DIR")+"/favicon.ico")
-
 	routes.Register(e)
 
 	// 输出路由

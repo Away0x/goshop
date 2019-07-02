@@ -56,6 +56,10 @@ func Register(e *echo.Echo) {
 		RedirectCode: http.StatusMovedPermanently,
 	}))
 
+	// 项目静态文件配置
+	e.Static("/public", config.String("APP.PUBLIC_DIR"))
+	e.File("/favicon.ico", config.String("APP.PUBLIC_DIR")+"/favicon.ico")
+
 	// 服务器健康自检
 	sdRouter := e.Group("/sd")
 	{
