@@ -4,7 +4,6 @@ import (
 	"echo_shop/app/context"
 	"echo_shop/config"
 	"echo_shop/pkg/constants"
-	"echo_shop/pkg/errno"
 	mymiddleware "echo_shop/routes/middleware"
 	"net/http"
 	"strings"
@@ -15,14 +14,6 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-)
-
-type (
-	// SpecialHandlers -
-	SpecialHandlers struct {
-		// 错误处理的 handler
-		ErrorHandler func(echo.Context, *errno.Errno) error
-	}
 )
 
 const (
@@ -36,7 +27,7 @@ func needResponseJSON(c echo.Context) bool {
 }
 
 // Register 注册路由
-func Register(e *echo.Echo) *SpecialHandlers {
+func Register(e *echo.Echo) {
 	// 自定义 context
 	e.Use(context.WrapContextMiddleware)
 
@@ -88,8 +79,7 @@ func Register(e *echo.Echo) *SpecialHandlers {
 	// 注册 error handler
 	echo.NotFoundHandler = notFoundHandler
 	echo.MethodNotAllowedHandler = notFoundHandler
+	// handler 返回的 error 的处理函数
+	e.HTTPErrorHandler = httpErrorHandler
 
-	return &SpecialHandlers{
-		ErrorHandler: errorHandler,
-	}
 }

@@ -3,6 +3,9 @@ package routes
 import (
 	"echo_shop/config"
 	"echo_shop/pkg/errno"
+	"net/http"
+
+	"github.com/lexkong/log"
 
 	"github.com/labstack/echo/v4"
 )
@@ -17,7 +20,32 @@ func notFoundHandler(c echo.Context) error {
 }
 
 // 统一错误处理 handler
-func errorHandler(c echo.Context, e *errno.Errno) error {
+func httpErrorHandler(err error, c echo.Context) {
+	var data *errno.Errno
+
+	switch typed := err.(type) {
+	case *echo.HTTPError: // http error
+		data = errno.WrapEchoHTTPError(typed)
+	case *errno.Errno: // 自定义错误
+		data = typed
+	default:
+		data = errno.UnknowErr.SetErrorContent(typed)
+	}
+
+	// Send response
+	if !c.Response().Committed {
+		if c.Request().Method == http.MethodHead {
+			err = c.NoContent(data.HTTPCode)
+		} else {
+			err = resolveError(c, data)
+		}
+		if err != nil {
+			log.Error("httpErrorHandler", err)
+		}
+	}
+}
+
+func resolveError(c echo.Context, e *errno.Errno) error {
 	if (e.Detail != nil) && (e.Detail.Type == errno.RenderDetailTypeHTML) && (e.Detail.Template != "") {
 		return c.Render(e.HTTPCode, e.Detail.Template, e.Detail.Content)
 	}

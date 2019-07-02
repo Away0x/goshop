@@ -20,9 +20,8 @@ func SetupEcho() *echo.Echo {
 	e.Debug = config.IsDev()
 	e.HideBanner = true
 
-	specialHandlers := echoinit.SetupRoute(e) // 配置路由
-	echoinit.SetupRender(e)                   // 配置 render
-	echoinit.SetupError(e, specialHandlers)   // 配置统一错误处理
+	echoinit.SetupRoute(e)  // 配置路由
+	echoinit.SetupRender(e) // 配置 render
 
 	return e
 }
