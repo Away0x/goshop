@@ -17,4 +17,6 @@ var (
 	UnknowErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 5000, Summary: "Unknown Error", Message: "Unknown Error"}
 	// 还未定义的接口可以使用该错误响应
 	NotImplemented = &Errno{HTTPCode: http.StatusNotImplemented, Code: 5001, Summary: "Not Implemented", Message: "Not Implemented"}
+
+	DatabaseErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 5002, Summary: "Database error", Message: "Database error"}
 )

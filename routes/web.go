@@ -112,5 +112,8 @@ func registerWeb(e *echo.Echo) {
     // 编辑收货地址
 		context.RegisterHandler(userAddressRouter.PUT, "/:user_address",
 			wrapper.User(useraddress.Update)).Name = "user_addresses.update"
+    // 删除收货地址
+		context.RegisterHandler(userAddressRouter.DELETE, "/:user_address",
+			wrapper.User(useraddress.Destroy)).Name = "user_addresses.destroy"
 	}
 }

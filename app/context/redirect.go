@@ -39,8 +39,8 @@ func (a *AppContext) RedirectBack(defaultRoute ...string) error {
 }
 
 // RedirectByName 重定向到指定路由 (routeName: 路由名)
-func (a *AppContext) RedirectByName(routeName string) error {
-	return a.Context.Redirect(http.StatusFound, config.Application.Reverse(routeName))
+func (a *AppContext) RedirectByName(routeName string, params ...interface{}) error {
+	return a.Context.Redirect(http.StatusFound, config.Application.Reverse(routeName, params...))
 }
 
 // RedirectToLoginPage 重定向到登录页面

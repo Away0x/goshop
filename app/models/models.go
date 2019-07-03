@@ -3,6 +3,7 @@ package models
 import (
 	"echo_shop/database"
 	"echo_shop/pkg/serializer"
+	"echo_shop/pkg/utils"
 	"strconv"
 	"time"
 
@@ -38,6 +39,11 @@ func (m *BaseModel) IDString() string {
 	return strconv.Itoa(int(m.ID))
 }
 
+// Delete : db delete
+func Delete(v interface{}) error {
+	return database.DBManager().Delete(v).Error
+}
+
 // Save : db save
 func Save(v interface{}) error {
 	return database.DBManager().Save(v).Error
@@ -51,4 +57,32 @@ func Create(v interface{}) error {
 // Where : db where
 func Where(query string, args ...interface{}) *gorm.DB {
 	return database.DBManager().Where(query, args...)
+}
+
+// AssignAndCreate 批量赋值，并且创建 model
+// force: 会过滤掉空值
+func AssignAndCreate(force bool, model interface{}, other interface{}) (err error) {
+	if err = utils.BatchAssign(force, model, other); err != nil {
+		return err
+	}
+
+	if err = Create(model); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// AssignAndUpdate 批量赋值，并且更新 model
+// force: 会过滤掉空值
+func AssignAndUpdate(force bool, model interface{}, other interface{}) (err error) {
+	if err = utils.BatchAssign(force, model, other); err != nil {
+		return err
+	}
+
+	if err = Save(model); err != nil {
+		return err
+	}
+
+	return nil
 }

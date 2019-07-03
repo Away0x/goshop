@@ -6,7 +6,7 @@ import (
 )
 
 // ModelById 通过 id 查找 model，未找到会进入 404
-func (a *AppContext) ModelByID(idkey string, i interface{}) error {
+func (a *AppContext) ModelByID(idkey string, i interface{}) *errno.Errno {
 	id, err := a.IntParam(idkey)
 	if err != nil {
 		return errno.NotFoundErr

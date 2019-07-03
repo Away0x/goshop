@@ -2,6 +2,7 @@ import 'bootstrap'
 import $ from 'jquery'
 import 'popper.js'
 import Vue from 'vue';
+import 'sweetalert';
 
 (window as any).$ = $;
 (window as any).jQuery = $;

@@ -11,6 +11,7 @@
     <!-- 样式 -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{% mix 'css/app.css' %}" rel="stylesheet">
+    {% block css %}{% endblock %}}
 </head>
 <body>
     <div id="app" data-path="{{ route_path }}">
@@ -29,5 +30,8 @@
     </script>
     <!-- JS 脚本 -->
     <script src="{% mix 'js/app.js' %}"></script>
+
+    {% block script_after %}{% endblock %}
+
 </body>
 </html>

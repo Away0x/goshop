@@ -30,7 +30,7 @@
             <form class="form-horizontal" role="form" action="{% route 'user_addresses.update' address.id %}" method="POST">
               {{ put_method_field | safe }}
           {% else %}
-            <form class="form-horizontal" role="form" method="POST" action="{% route 'user_addresses.store' %}"></form>
+            <form class="form-horizontal" role="form" method="POST" action="{% route 'user_addresses.store' %}">
           {% endif %}
             <!-- 引入 csrf token 字段 -->
             {{ csrf_field | safe }}
