@@ -14,7 +14,7 @@ func registerAPI(e *echo.Echo, apiPrefix string) {
 	ee := e.Group(apiPrefix + "/" + apiVersion)
 
 	context.RegisterHandler(ee.GET, "", func(c *context.AppContext) error {
-		return c.RenderJSON(map[string]interface{}{
+		return c.RenderOKJSON(map[string]interface{}{
 			"aa": 123,
 		})
 	}).Name = "api.root"

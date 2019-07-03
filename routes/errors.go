@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"echo_shop/config"
+	"echo_shop/app/context"
 	"echo_shop/pkg/errno"
 	"net/http"
 
@@ -50,10 +50,6 @@ func resolveError(c echo.Context, e *errno.Errno) error {
 		return c.Render(e.HTTPCode, e.Detail.Template, e.Detail.Content)
 	}
 
-	// 隐藏错误详情 (默认开启)
-	if !config.Bool("APP.SHOW_ERROR_DETAIL") {
-		e = e.HideErrorDetail()
-	}
-
-	return c.JSON(e.HTTPCode, e)
+	cc := context.NewAppContext(c)
+	return cc.RenderErrorJSON(e)
 }
