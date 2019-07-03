@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"echo_shop/pkg/constants"
 	"echo_shop/pkg/errno"
 	"echo_shop/routes/middleware"
 	"time"
@@ -15,7 +16,7 @@ func NewRateLimiter(duration time.Duration, n int) echo.MiddlewareFunc {
 		Duration: duration,
 		MaxCount: n,
 		ErrorHandler: func(c echo.Context) error {
-			if needResponseJSON(c) {
+			if constants.NeedResponseJSON(c) {
 				return errno.TooManyRequestsErr
 			}
 

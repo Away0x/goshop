@@ -2,6 +2,7 @@ package routes
 
 import (
 	"echo_shop/app/context"
+	"echo_shop/pkg/constants"
 	"echo_shop/pkg/errno"
 	"net/http"
 
@@ -12,7 +13,7 @@ import (
 
 // 未找到路由时的 handler
 func notFoundHandler(c echo.Context) error {
-	if needResponseJSON(c) {
+	if constants.NeedResponseJSON(c) {
 		return errno.NotFoundErr
 	}
 

@@ -2,6 +2,8 @@ package middleware
 
 import (
 	"echo_shop/app/context"
+	"echo_shop/pkg/constants"
+	"echo_shop/pkg/errno"
 
 	"github.com/labstack/echo/v4"
 )
@@ -12,11 +14,17 @@ func Auth(next echo.HandlerFunc) echo.HandlerFunc {
 		cc := context.NewAppContext(c)
 		user := cc.CurrentUser()
 		if user == nil {
+			if constants.NeedResponseJSON(c) {
+				return errno.LoginRequiredErr
+			}
 			return cc.RedirectToLoginPage()
 		}
 
 		// 验证用户是否激活
 		if !user.IsActivated() {
+			if constants.NeedResponseJSON(c) {
+				return errno.UserActivateErr
+			}
 			return cc.RedirectToUserVerificationPage()
 		}
 
@@ -30,6 +38,9 @@ func AuthAndNoCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cc := context.NewAppContext(c)
 		if !cc.IsLogin() {
+			if constants.NeedResponseJSON(c) {
+				return errno.LoginRequiredErr
+			}
 			return cc.RedirectToLoginPage()
 		}
 
@@ -44,6 +55,9 @@ func AuthIfLoginCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 		user := cc.CurrentUser()
 
 		if user != nil && !user.IsActivated() {
+			if constants.NeedResponseJSON(c) {
+				return errno.UserActivateErr
+			}
 			return cc.RedirectToUserVerificationPage()
 		}
 

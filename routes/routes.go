@@ -6,7 +6,6 @@ import (
 	"echo_shop/pkg/constants"
 	mymiddleware "echo_shop/routes/middleware"
 	"net/http"
-	"strings"
 
 	"echo_shop/app/controllers/sd"
 
@@ -15,16 +14,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
-
-const (
-	restfulAPIPrefix = "/api"
-)
-
-// 判断该请求是否是一个 api 请求 (即不渲染 html，而是响应 json)
-func needResponseJSON(c echo.Context) bool {
-	path := c.Request().URL.Path
-	return strings.HasPrefix(path, restfulAPIPrefix)
-}
 
 // Register 注册路由
 func Register(e *echo.Echo) {
@@ -78,7 +67,7 @@ func Register(e *echo.Echo) {
 	registerWeb(e)
 
 	// 注册 api routes
-	registerAPI(e, restfulAPIPrefix)
+	registerAPI(e, constants.RestfulAPIPrefix)
 
 	// 注册 error handler
 	echo.NotFoundHandler = notFoundHandler

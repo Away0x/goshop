@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@types/node": "^11.13.4",
+    "@types/qs": "^6.5.3",
     "cross-env": "^5.2.0",
     "laravel-mix": "^4.0.15",
     "resolve-url-loader": "^2.3.1",
@@ -23,11 +24,13 @@
   "dependencies": {
     "@types/bootstrap": "^4.3.0",
     "@types/lodash": "^4.14.135",
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "china-area-data": "^4.0.0",
     "jquery": "^3.4.0",
     "lodash": "^4.17.11",
     "popper.js": "^1.15.0",
+    "qs": "^6.7.0",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.10",
     "vue-property-decorator": "^8.2.1"

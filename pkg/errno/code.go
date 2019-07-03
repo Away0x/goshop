@@ -19,4 +19,10 @@ var (
 	NotImplemented = &Errno{HTTPCode: http.StatusNotImplemented, Code: 5001, Summary: "Not Implemented", Message: "Not Implemented"}
 
 	DatabaseErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 5002, Summary: "Database error", Message: "Database error"}
+
+	// ------------------------------------------------------------------------
+	// 用户未登录
+	LoginRequiredErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6000, Summary: "Login Required", Message: "Login Required"}
+	// 用户未激活
+	UserActivateErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6001, Summary: "User need to activate", Message: "User need to activate"}
 )

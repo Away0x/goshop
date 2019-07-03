@@ -31,8 +31,10 @@ func (a *AppContext) RenderJSON(code int, data CommonResponse) error {
 	r := map[string]interface{}{}
 
 	r["code"] = data.Code
-	r["data"] = data.Data
 	r["msg"] = data.Msg
+	if data.Data != nil {
+		r["data"] = data.Data
+	}
 	if data.Debug != nil {
 		r["debug"] = data.Debug
 	}
@@ -53,7 +55,10 @@ func (a *AppContext) RenderOKJSON(data serializer.Data) error {
 func (a *AppContext) RenderErrorJSON(err *errno.Errno) error {
 	// 隐藏错误详情 (默认开启)
 	if !config.Bool("APP.SHOW_ERROR_DETAIL") {
-		err = err.HideErrorDetail()
+		return a.RenderJSON(err.HTTPCode, CommonResponse{
+			Code: err.Code,
+			Msg:  err.Message,
+		})
 	}
 
 	return a.RenderJSON(err.HTTPCode, CommonResponse{
