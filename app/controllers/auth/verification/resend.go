@@ -13,7 +13,7 @@ func Resend(c *context.AppContext, u *models.User) error {
 	}
 
 	if err := mail.SendVerifyEmail(u); err != nil {
-		c.FlashDangerMessage("邮件发送失败: " + err.Error())
+		c.FlashDangerMessage(c.WrapErrorMessage(err, "邮件发送失败"))
 	} else {
 		c.FlashSuccessMessage("新的验证链接已发送到您的 E-mail")
 	}

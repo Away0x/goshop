@@ -3,7 +3,6 @@ package useraddress
 import (
 	"echo_shop/app/context"
 	"echo_shop/app/models"
-	"errors"
 
 	"github.com/Away0x/validate"
 )
@@ -78,7 +77,7 @@ func Store(c *context.AppContext, u *models.User) error {
 	// 创建地址
 	address := &models.UserAddress{UserID: u.ID}
 	if err := models.AssignAndCreate(true, address, req); err != nil {
-		c.ErrorFlash(errors.New("收货地址创建失败: " + err.Error()))
+		c.ErrorFlash(c.WrapError(err, "收货地址创建失败"))
 		return c.RedirectByName("user_addresses.create")
 	}
 

@@ -5,7 +5,6 @@ import (
 	"echo_shop/app/helpers/mail"
 	"echo_shop/app/models"
 	"echo_shop/app/request"
-	"errors"
 
 	"github.com/Away0x/validate"
 )
@@ -50,13 +49,13 @@ func Register(c *context.AppContext) error {
 	}
 
 	if err := models.Create(user); err != nil {
-		c.ErrorFlash(errors.New("用户创建失败: " + err.Error()))
+		c.ErrorFlash(c.WrapError(err, "用户创建失败"))
 		return c.RedirectToRegisterPage()
 	}
 
 	c.Login(user)
 	if err := mail.SendVerifyEmail(user); err != nil {
-		c.FlashDangerMessage("邮件发送失败: " + err.Error())
+		c.FlashDangerMessage(c.WrapErrorMessage(err, "邮件发送失败"))
 	} else {
 		c.FlashSuccessMessage("新的验证链接已发送到您的 E-mail")
 	}

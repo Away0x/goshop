@@ -5,7 +5,7 @@ import (
 	"echo_shop/pkg/errno"
 )
 
-// ModelById 通过 id 查找 model，未找到会进入 404
+// ModelByID 通过 id 查找 model，未找到会进入 404
 func (a *AppContext) ModelByID(idkey string, i interface{}) *errno.Errno {
 	id, err := a.IntParam(idkey)
 	if err != nil {
