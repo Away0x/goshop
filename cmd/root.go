@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"echo_shop/config"
+	"echo_shop/bootstrap/config"
 	"fmt"
 	"os"
 

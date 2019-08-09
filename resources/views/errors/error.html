@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>{{ title }}</title>
+        <title>{{ summary }}</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -455,6 +455,7 @@
         </style>
     </head>
     <body class="antialiased font-sans">
+        
         <div class="md:flex min-h-screen">
             <div class="w-full md:w-1/2 bg-white flex items-center justify-center">
                 <div class="max-w-sm m-8">
@@ -465,21 +466,48 @@
                     <div class="w-16 h-1 bg-purple-light my-3 md:my-6"></div>
 
                     <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
-                        {{ msg }}
+                        {{ message }}
                     </p>
 
-                    <a href='{{ back_url }}'>
+                    <a href="/">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
-                            回首页
+                          回首页
                         </button>
                     </a>
                 </div>
             </div>
 
             <div class="relative pb-full md:flex md:pb-0 md:min-h-screen w-full md:w-1/2">
-                    <div style='background-image: url({{ img }} );' class="absolute pin bg-cover bg-no-repeat md:bg-left lg:bg-center">
-    </div>
+              <div id="bg_img" class="absolute pin bg-cover bg-no-repeat md:bg-left lg:bg-center">
+              </div>
             </div>
         </div>
+        <script>
+          function init_bg_img() {
+            var img_code = 500;
+            {% ifequal http_code 404 %}
+              img_code = 404;
+            {% endifequal %}
+            {% ifequal http_code 503 %}
+              img_code = 503;
+            {% endifequal %}
+            {% ifequal http_code 403 %}
+              img_code = 403;
+            {% endifequal %}
+            {% ifequal http_code 429 %}
+              img_code = 429;
+            {% endifequal %}
+
+            var img_url = "{% static 'svg/' %}" + img_code + '.svg';
+
+            var $bg_img = document.getElementById('bg_img');
+            if (!$bg_img) { return; }
+            $bg_img.style.backgroundImage = 'url(' + img_url + ')';
+          }
+
+          window.onload = function() {
+            init_bg_img();
+          }
+        </script>
     </body>
 </html>

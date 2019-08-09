@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"echo_shop/config"
+	"echo_shop/bootstrap/config"
 
 	session "echo_shop/pkg/session/echo-session"
 

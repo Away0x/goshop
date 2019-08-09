@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"echo_shop/bootstrap"
-	"echo_shop/config"
+	"echo_shop/bootstrap/config"
 	"net/http"
 	"os"
 	"testing"
@@ -47,14 +47,14 @@ func helloHandler(t *testing.T, e *httpexpect.Expect) {
 		Expect().
 		Status(http.StatusOK).
 		Body().
-		Equal("OK")
+		Equal("\nOK")
 }
 
 func rootHandler(t *testing.T, e *httpexpect.Expect) {
 	var (
 		testName = "root handler"
 		url      = config.String("APP.URL") + "/"
-		title    = "首页"
+		title    = "首页 - 电商"
 	)
 
 	res, err := http.Get(url)

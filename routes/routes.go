@@ -2,7 +2,7 @@ package routes
 
 import (
 	"echo_shop/app/context"
-	"echo_shop/config"
+	"echo_shop/bootstrap/config"
 	"echo_shop/pkg/constants"
 	mymiddleware "echo_shop/routes/middleware"
 	"net/http"

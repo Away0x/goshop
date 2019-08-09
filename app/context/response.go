@@ -1,7 +1,7 @@
 package context
 
 import (
-	"echo_shop/config"
+	"echo_shop/bootstrap/config"
 	"echo_shop/pkg/errno"
 	"echo_shop/pkg/serializer"
 	"net/http"

@@ -1,7 +1,7 @@
 package context
 
 import (
-	"echo_shop/config"
+	"echo_shop/bootstrap/app"
 	"echo_shop/pkg/constants"
 	"echo_shop/pkg/session"
 	"net/http"
@@ -40,26 +40,26 @@ func (a *AppContext) RedirectBack(defaultRoute ...string) error {
 
 // RedirectByName 重定向到指定路由 (routeName: 路由名)
 func (a *AppContext) RedirectByName(routeName string, params ...interface{}) error {
-	return a.Context.Redirect(http.StatusFound, config.Application.Reverse(routeName, params...))
+	return a.Context.Redirect(http.StatusFound, app.Application.Reverse(routeName, params...))
 }
 
 // RedirectToLoginPage 重定向到登录页面
 func (a *AppContext) RedirectToLoginPage() error {
-	return a.Context.Redirect(http.StatusFound, config.Application.Reverse(loginPageRouteName))
+	return a.Context.Redirect(http.StatusFound, app.Application.Reverse(loginPageRouteName))
 }
 
 // RedirectToRegisterPage 重定向到注册页面
 func (a *AppContext) RedirectToRegisterPage() error {
-	return a.Context.Redirect(http.StatusFound, config.Application.Reverse("register.show"))
+	return a.Context.Redirect(http.StatusFound, app.Application.Reverse("register.show"))
 }
 
 // RedirectToHomePage 重定向到首页
 func (a *AppContext) RedirectToHomePage() error {
-	return a.Context.Redirect(http.StatusFound, config.Application.Reverse(rootPageRouteName))
+	return a.Context.Redirect(http.StatusFound, app.Application.Reverse(rootPageRouteName))
 }
 
 // RedirectToUserVerificationPage 重定向到用户激活页面
 func (a *AppContext) RedirectToUserVerificationPage() error {
 	a.FlashUserVerification()
-	return a.Context.Redirect(http.StatusFound, config.Application.Reverse("verification.show_link_form"))
+	return a.Context.Redirect(http.StatusFound, app.Application.Reverse("verification.show_link_form"))
 }

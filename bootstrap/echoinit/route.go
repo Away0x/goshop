@@ -1,7 +1,7 @@
 package echoinit
 
 import (
-	"echo_shop/config"
+	"echo_shop/bootstrap/config"
 	"echo_shop/routes"
 	"encoding/json"
 	"io/ioutil"

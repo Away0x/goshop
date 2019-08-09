@@ -1,7 +1,7 @@
 package mail
 
 import (
-	"echo_shop/config"
+	"echo_shop/bootstrap/config"
 	mailUtil "echo_shop/pkg/mail"
 	"path"
 

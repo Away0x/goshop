@@ -1,8 +1,6 @@
 package errno
 
 import (
-	"strconv"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -140,10 +138,10 @@ func (e *Errno) JSON(data ...map[string]interface{}) *Errno {
 func (e *Errno) HTML(data ...map[string]interface{}) *Errno {
 	// 填充到模板中的数据
 	renderData := map[string]interface{}{
-		"title":    e.Summary,
-		"msg":      e.Message,
-		"code":     e.Code,
-		"back_url": "/",
+		"summary":   e.Summary,
+		"message":   e.Message,
+		"code":      e.Code,
+		"http_code": e.HTTPCode,
 	}
 
 	for _, v1 := range data {
@@ -151,20 +149,6 @@ func (e *Errno) HTML(data ...map[string]interface{}) *Errno {
 			renderData[k2] = v2
 		}
 	}
-
-	// 目前 img 只支持 403、404、500、503 4个 httpcode
-	imgCode := 500
-	switch e.HTTPCode {
-	case 404:
-		imgCode = 404
-	case 503:
-		imgCode = 503
-	case 403, 429:
-		imgCode = 403
-	default:
-		imgCode = 500
-	}
-	renderData["img"] = "/public/svg/" + strconv.Itoa(imgCode) + ".svg"
 
 	detail := WrapRenderContent(e.Detail, RenderDetailTypeHTML, renderData)
 

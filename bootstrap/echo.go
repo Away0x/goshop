@@ -1,8 +1,9 @@
 package bootstrap
 
 import (
+	"echo_shop/bootstrap/app"
+	"echo_shop/bootstrap/config"
 	"echo_shop/bootstrap/echoinit"
-	"echo_shop/config"
 	"errors"
 	"net/http"
 	"time"
@@ -29,7 +30,7 @@ func SetupEcho() *echo.Echo {
 // RunEcho -
 func RunEcho() {
 	e := SetupEcho()
-	config.SaveApplication(e)
+	app.SaveApplication(e)
 
 	// 在启动 HTTP 端口前 go 一个 pingServer 协程，启动 HTTP 端口后，
 	// 该协程不断地 ping /sd/health 路径，如果失败次数超过一定次数，则终止 HTTP 服务器进程
@@ -64,7 +65,7 @@ func RunEcho() {
 
 func pingServer() error {
 	for i := 0; i < 5; i++ {
-		resp, err := http.Get(config.String("APP.URL") + config.Application.Reverse("sd.health"))
+		resp, err := http.Get(config.String("APP.URL") + app.Application.Reverse("sd.health"))
 		if err == nil && resp.StatusCode == 200 {
 			return nil
 		}
