@@ -1,11 +1,15 @@
 APP_NAME = "echo_shop"
+PROXY = "https://goproxy.io"
+# PROXY = "https://mirrors.aliyun.com/goproxy/"
+# PROXY = "https://athens.azurefd.net/"
+# PROXY = "https://proxy.golang.org/"
 
 default:
 	go build -o ${APP_NAME}
 	# env GOOS=linux GOARCH=amd64 go build -o ${APP_NAME}
 
 install:
-	env GOPROXY=https://goproxy.io go mod download
+	env GOPROXY=${PROXY} go mod download
 
 c-test:
 	env ECHO_SHOP_APP_RUNMODE=test go test -v ./test/controllers/...

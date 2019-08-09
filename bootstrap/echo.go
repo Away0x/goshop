@@ -47,18 +47,18 @@ func RunEcho() {
 	keyFile := config.String("TLS.KEY_FILE")
 	if certFile != "" && keyFile != "" {
 		go func() {
-			e.Logger.Fatal(e.StartTLS(config.String("TLS.ADDR"), certFile, keyFile))
+			e.Logger.Fatal(e.StartTLS(config.String("TLS.PORT"), certFile, keyFile))
 		}()
 	}
 
 	// 启动 app
-	e.Logger.Fatal(e.Start(config.String("APP.ADDR")))
+	e.Logger.Fatal(e.Start(config.String("APP.PORT")))
 
 	// graceful -----------------------------------------------
 	// if config.IsDev() {
-	// 	e.Logger.Fatal(e.Start(config.String("APP.ADDR")))
+	// 	e.Logger.Fatal(e.Start(config.String("APP.PORT")))
 	// } else {
-	// 	e.Server.Addr = config.String("APP.ADDR")
+	// 	e.Server.Addr = config.String("APP.PORT")
 	// 	e.Logger.Fatal(gracehttp.Serve(e.Server))
 	// }
 }

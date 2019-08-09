@@ -28,10 +28,11 @@ func (a *AppContext) RenderHTML(tplName string, data ...serializer.Data) error {
 
 // RenderJSON resp json
 func (a *AppContext) RenderJSON(code int, data CommonResponse) error {
-	r := map[string]interface{}{}
+	r := map[string]interface{}{
+		"code": data.Code,
+		"msg": data.Msg,
+	}
 
-	r["code"] = data.Code
-	r["msg"] = data.Msg
 	if data.Data != nil {
 		r["data"] = data.Data
 	}
