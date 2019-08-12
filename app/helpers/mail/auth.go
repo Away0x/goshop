@@ -16,3 +16,14 @@ func SendVerifyEmail(u *models.User) error {
 		"url": config.String("APP.URL") + verifyURL,
 	})
 }
+
+// SendPasswordResetEmail 发送重置密码的邮件
+func SendPasswordResetEmail(pwd *models.PasswordReset) error {
+	subject := "重置密码！请确认你的邮箱。"
+	tpl := "mail/reset_password.html"
+	resetPasswordURL := app.Application.Reverse("password.show_reset_form", pwd.Token)
+
+	return SendMail([]string{pwd.Email}, subject, tpl, map[string]interface{}{
+		"url": config.String("APP.URL") + resetPasswordURL,
+	})
+}

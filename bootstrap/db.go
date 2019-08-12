@@ -15,6 +15,7 @@ func SetupDB() (*gorm.DB, error) {
 	db.AutoMigrate(
 		&models.User{},
 		&models.UserAddress{},
+		&models.PasswordReset{},
 	)
 
 	return db, nil
