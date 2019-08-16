@@ -2,6 +2,7 @@ package password
 
 import (
 	"echo_shop/app/context"
+	"echo_shop/app/models"
 	"echo_shop/app/request"
 
 	"github.com/Away0x/validate"
@@ -12,7 +13,7 @@ type passwordUpdateForm struct {
 	Email                string
 	Token                string
 	Password             string
-	PasswordConfirmation string
+	PasswordConfirmation string `json:"password_confirmation" form:"password_confirmation"`
 }
 
 func (p *passwordUpdateForm) Plugins() validate.Plugins {
@@ -40,5 +41,37 @@ func (p *passwordUpdateForm) Messages() validate.Messages {
 
 // Update 重置密码
 func Update(c *context.AppContext) error {
-	return c.String(200, "password.update")
+	token := c.FormValue("token")
+	req := new(passwordUpdateForm)
+
+	if err := c.BindAndValidate(req); err != nil {
+		c.ErrorFlash(err)
+		return c.RedirectByName("password.show_reset_form", token)
+	}
+
+	// update user
+	user := new(models.User)
+	if err := models.Where("email = ?", req.Email).First(&user).Error; err != nil {
+		c.FlashDangerMessage(c.WrapErrorMessage(err, "该邮箱还未注册过用户"))
+		return c.RedirectByName("password.show_reset_form", token)
+	}
+	user.Password = req.Password
+	if err := models.Update(&user); err != nil {
+		c.FlashDangerMessage(c.WrapErrorMessage(err, "重置密码失败"))
+		return c.RedirectByName("password.show_reset_form", token)
+	}
+
+	// 删除 password reset token
+	pwd := &models.PasswordReset{
+		Email: req.Email,
+		Token: req.Token,
+	}
+	if err := models.Delete(pwd); err != nil {
+		c.FlashDangerMessage(c.WrapErrorMessage(err, "重置密码失败"))
+		return c.RedirectByName("password.show_reset_form", token)
+	}
+
+	c.Login(user)
+	c.FlashSuccessMessage("密码更新成功，您已成功登录！")
+	return c.RedirectToHomePage()
 }

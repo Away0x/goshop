@@ -7,6 +7,7 @@ import (
 	"echo_shop/pkg/utils"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -84,7 +85,7 @@ func (u *User) BeforeUpdate() (err error) {
 			return errors.New("User Model 更新失败")
 		}
 	}
-
+	fmt.Println("new pwd", u.Password)
 	return
 }
 

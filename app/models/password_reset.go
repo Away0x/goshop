@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+  "time"
+  "echo_shop/pkg/utils"
+)
 
 const (
 	// PasswordResetTableName : password_reset table name
@@ -17,4 +20,11 @@ type PasswordReset struct {
 // TableName 表名
 func (PasswordReset) TableName() string {
 	return PasswordResetTableName
+}
+
+// BeforeCreate - hook
+func (p *PasswordReset) BeforeCreate() (err error) {
+  token := string(utils.RandomCreateBytes(30))
+  p.Token = token
+  return nil
 }

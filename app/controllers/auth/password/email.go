@@ -17,7 +17,7 @@ type passwordEmailForm struct {
 // Email 发送重置密码链接的 email
 func Email(c *context.AppContext) error {
 	req := &passwordEmailForm{
-		Email: c.Param("email"),
+		Email: c.FormValue("email"),
 	}
 
 	if err, ok := validate.RunWithConfig(req, validate.Config{

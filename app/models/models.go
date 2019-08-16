@@ -44,6 +44,11 @@ func Delete(v interface{}) error {
 	return database.DBManager().Delete(v).Error
 }
 
+// DB : db
+func DB() *gorm.DB {
+	return database.DBManager()
+}
+
 // Save : db save
 func Save(v interface{}) error {
 	return database.DBManager().Save(v).Error
@@ -52,6 +57,11 @@ func Save(v interface{}) error {
 // Create : db create
 func Create(v interface{}) error {
 	return database.DBManager().Create(v).Error
+}
+
+// Update : db update
+func Update(v interface{}) error {
+	return database.DBManager().Model(v).Updates(v).Error
 }
 
 // Where : db where
