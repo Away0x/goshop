@@ -1,6 +1,8 @@
 package context
 
 import (
+	"strings"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,6 +26,10 @@ func NewAppContext(c echo.Context) *AppContext {
 
 // RegisterHandler 使用该函数注册 handler，会包装 echo.Context 为 *context.AppContext
 func RegisterHandler(fn echoRegisterFn, path string, h AppHandlerFunc, m ...echo.MiddlewareFunc) *echo.Route {
+	if path != "" && !strings.HasPrefix(path, "/") {
+		path = "/" + path
+	}
+
 	return fn(path, func(c echo.Context) error {
 		cc, ok := c.(*AppContext)
 		if !ok {

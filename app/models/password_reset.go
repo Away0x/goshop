@@ -1,8 +1,10 @@
 package models
 
 import (
-  "time"
-  "echo_shop/pkg/utils"
+	"echo_shop/pkg/utils"
+	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 const (
@@ -23,8 +25,8 @@ func (PasswordReset) TableName() string {
 }
 
 // BeforeCreate - hook
-func (p *PasswordReset) BeforeCreate() (err error) {
-  token := string(utils.RandomCreateBytes(30))
-  p.Token = token
-  return nil
+func (p *PasswordReset) BeforeCreate(scope *gorm.Scope) (err error) {
+	token := string(utils.RandomCreateBytes(30))
+	scope.SetColumn("token", token)
+	return nil
 }

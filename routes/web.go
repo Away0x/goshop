@@ -48,17 +48,17 @@ func registerWeb(e *echo.Echo) {
 	// ------------------------------------- Auth -------------------------------------
 	// +++++++++++++++ 用户身份验证相关的路由 +++++++++++++++
 	// 展示登录页面
-	context.RegisterHandler(ee.GET, "login", login.Show, mymiddleware.Guest).Name = "login.show"
+	context.RegisterHandler(ee.GET, "/login", login.Show, mymiddleware.Guest).Name = "login.show"
 	// 登录
-	context.RegisterHandler(ee.POST, "login", login.Login, mymiddleware.Guest).Name = "login"
+	context.RegisterHandler(ee.POST, "/login", login.Login, mymiddleware.Guest).Name = "login"
 	// 登出
-	context.RegisterHandler(ee.DELETE, "logout", login.Logout, mymiddleware.AuthAndNoCheckActived).Name = "logout"
+	context.RegisterHandler(ee.DELETE, "/logout", login.Logout, mymiddleware.AuthAndNoCheckActived).Name = "logout"
 
 	// +++++++++++++++ 用户注册相关路由 +++++++++++++++
 	// 展示注册页面
-	context.RegisterHandler(ee.GET, "register", register.Show, mymiddleware.Guest).Name = "register.show"
+	context.RegisterHandler(ee.GET, "/register", register.Show, mymiddleware.Guest).Name = "register.show"
 	// 注册
-	context.RegisterHandler(ee.POST, "register", register.Register, mymiddleware.Guest).Name = "register"
+	context.RegisterHandler(ee.POST, "/register", register.Register, mymiddleware.Guest).Name = "register"
 
 	// +++++++++++++++ 密码重置相关路由 +++++++++++++++
 	pwdRouter := ee.Group("/password", mymiddleware.Guest)

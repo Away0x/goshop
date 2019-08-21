@@ -7,8 +7,9 @@ import (
 	"echo_shop/pkg/utils"
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 const (
@@ -50,42 +51,47 @@ func (u *User) Serialize() serializer.Data {
 }
 
 // BeforeCreate - hook
-func (u *User) BeforeCreate() (err error) {
+func (u *User) BeforeCreate(scope *gorm.Scope) (err error) {
 	if u.Password != "" {
 		if !passwordEncrypted(u.Password) {
-			if err = u.Encrypt(); err != nil {
+			pwd, err := u.Encrypt()
+			if err != nil {
 				return errors.New("User Model 创建失败: passwordEncrypted")
 			}
+			scope.SetColumn("password", pwd)
 		}
 	}
 
 	// 生成用户 remember_token
 	if u.RememberToken == "" {
-		u.RememberToken = string(utils.RandomCreateBytes(10))
+		scope.SetColumn("remember_token", string(utils.RandomCreateBytes(10)))
 	}
 
 	// 生成用户激活 token
 	if u.ActivationToken == "" && !u.IsActivated() {
-		u.ActivationToken = string(utils.RandomCreateBytes(30))
+		scope.SetColumn("activation_token", string(utils.RandomCreateBytes(30)))
 	}
 
 	// 生成用户头像
 	if u.Avatar == "" {
 		hash := md5.Sum([]byte(u.Email))
-		u.Avatar = "http://www.gravatar.com/avatar/" + hex.EncodeToString(hash[:])
+		avatar := "http://www.gravatar.com/avatar/" + hex.EncodeToString(hash[:])
+		scope.SetColumn("avatar", avatar)
 	}
 
 	return err
 }
 
 // BeforeUpdate - hook
-func (u *User) BeforeUpdate() (err error) {
+func (u *User) BeforeUpdate(scope *gorm.Scope) (err error) {
 	if !passwordEncrypted(u.Password) {
-		if err = u.Encrypt(); err != nil {
+		pwd, err := u.Encrypt()
+		if err != nil {
 			return errors.New("User Model 更新失败")
 		}
+		scope.SetColumn("password", pwd)
 	}
-	fmt.Println("new pwd", u.Password)
+
 	return
 }
 
@@ -95,8 +101,9 @@ func passwordEncrypted(pwd string) (status bool) {
 }
 
 // Encrypt 对密码进行加密
-func (u *User) Encrypt() (err error) {
-	u.Password, err = utils.Encrypt(u.Password)
+func (u *User) Encrypt() (pwd string, err error) {
+	pwd, err = utils.Encrypt(u.Password)
+	u.Password = pwd
 	return
 }
 
