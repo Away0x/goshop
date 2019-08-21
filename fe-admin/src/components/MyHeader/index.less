@@ -1,0 +1,38 @@
+@import '~@/assets/styles/var';
+
+@nav-height: 65px;
+
+.my_header_component {
+  position: relative;
+  height: @nav-height;
+  background-color: @main-color;
+
+  .menu_inner {
+    width: @container-width;
+    margin: 0 auto;
+    height: @nav-height;
+
+    .menu_wrapper_item {
+      display: inline-block;
+      max-width: 130px;
+    }
+  }
+
+  .menu_logo {
+    position: relative;
+    cursor: pointer;
+
+    img {
+      margin-top: 13px;
+    }
+
+    .logo_title {
+      position: absolute;
+      font-size: 16px;
+      color: @white-color;
+      left: 80px;
+      top: 34px;
+      letter-spacing: 2px;
+    }
+  }
+}

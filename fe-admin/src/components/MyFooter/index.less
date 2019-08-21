@@ -1,0 +1,23 @@
+@import '~@/assets/styles/var';
+
+.my_footer_component {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 12px;
+  color: @grey-font-color;
+  background-color: @white-color;
+  box-shadow: 0 -2px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+  min-width: @container-width;
+  .inner {
+    width: @container-width - 300;
+    margin: 0 auto;
+    a {
+      color: @main-color;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

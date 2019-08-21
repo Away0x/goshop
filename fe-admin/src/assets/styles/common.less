@@ -1,0 +1,39 @@
+@import './var';
+
+body {
+  min-width: @container-width;
+}
+
+/* 自定义原生 Chrome 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 9px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb {
+  height: 10px;
+  -webkit-transform: rotate3d(0,0,0,0);
+  transform: rotate3d(0,0,0,0);
+  transition: background-color 100ms ease-out;
+  background-color: rgba(#262626, 0.3);
+  border-radius: 20px;
+  &:vertical, &:horizontal {
+    width: 8px;
+  }
+  &:hover {
+    background-color: rgba(#262626, 0.4);
+    width: 8px;
+  }
+}
+
+// 页面占位
+.common_page_placeholder {
+  text-align: center;
+  line-height: 70vh;
+  font-size: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+}

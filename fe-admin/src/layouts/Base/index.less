@@ -1,0 +1,26 @@
+@import '~@/assets/styles/var';
+
+@height: 65px;
+
+.base_layout {
+  .header_wrapper {
+    height: @height;
+  }
+
+  .breadcrumb_wrapper {
+    height: 40px;
+    line-height: 40px;
+    width: @container-width;
+    margin: 0 auto;
+
+    .ant-breadcrumb {
+      line-height: 40px;
+    }
+  }
+
+  .main {
+    min-height: 720px;
+    width: @container-width;
+    margin: 0 auto;
+  }
+}
