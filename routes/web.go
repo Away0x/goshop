@@ -84,7 +84,7 @@ func registerWeb(e *echo.Echo) {
 		// 激活用户
 		context.RegisterHandler(verificationRouter.GET, "/verify/:token",
 			verification.Verify,
-			NewRateLimiter(1*time.Minute, 6),
+			mymiddleware.NewRateLimiter(1*time.Minute, 6),
 		).Name = "verification.verify"
 		// 重新发送激活用户链接
 		context.RegisterHandler(verificationRouter.GET, "/resend",
