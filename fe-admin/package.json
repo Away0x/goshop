@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "node scripts/start.js",
+    "start": "npm run serve",
+    "dev": "npm run serve",
     "build": "node scripts/build.js",
     "dll": "webpack --config config/dll.js --progress"
   },

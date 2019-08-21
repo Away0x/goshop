@@ -6,7 +6,12 @@
     <!-- <meta name="hotcss" content="initial-dpr=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>教学平台</title>
-
+    <script>
+      <% if ('%REACT_APP_GO_RENDER%') { %>
+        window.API_ROOT = 'http://www.ischool365.com:10892';
+        window.__SHARE_DATA__ = '{{ BDAPI }}';
+      <% } %>
+    </script>
     <script src="%PUBLIC_URL%/lib/js-cookie.js"></script>
     <script src="%PUBLIC_URL%/MAIN_CONFIG.js"></script>
   </head>

@@ -21,13 +21,15 @@ func (a *AppContext) RedirectTo(path string) error {
 
 // RedirectBack 返回之前的页面
 func (a *AppContext) RedirectBack(defaultRoute ...string) error {
+	currentPath := a.Request().URL.Path
 	referrer := a.Request().Header.Get("referer")
-	if referrer != "" {
+
+	if referrer != "" && referrer != currentPath {
 		return a.RedirectTo(referrer)
 	}
 
 	previousURL := session.Get(a, constants.PreviousURL)
-	if previousURL != "" {
+	if previousURL != "" && previousURL != currentPath {
 		return a.RedirectTo(previousURL)
 	}
 

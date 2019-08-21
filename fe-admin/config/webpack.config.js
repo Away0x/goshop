@@ -538,6 +538,7 @@ module.exports = function(webpackEnv) {
           },
           isEnvProduction
             ? {
+                filename: paths.appHtmlBuild,
                 minify: {
                   removeComments: true,
                   collapseWhitespace: true,

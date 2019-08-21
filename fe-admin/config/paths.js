@@ -70,7 +70,8 @@ const resolveModule = (resolveFn, filePath) => {
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('build'),
+  appBuild: resolveApp(process.env.REACT_APP_STATIC_PATH || 'build'),
+  appHtmlBuild: resolveApp(process.env.REACT_APP_INDEX_PATH || 'index.html'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveModule(resolveApp, customConfig.entry || 'src/index'),
@@ -83,7 +84,7 @@ module.exports = {
   proxySetup: resolveApp('src/setupProxy.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json')),
+  servedPath: process.env.REACT_APP_SERVE_PATH || getServedPath(resolveApp('package.json')),
 };
 
 

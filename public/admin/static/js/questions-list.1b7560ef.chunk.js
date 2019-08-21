@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{465:function(e,n,a){"use strict";a.r(n);var o=a(1),c=a.n(o);n.default=function(){return c.a.createElement("div",{className:"common_page_placeholder"},"questions page")}}}]);
+//# sourceMappingURL=questions-list.1b7560ef.chunk.js.map

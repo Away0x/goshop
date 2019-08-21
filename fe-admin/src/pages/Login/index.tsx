@@ -9,11 +9,11 @@ import { FormComponentProps } from 'antd/lib/form';
 
 import './index.less';
 
-import AWRouter from 'aw-react-router';
+import AWRouter, { withRouter, RouteComponentProps } from 'aw-react-router';
 import AuthStore from '@/store/auth';
 
 
-const LoginForm: FC<FormComponentProps> = ({ form }) => {
+const LoginForm: FC<FormComponentProps & RouteComponentProps> = ({ form, history }) => {
   const { loginAction } = AuthStore.useStore();
 
   const handleSubmit = (e: FormEvent) => {
@@ -27,9 +27,8 @@ const LoginForm: FC<FormComponentProps> = ({ form }) => {
         return;
       }
 
-      AWRouter.instance().pushByName('home', {
-        replace: true,
-      });
+      const homeRoute = AWRouter.instance().find('home');
+      history.push(homeRoute ? homeRoute.fullPath : '/');
     });
   };
 
@@ -61,7 +60,7 @@ const LoginForm: FC<FormComponentProps> = ({ form }) => {
   );
 };
 
-const WrappedLoginForm = Form.create({ name: 'login' })(LoginForm);
+const WrappedLoginForm = Form.create({ name: 'login' })(withRouter(LoginForm));
 
 const LoginPage: FC = () => {
   return (

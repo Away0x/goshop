@@ -28,6 +28,7 @@ var defaultConfigMap = map[string]interface{}{
 	"APP.RESOURCES_DIR":     "resources",       // resources 文件夹
 	"APP.TEMPLATE_DIR":      "resources/views", // 模板文件存放文件夹
 	"APP.SHOW_ERROR_DETAIL": true,              // response 是否会输出错误详情
+	"APP.GZIP":              true,              // 是否开启 gzip
 
 	// https
 	"TLS.PORT": ":9001",

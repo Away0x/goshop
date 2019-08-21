@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Row, Col } from 'antd';
 
 import { withDefaultProps } from '@/tools/hoc';
-import AWRouter, { AWRouteState } from 'aw-react-router';
+import AWRouter, { AWRouteState, withRouter, RouteComponentProps } from 'aw-react-router';
 import { RouteMeta } from '@/routes/type';
 import { Nav } from './type';
 import { safeGet } from '@/tools';
@@ -33,10 +33,11 @@ function isActiveNav(nav: Nav): boolean {
   return meta.topNavName === safeGet(nav, 'route.meta.topNavName', '');
 }
 
-const MyHeader: FC<DefaultProps> = ({ navs, canGoRoot }) => {
+const MyHeader: FC<DefaultProps & RouteComponentProps> = ({ navs, canGoRoot, history }) => {
   /** 回到首页 */
   const gotoRootPage = () => {
-    AWRouter.instance().pushByName('home');
+    const homeRoute = AWRouter.instance().find('home');
+    history.push(homeRoute ? homeRoute.fullPath : '/');
   };
 
   return (
@@ -81,4 +82,4 @@ const MyHeader: FC<DefaultProps> = ({ navs, canGoRoot }) => {
   );
 }
 
-export default withDefaultProps(defaultProps, MyHeader);
+export default withDefaultProps(defaultProps, withRouter(MyHeader));

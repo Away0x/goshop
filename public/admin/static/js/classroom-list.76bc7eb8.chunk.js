@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{461:function(e,a,n){"use strict";n.r(a);var o=n(1),c=n.n(o);a.default=function(){return c.a.createElement("div",{className:"common_page_placeholder"},"class room page")}}}]);
+//# sourceMappingURL=classroom-list.76bc7eb8.chunk.js.map

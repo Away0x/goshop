@@ -22,6 +22,7 @@ yarn-error.log
 
 # dev
 /node_modules
+fe-admin/node_modules
 
 # temp
 /storage/

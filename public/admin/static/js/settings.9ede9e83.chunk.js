@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{471:function(e,n,a){"use strict";a.r(n);var t=a(1),c=a.n(t);n.default=function(){return c.a.createElement("div",{className:"common_page_placeholder"},"settings page")}}}]);
+//# sourceMappingURL=settings.9ede9e83.chunk.js.map

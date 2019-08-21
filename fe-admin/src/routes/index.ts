@@ -9,6 +9,7 @@ import { loginRequiredMiddleware, guestMiddleware, authCheckMiddleware } from '.
 const awRouter = AWRouter.instance();
 awRouter.load(routes, {
   // mode
+  // mode: 'history',
   mode: 'hash',
   // not found route name
   notFoundRouteName: '404',

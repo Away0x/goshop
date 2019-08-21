@@ -6,6 +6,7 @@ import (
 	"echo_shop/pkg/constants"
 	mymiddleware "echo_shop/routes/middleware"
 	"net/http"
+	"strings"
 
 	"echo_shop/app/controllers/sd"
 
@@ -21,16 +22,24 @@ func Register(e *echo.Echo) {
 	e.Use(context.WrapContextMiddleware)
 
 	// recover
-	// e.Use(middleware.Recover())
 	e.Use(mymiddleware.Recover())
 
 	if config.IsDev() {
 		// log
 		e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+			Skipper: func(c echo.Context) bool {
+				url := c.Request().URL.Path
+				// 静态文件 url 不 log
+				isStaticURL := strings.HasPrefix(url, constants.StaticURLPrefix)
+				isFavicon := url == "/favicon.ico"
+				return isStaticURL || isFavicon
+			},
 			Format: "${status}  ${method}   ${uri}\n",
 		}))
-	} else {
-		// gzip
+	}
+
+	// gzip
+	if config.Bool("APP.GZIP") {
 		e.Use(middleware.Gzip())
 	}
 
@@ -46,7 +55,7 @@ func Register(e *echo.Echo) {
 	}))
 
 	// 项目静态文件配置
-	e.Static("/public", config.String("APP.PUBLIC_DIR"))
+	e.Static(constants.StaticURLPrefix, config.String("APP.PUBLIC_DIR"))
 	e.File("/favicon.ico", config.String("APP.PUBLIC_DIR")+"/favicon.ico")
 
 	// 服务器健康自检
@@ -68,6 +77,9 @@ func Register(e *echo.Echo) {
 
 	// 注册 api routes
 	registerAPI(e, constants.RestfulAPIPrefix)
+
+	// 注册后台管理 routes
+	registeAdmin(e, constants.AdminWebPrefix)
 
 	// 注册 error handler
 	echo.NotFoundHandler = notFoundHandler
