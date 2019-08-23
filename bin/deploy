@@ -4,7 +4,9 @@ SERVER="echo_shop"
 BASE_DIR=$PWD
 INTERVAL=2
 
-ARGS=""
+ARGS="server"
+
+echo $BASE_DIR
 
 function start()
 {
