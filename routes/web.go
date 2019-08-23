@@ -17,7 +17,8 @@ import (
 	"echo_shop/app/controllers/auth/password"
 	"echo_shop/app/controllers/auth/register"
 	"echo_shop/app/controllers/auth/verification"
-	"echo_shop/app/controllers/user_address"
+  "echo_shop/app/controllers/user_address"
+  "echo_shop/app/controllers/product"
 	"echo_shop/pkg/echohelper/flash"
 )
 
@@ -115,5 +116,12 @@ func registerWeb(e *echo.Echo) {
     // 删除收货地址
 		context.RegisterHandler(userAddressRouter.DELETE, "/:user_address",
 			wrapper.User(useraddress.Destroy)).Name = "user_addresses.destroy"
-	}
+  }
+  
+  // +++++++++++++++ products +++++++++++++++
+  productRouter := ee.Group("/products")
+  {
+    // 商品列表
+    context.RegisterHandler(productRouter.GET, "", product.Index).Name = "products.index"
+  }
 }

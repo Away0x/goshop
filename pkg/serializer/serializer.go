@@ -15,10 +15,23 @@ type Serializer interface {
 }
 
 func getSerializeData(val interface{}) (data interface{}) {
+	defer func() {
+		if err := recover(); err != nil {
+			data = val
+		}
+	}()
+	// val 是 Serializer 类型
+	if v, ok := val.(Serializer); ok {
+		data = v.Serialize()
+		return
+	}
+
+	// val 可能是 []Serializer 类型
 	value := reflect.ValueOf(val)
 	kind := value.Kind()
 
-	if kind == reflect.Slice || kind == reflect.Array {
+	switch kind {
+	case reflect.Slice, reflect.Array:
 		len := value.Len()
 		l := make([]interface{}, 0)
 
@@ -28,7 +41,14 @@ func getSerializeData(val interface{}) (data interface{}) {
 		}
 
 		data = l
-	} else {
+	case reflect.Ptr:
+		v := value.Elem().Interface()
+		if reflect.TypeOf(v).Kind() != reflect.Ptr {
+			data = getSerializeData(value.Elem().Interface())
+		} else {
+			data = val
+		}
+	default:
 		data = val
 	}
 
@@ -63,7 +83,7 @@ func (s Data) ToJSONString() string {
 	return string(b)
 }
 
-// Include -
+// Include (注意如 val 为 ptr 的话，不会调用其 Serialize 方法)
 func (s Data) Include(key string, val interface{}) Data {
 	data := getSerializeData(val)
 	s[key] = data
@@ -71,7 +91,7 @@ func (s Data) Include(key string, val interface{}) Data {
 	return s
 }
 
-// Wrap -
+// Wrap (注意如 val 为 ptr 的话，不会调用其 Serialize 方法)
 func Wrap(key string, val interface{}) Data {
 	s := Data{}
 	data := getSerializeData(val)

@@ -16,6 +16,8 @@ func SetupDB() (*gorm.DB, error) {
 		&models.User{},
 		&models.UserAddress{},
 		&models.PasswordReset{},
+		&models.Product{},
+		&models.ProductSku{},
 	)
 
 	return db, nil

@@ -96,3 +96,12 @@ func AssignAndUpdate(force bool, model interface{}, other interface{}) (err erro
 
 	return nil
 }
+
+// TinyInt -> bool
+func TinyBool(i uint) bool {
+	if i == TrueTinyint {
+		return true
+	}
+
+	return false
+}

@@ -14,7 +14,7 @@
     {% block css %}{% endblock %}
 </head>
 <body>
-    <div id="app" data-path="{{ route_path }}">
+    <div id="app" class="{% block app_class %}{% endblock %}">
         {% include './_header.html' %}
         <div class="container">
           {% include '../shared/_messages.html' %}
