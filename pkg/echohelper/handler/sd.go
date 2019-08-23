@@ -1,9 +1,10 @@
-package sd
+package handler
 
 import (
-	"echo_shop/app/context"
 	"fmt"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
@@ -19,12 +20,12 @@ const (
 )
 
 // HealthCheck shows `OK` as the ping-pong result.
-func HealthCheck(c *context.AppContext) error {
+func HealthCheck(c echo.Context) error {
 	return c.String(http.StatusOK, "\nOK")
 }
 
 // DiskCheck checks the disk usage.
-func DiskCheck(c *context.AppContext) error {
+func DiskCheck(c echo.Context) error {
 	u, _ := disk.Usage("/")
 
 	usedMB := int(u.Used) / MB
@@ -51,7 +52,7 @@ func DiskCheck(c *context.AppContext) error {
 }
 
 // CPUCheck checks the cpu usage.
-func CPUCheck(c *context.AppContext) error {
+func CPUCheck(c echo.Context) error {
 	cores, _ := cpu.Counts(false)
 
 	a, _ := load.Avg()
@@ -77,7 +78,7 @@ func CPUCheck(c *context.AppContext) error {
 }
 
 // RAMCheck checks the disk usage.
-func RAMCheck(c *context.AppContext) error {
+func RAMCheck(c echo.Context) error {
 	u, _ := mem.VirtualMemory()
 
 	usedMB := int(u.Used) / MB
@@ -101,4 +102,16 @@ func RAMCheck(c *context.AppContext) error {
 		text, usedMB, usedGB, totalMB, totalGB, usedPercent)
 
 	return c.String(status, "\n"+message)
+}
+
+// RegisterSDHandler 注册 sd handlers
+func RegisterSDHandlers(e *echo.Echo) {
+	// 服务器健康自检
+	sdRouter := e.Group("/sd")
+	{
+		sdRouter.GET("/health", HealthCheck).Name = "sd.health"
+		sdRouter.GET("/disk", DiskCheck).Name = "sd.disk"
+		sdRouter.GET("/cpu", CPUCheck).Name = "sd.cpu"
+		sdRouter.GET("/ram", HealthCheck).Name = "sd.ram"
+	}
 }

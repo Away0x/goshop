@@ -1,7 +1,7 @@
 package context
 
 import (
-	"echo_shop/pkg/context"
+	"echo_shop/pkg/echohelper/context"
 	"strings"
 
 	"github.com/labstack/echo/v4"

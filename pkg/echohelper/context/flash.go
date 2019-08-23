@@ -1,7 +1,7 @@
 package context
 
 import (
-	"echo_shop/pkg/flash"
+	"echo_shop/pkg/echohelper/flash"
 
 	"github.com/Away0x/validate"
 )

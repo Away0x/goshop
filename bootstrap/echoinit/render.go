@@ -4,11 +4,11 @@ import (
 	"echo_shop/app/context"
 	"echo_shop/bootstrap/config"
 	"echo_shop/pkg/constants"
-	pongo2utils "echo_shop/pkg/pongo2"
+	pongo2utils "echo_shop/pkg/echohelper/pongo2"
 	"echo_shop/pkg/serializer"
 	"fmt"
 
-	"echo_shop/pkg/flash"
+	"echo_shop/pkg/echohelper/flash"
 
 	"github.com/flosch/pongo2"
 	"github.com/labstack/echo/v4"

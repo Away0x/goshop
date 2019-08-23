@@ -1,7 +1,7 @@
 package session
 
 import (
-	sess "echo_shop/pkg/session/echo-session"
+	sess "echo_shop/pkg/echohelper/session/echo-session"
 
 	"github.com/labstack/echo/v4"
 )

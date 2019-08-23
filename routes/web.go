@@ -4,7 +4,7 @@ import (
 	"echo_shop/app/context"
 	"echo_shop/app/controllers/page"
 	"echo_shop/pkg/constants"
-	"echo_shop/pkg/session"
+	"echo_shop/pkg/echohelper/session"
 	"net/http"
 	"time"
 
@@ -18,7 +18,7 @@ import (
 	"echo_shop/app/controllers/auth/register"
 	"echo_shop/app/controllers/auth/verification"
 	"echo_shop/app/controllers/user_address"
-	"echo_shop/pkg/flash"
+	"echo_shop/pkg/echohelper/flash"
 )
 
 func registerWeb(e *echo.Echo) {

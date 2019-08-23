@@ -2,7 +2,7 @@ package auth
 
 import (
 	"echo_shop/app/models"
-	"echo_shop/pkg/session"
+	"echo_shop/pkg/echohelper/session"
 	"strconv"
 
 	"github.com/labstack/echo/v4"

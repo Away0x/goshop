@@ -11,6 +11,7 @@ import (
 
 // UserAddressesTableSeeder user_addresses table mock
 func UserAddressesTableSeeder() {
+	dropAndCreateTable(&models.UserAddress{})
 	var users []*models.User
 	database.DBManager().Find(&users)
 

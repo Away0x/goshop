@@ -3,7 +3,7 @@ package context
 import (
 	"echo_shop/bootstrap/app"
 	"echo_shop/pkg/constants"
-	"echo_shop/pkg/session"
+	"echo_shop/pkg/echohelper/session"
 	"net/http"
 )
 

@@ -3,7 +3,7 @@ package middleware
 import (
 	"echo_shop/bootstrap/config"
 
-	session "echo_shop/pkg/session/echo-session"
+	session "echo_shop/pkg/echohelper/session/echo-session"
 
 	"github.com/labstack/echo/v4"
 )
