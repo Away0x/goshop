@@ -26,7 +26,6 @@ fe-admin/node_modules
 
 # temp
 /storage/
-echo_shop
 
 # private
 config.yaml

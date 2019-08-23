@@ -21,6 +21,9 @@ dev:
   # go get -u github.com/Away0x/fresh
 	env ECHO_SHOP_APP_RUNMODE=development fresh -c ./fresh.conf
 
+deploy:
+	make && ./bin/deploy restart
+
 mock:
 	env ECHO_SHOP_APP_RUNMODE=development go run main.go mock
 
@@ -37,6 +40,7 @@ help:
 	@echo "make c-test - controllers test"
 	@echo "make m-test - models test"
 	@echo "make dev - run go fresh"
+	@echo "make deploy - deploy app"
 	@echo "make api-doc - generate swagger api docs"
 	@echo "make mock - mock data"
 	@echo "make clean - remove binary file"
