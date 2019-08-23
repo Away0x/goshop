@@ -6,8 +6,8 @@ import (
 )
 
 // IntParam 获取 int param
-func (a *AppContext) IntParam(key string) (int, error) {
-	i, err := strconv.Atoi(a.Param(key))
+func (c *Context) IntParam(key string) (int, error) {
+	i, err := strconv.Atoi(c.Param(key))
 	if err != nil {
 		return 0, errno.ParamsErr
 	}

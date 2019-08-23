@@ -1,6 +1,7 @@
 package context
 
 import (
+	"echo_shop/pkg/context"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -9,7 +10,7 @@ import (
 type (
 	// AppContext : 项目自定义的 context，包装了 echo.Context，提供更多方法
 	AppContext struct {
-		echo.Context
+		context.Context
 	}
 	// AppHandlerFunc : 项目 handler type
 	AppHandlerFunc = func(c *AppContext) error
@@ -20,7 +21,7 @@ type (
 // NewAppContext -
 func NewAppContext(c echo.Context) *AppContext {
 	return &AppContext{
-		Context: c,
+		Context: context.NewContext(c),
 	}
 }
 
