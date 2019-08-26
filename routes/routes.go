@@ -4,15 +4,21 @@ import (
 	"echo_shop/app/context"
 	"echo_shop/bootstrap/config"
 	"echo_shop/pkg/constants"
-	"echo_shop/pkg/errno"
 	"echo_shop/pkg/echohelper/handler"
 	"echo_shop/pkg/echohelper/middleware"
+	"echo_shop/pkg/errno"
 	"net/http"
+	"strings"
 
 	"echo_shop/pkg/captcha"
 
 	"github.com/labstack/echo/v4"
 	echomiddleware "github.com/labstack/echo/v4/middleware"
+)
+
+const (
+	// CaptchaURL 验证码的 url
+	CaptchaURL = "/captcha"
 )
 
 // Register 注册路由
@@ -31,7 +37,17 @@ func Register(e *echo.Echo) {
 
 	// gzip
 	if config.Bool("APP.GZIP") {
-		e.Use(echomiddleware.Gzip())
+		e.Use(echomiddleware.GzipWithConfig(echomiddleware.GzipConfig{
+			Skipper: func(c echo.Context) bool {
+				url := c.Request().URL.Path
+				// 验证码不能 gzip
+				if strings.HasPrefix(url, CaptchaURL) {
+					return true
+				}
+
+				return false
+			},
+		}))
 	}
 
 	// from value 中携带 constants.MethodOverrideFromFormKeyName 参数
@@ -68,7 +84,7 @@ func Register(e *echo.Echo) {
 	handler.RegisterSDHandlers(e)
 
 	// 验证码
-	context.RegisterHandler(e.GET, "/captcha/:id", func(c *context.AppContext) error {
+	context.RegisterHandler(e.GET, CaptchaURL+"/:id", func(c *context.AppContext) error {
 		return captcha.Handler(c)
 	}).Name = "captcha"
 	// END ----------------------------------------- 全局 handler -----------------------------------------
