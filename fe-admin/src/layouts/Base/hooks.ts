@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 
-import AWRouter, { AWRouteInfo } from 'aw-react-router';
 import BaseLayoutStore, { BreadcrumbsType } from '@/store/base-layout';
 import Authority from '@/auth/authority';
-import { RouteMeta } from '@/routes/type';
 import { isUndefined } from '@/tools/instance';
 import { PAGE_NAMES } from '@/constants';
 import { Nav } from '@/components/MyHeader/type';
+import { awRouter } from '@/routes';
 
 /** 修改面包屑 */
 export function useBreadcrumbs(initBreadcrumbs: BreadcrumbsType[]) {
@@ -41,11 +40,11 @@ export function useNavs(): Nav[] {
     defaultName: '更多',
     subNav: [],
   };
-  const routeInfos = AWRouter.instance().findMap(PAGE_NAMES.map(t => t.name));
+  const routeInfos = awRouter.findMap(PAGE_NAMES.map(t => t.name));
 
   PAGE_NAMES.forEach((r) => {
     const name = r.name;
-    const info: AWRouteInfo<RouteMeta> = routeInfos[name];
+    const info = routeInfos[name];
     if (!info) { return; }
     const meta = info.meta || {};
     const strict = isUndefined(meta.authUnstrict) ? true : !meta.authUnstrict;;

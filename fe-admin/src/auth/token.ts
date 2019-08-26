@@ -1,6 +1,5 @@
 // 登出、获取用户 token 操作
 import TokenStorage from '@/storage/token';
-import AWRouter from 'aw-react-router';
 
 interface LogoutConfig {
   beforeCallback?: (token: string) => Promise<boolean> // 当前退出行为前的 callback
@@ -58,10 +57,6 @@ export default class {
 
     if (config.reloadPage) {
       window.location.href = '/';
-    } else {
-      AWRouter.instance().pushByName('login', {
-        replace: true,
-      });
     }
   }
 

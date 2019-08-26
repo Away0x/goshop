@@ -7,12 +7,12 @@ import { Link } from 'aw-react-router';
 
 import defaultAvatar from '@/assets/images/default_teacher_avatar.png';
 import AuthStore from '@/store/auth';
-import AWRouter from 'aw-react-router';
+import { awRouter } from '@/routes';
 
 const UserAvatar: FC = () => {
   const store = AuthStore.useStore();
   const user = store.state.user!;
-  const settingsPath = AWRouter.instance().getPathByName('settings');
+  const settingsPath = awRouter.getPathByName('settings');
 
   const menus = (
     <Menu>

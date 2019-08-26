@@ -7,7 +7,8 @@ import {
 import HomeHeader from './HomeHeader';
 import HomeFooter from './HomeFooter';
 
-import AWRouter, { AWRouteInfo } from 'aw-react-router';
+import { AWRouteInfo } from 'aw-react-router';
+import { awRouter } from '@/routes';
 import Authority from '@/auth/authority';
 import { RouteMeta } from '@/routes/type';
 import { isUndefined } from '@/tools/instance';
@@ -62,7 +63,7 @@ interface LinkNav {
 
 const HomeContent: FC = () => {
   const navs: LinkNav[] = [];
-  const routeInfos = AWRouter.instance().findMap(PAGE_NAMES.map(t => t.name));
+  const routeInfos = awRouter.findMap(PAGE_NAMES.map(t => t.name));
   PAGE_NAMES.forEach((r) => {
     const name = r.name;
     const info: AWRouteInfo<RouteMeta> = routeInfos[name];

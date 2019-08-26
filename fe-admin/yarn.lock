@@ -1147,7 +1147,7 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router@*", "@types/react-router@^5.0.3":
+"@types/react-router@*":
   version "5.0.3"
   resolved "https://registry.npm.taobao.org/@types/react-router/download/@types/react-router-5.0.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-router%2Fdownload%2F%40types%2Freact-router-5.0.3.tgz#855a1606e62de3f4d69ea34fb3c0e50e98e964d5"
   integrity sha1-hVoWBuYt4/TWnqNPs8DlDpjpZNU=
@@ -1767,15 +1767,13 @@ aw-easy-storage@^0.0.1:
   resolved "https://registry.npmjs.org/aw-easy-storage/-/aw-easy-storage-0.0.1.tgz#7f6706f415853d6ca5f6c2fcc4750f4a4792c972"
   integrity sha512-aa0wObImODw7lgvM1Ny+j+xzhuof8ocM1r/lqq3eeKC91F7eDjA0NyvRUi1Z85sLToR+u9BJyPmR3EoUQqS9Pg==
 
-aw-react-router@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/aw-react-router/-/aw-react-router-1.0.1.tgz#c08ec4ce55770b9e42403736efe630d0e1787220"
-  integrity sha512-ie346kyvHOJr3+TRB74Zs+i5km7wD1D5cJ0z39or5lwR9F46u+0xF38Pbhi2x6QoOCn5pdR5UyP+F6cwxRMXDQ==
+aw-react-router@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/aw-react-router/-/aw-react-router-1.0.4.tgz#36165727b3ef03ade04c1ff5e5d130885d0b4ec7"
+  integrity sha512-1iaAxjR6HOm3swBMSwBCNPmmrG9/8OmMsARmPlLbbE0GGIO+MgwH8ufCKLlTK0BCPhhZ1kYniis4RLecOreNnA==
   dependencies:
     "@types/react" "^16.8.23"
-    "@types/react-router" "^5.0.3"
     "@types/react-router-dom" "^4.3.4"
-    history "^4.9.0"
     p-min-delay "^3.1.0"
     react "^16.8.6"
     react-router-dom "^5.0.1"

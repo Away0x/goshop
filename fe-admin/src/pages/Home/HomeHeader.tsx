@@ -7,7 +7,7 @@ import {
 } from 'antd';
 
 import AuthStore from '@/store/auth';
-import AWRouter from 'aw-react-router';
+import { awRouter } from '@/routes';
 
 import defaultAvatar from '@/assets/images/default_teacher_avatar.png';
 import logoImg from '@/assets/images/home/logo.png';
@@ -21,7 +21,7 @@ const HomeHeader: FC = () => {
   const user = store.state.user!;
   const terms = store.state.terms || [];
   const roles = store.rolesGetter();
-  const settingsPath = AWRouter.instance().getPathByName('settings');
+  const settingsPath = awRouter.getPathByName('settings');
 
   const selectTerm = (termid: number) => {
     if (store.setCurrentTermAction(termid)) {

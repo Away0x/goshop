@@ -9,7 +9,8 @@ import { FormComponentProps } from 'antd/lib/form';
 
 import './index.less';
 
-import AWRouter, { withRouter, RouteComponentProps } from 'aw-react-router';
+import { withRouter, RouteComponentProps } from 'aw-react-router';
+import { awRouter } from '@/routes';
 import AuthStore from '@/store/auth';
 
 
@@ -27,7 +28,7 @@ const LoginForm: FC<FormComponentProps & RouteComponentProps> = ({ form, history
         return;
       }
 
-      const homeRoute = AWRouter.instance().find('home');
+      const homeRoute = awRouter.find('home');
       history.push(homeRoute ? homeRoute.fullPath : '/');
     });
   };

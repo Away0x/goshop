@@ -3,7 +3,8 @@ import {
   Breadcrumb,
 } from 'antd';
 
-import AWRouter, { withRouter, RouteComponentProps } from 'aw-react-router';
+import { awRouter } from '@/routes';
+import { withRouter, RouteComponentProps } from 'aw-react-router';
 import BaseLayoutStore, { BreadcrumbsType } from '@/store/base-layout';
 
 const Breadcrumbs: FC<RouteComponentProps> = ({ history }) => {
@@ -11,7 +12,7 @@ const Breadcrumbs: FC<RouteComponentProps> = ({ history }) => {
 
   const defaultHandler = useCallback((b: BreadcrumbsType) => {
     if (!b.handler && b.routeName) {
-      const route = AWRouter.instance().find(b.routeName);
+      const route = awRouter.find(b.routeName);
       history.push(route ? route.fullPath : '/404');
     }
   }, []);

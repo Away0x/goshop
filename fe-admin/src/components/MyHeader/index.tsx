@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { Row, Col } from 'antd';
 
 import { withDefaultProps } from '@/tools/hoc';
-import AWRouter, { AWRouteState, withRouter, RouteComponentProps } from 'aw-react-router';
-import { RouteMeta } from '@/routes/type';
+import { withRouter, RouteComponentProps } from 'aw-react-router';
 import { Nav } from './type';
 import { safeGet } from '@/tools';
 
+import { awRouter } from '@/routes';
 import logoImg from '@/assets/images/logo.png';
 import MenuItem from './MenuItem';
 import UserAvatar from './UserAvatar';
@@ -25,7 +25,7 @@ const defaultProps: DefaultProps = {
 }
 
 function isActiveNav(nav: Nav): boolean {
-  const currentRoute: AWRouteState<RouteMeta> | null = AWRouter.instance().getCurrentState();
+  const currentRoute = awRouter.getCurrentState();
   if (!currentRoute) { return false; }
   const meta = currentRoute.meta;
   if (!meta) { return false; }
@@ -36,7 +36,7 @@ function isActiveNav(nav: Nav): boolean {
 const MyHeader: FC<DefaultProps & RouteComponentProps> = ({ navs, canGoRoot, history }) => {
   /** 回到首页 */
   const gotoRootPage = () => {
-    const homeRoute = AWRouter.instance().find('home');
+    const homeRoute = awRouter.find('home');
     history.push(homeRoute ? homeRoute.fullPath : '/');
   };
 

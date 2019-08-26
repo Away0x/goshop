@@ -1,22 +1,22 @@
 import { PATCH_CALLBACK_ROUTE_MIDDLEWARE } from '@/config';
 import { routes } from "@/routes/routes";
 import { RouteMeta } from '@/routes/type';
-import AWRouter, { AWRouteState } from 'aw-react-router';
+import AWRouter from 'aw-react-router';
 import { loginRequiredMiddleware, guestMiddleware, authCheckMiddleware } from './middleware/auth';
 
 
 // 加载路由配置
-const awRouter = AWRouter.instance();
+export const awRouter = AWRouter.instance<RouteMeta>();
 awRouter.load(routes, {
   // mode
-  // mode: 'history',
-  mode: 'hash',
+  mode: 'history',
+  // mode: 'hash',
   // not found route name
   notFoundRouteName: '404',
   // 全局路由中间件
   middlewares: [
     // 设置 title
-    (state: AWRouteState<RouteMeta>) => {
+    (state) => {
       const meta = state.meta || {};
       const routeTitle = meta.title;
 
