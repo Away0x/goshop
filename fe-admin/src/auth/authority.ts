@@ -40,24 +40,6 @@ class Authority {
     this.loaded = true;
   }
 
-  /** 加载权限 (map 形式) */
-  public loadMap(authMap: AW.UserAuthMapType = {}) {
-    if (this.loaded) {
-      return;
-    }
-
-    let authArr: string[] = [];
-    for (const key in authMap) {
-      if (authMap.hasOwnProperty(key)) {
-        const item = authMap[key];
-        authArr.push(key);
-        authArr = authArr.concat(item);
-      }
-    }
-
-    this.load(authArr);
-  }
-
   /** 重新加载权限 */
   public reload(authArr: string[] = []) {
     this.authStore = authArr;

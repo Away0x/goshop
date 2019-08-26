@@ -1,14 +1,9 @@
 // 权限相关中间件
 import React from 'react';
-import { Redirect } from 'aw-react-router';
+import { Redirect, AWRouteState, AWMiddlewareFunc } from 'aw-react-router';
 
-import { AWRouteState, AWMiddlewareFunc } from 'aw-react-router';
-
-import { RouteMeta } from '@/routes/type';
 import Token from '@/auth/token';
 import Authority from '@/auth/authority';
-import { isUndefined } from '@/tools/instance';
-
 
 /**
  * 判断是否登录
@@ -54,16 +49,15 @@ export function guestMiddleware(checkList?: string[]): AWMiddlewareFunc {
 
 /** 用于权限判断的中间件 (也会判断是否登录了) */
 export function authCheckMiddleware() {
-  return function (state: AWRouteState<RouteMeta>) {
+  return function (state: AWRouteState<AW.RouteMeta>) {
     const meta = state.meta || {};
     const auths = meta.auth || [];
-    const strict = isUndefined(meta.authUnstrict) ? true : !meta.authUnstrict;
 
     // 权限检查 (有配置才需检查)
     if (!auths.length) {
       return null;
     }
-    if (Authority.checkAll(auths, strict)) {
+    if (Authority.checkAll(auths, !meta.authUnstrict)) {
       return null;
     }
 
