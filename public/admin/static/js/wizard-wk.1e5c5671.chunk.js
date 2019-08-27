@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[15],{469:function(e,a,n){"use strict";n.r(a);var c=n(1),o=n.n(c);a.default=function(){return o.a.createElement("div",{className:"common_page_placeholder"},"wizard page")}}}]);
-//# sourceMappingURL=wizard-wk.1e5c5671.chunk.js.map

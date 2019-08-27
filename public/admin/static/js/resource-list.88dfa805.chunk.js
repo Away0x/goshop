@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{466:function(e,n,a){"use strict";a.r(n);var c=a(1),o=a.n(c);n.default=function(){return o.a.createElement("div",{className:"common_page_placeholder"},"resource page")}}}]);
-//# sourceMappingURL=resource-list.88dfa805.chunk.js.map

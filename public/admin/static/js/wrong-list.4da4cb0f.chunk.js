@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[17],{470:function(e,n,a){"use strict";a.r(n);var o=a(1),c=a.n(o);n.default=function(){return c.a.createElement("div",{className:"common_page_placeholder"},"wrong page")}}}]);
-//# sourceMappingURL=wrong-list.4da4cb0f.chunk.js.map

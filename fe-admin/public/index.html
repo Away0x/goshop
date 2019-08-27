@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <!-- <meta name="hotcss" content="initial-dpr=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>教学平台</title>
     <script>
-      <% if ('%REACT_APP_GO_RENDER%') { %>
-        window.API_ROOT = 'http://www.ischool365.com:10892';
-        window.__SHARE_DATA__ = '{{ BDAPI }}';
+      <% if (String(htmlWebpackPlugin.options.render_mode) === 'go') { %>
+        window.API_ROOT = '{{ API_ROOT }}';
+        window.__SHARE_DATA__ = '{{ SHARE_DATA }}';
+      <% } else { %>
+        window.API_ROOT = '%REACT_APP_DEV_API_ROOT%';
       <% } %>
     </script>
     <script src="%PUBLIC_URL%/lib/js-cookie.js"></script>

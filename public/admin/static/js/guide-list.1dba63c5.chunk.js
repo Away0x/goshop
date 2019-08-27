@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{464:function(e,n,a){"use strict";a.r(n);var c=a(1),o=a.n(c);n.default=function(){return o.a.createElement("div",{className:"common_page_placeholder"},"guide page")}}}]);
-//# sourceMappingURL=guide-list.1dba63c5.chunk.js.map

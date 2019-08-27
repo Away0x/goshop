@@ -12,5 +12,11 @@ declare namespace AW {
     readonly authUnstrict?: boolean;
   }
 
+  /** js-cookie */
+  export interface CookiesType {
+    set(key: string, val: string, attr?: { [key: string]: any }): string | void;
+    get(key: string, json?: boolean): any;
+    remove(key: string, attr?: { [key: string]: any }): void;
+  }
 
 }

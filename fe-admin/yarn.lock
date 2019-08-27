@@ -8126,10 +8126,10 @@ react-error-overlay@^5.1.6:
   resolved "https://registry.npm.taobao.org/react-error-overlay/download/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha1-DNc0B8XRQfljiuHgxj57K/fpkp0=
 
-react-hanger@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/react-hanger/download/react-hanger-2.0.0.tgz#c0d3e71f09995d5c9434ca85e743b0fa38058c33"
-  integrity sha1-wNPnHwmZXVyUNMqF50Ow+jgFjDM=
+react-hanger@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/react-hanger/-/react-hanger-2.1.0.tgz#81ddc8f716c236ab6bc39bac9b49e05cb850eb68"
+  integrity sha512-9HlFSYvKMmjcfyllNNK09q47tXvS+TIT9C3OKkp4RgCSA/ebewzVBxum7FvhcVJKcmjMTW48AW9CG6Li7RE1ug==
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.8.6"

@@ -93,10 +93,10 @@ func Register(e *echo.Echo) {
 	registerWeb(e)
 
 	// 注册 api routes
-	registerAPI(e, constants.RestfulAPIPrefix)
+	registerAPI(e)
 
 	// 注册后台管理 routes
-	registeAdmin(e, constants.AdminWebPrefix)
+	registeAdmin(e)
 }
 
 // 未找到路由时的 handler

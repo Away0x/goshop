@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{467:function(e,a,n){"use strict";n.r(a);var t=n(1),c=n.n(t);a.default=function(){return c.a.createElement("div",{className:"common_page_placeholder"},"statistics page")}}}]);
-//# sourceMappingURL=resource-view.9d99786f.chunk.js.map

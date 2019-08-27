@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[13],{468:function(e,n,a){"use strict";a.r(n);var o=a(1),t=a.n(o);n.default=function(){return t.a.createElement("div",{className:"common_page_placeholder"},"textbook page")}}}]);
-//# sourceMappingURL=textbook-chapter.45ed3271.chunk.js.map

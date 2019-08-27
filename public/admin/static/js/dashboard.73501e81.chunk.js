@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{387:function(a,e,n){"use strict";n.r(e);var s=n(1),d=n.n(s);e.default=function(){return d.a.createElement("div",{className:"page_dashboard"},"dashboard")}}}]);
+//# sourceMappingURL=dashboard.73501e81.chunk.js.map

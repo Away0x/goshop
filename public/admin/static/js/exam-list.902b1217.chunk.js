@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{463:function(e,a,n){"use strict";n.r(a);var c=n(1),o=n.n(c);a.default=function(){return o.a.createElement("div",{className:"common_page_placeholder"},"exam page")}}}]);
-//# sourceMappingURL=exam-list.902b1217.chunk.js.map

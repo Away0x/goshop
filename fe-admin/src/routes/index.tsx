@@ -1,19 +1,38 @@
 import React from 'react';
-import AWRouter, { AWRouteConfig } from 'aw-react-router';
+import AWRouter, { AWRouteConfig, Redirect } from 'aw-react-router';
 
 import PageSuspense from '@/components/PageSuspense';
+import BaseLayout from '@/layouts/BaseLayout';
 import { PATCH_CALLBACK_ROUTE_MIDDLEWARE } from '@/config';
 // import { loginRequiredMiddleware, guestMiddleware, authCheckMiddleware } from '@/routes/middleware/auth';
 
 const routes: AWRouteConfig<AW.RouteMeta>[] = [
   {
+    name: 'root',
+    path: '/',
+    component: () => <Redirect from="/" to="/home" />,
+  },
+  {
     name: 'login',
     path: '/login',
-    component: () => <div>login</div>,
+    component: (props) => <PageSuspense {...props} load={import(/* webpackChunkName: 'login' */ '@/pages/Login')} />,
     meta: {
       title: '登录',
       hanName: '登录',
     },
+  },
+  {
+    name: 'home',
+    path: '/home',
+    component: BaseLayout,
+    children: [
+      {
+        default: true,
+        name: 'dashboard',
+        path: '/dashboard',
+        component: (props) => <PageSuspense {...props} load={import(/* webpackChunkName: 'dashboard' */ '@/pages/Dashboard')} />,
+      },
+    ],
   },
 
   {
@@ -46,9 +65,7 @@ awRouter.load(routes, {
   middlewares: [
     (state) => {
       const meta = state.meta || {};
-      document.title = meta.title
-        ? meta.title
-        : ['管理员后台', meta.hanName].filter(Boolean).join('-');
+      document.title = meta.title ? meta.title : ['管理员后台', meta.hanName].filter(Boolean).join('-');
       return null;
     },
     PATCH_CALLBACK_ROUTE_MIDDLEWARE,                           // 暴露在 MAIN_CONFIG 中用于调试或打补丁的中间件
