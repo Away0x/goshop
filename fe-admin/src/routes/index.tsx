@@ -59,7 +59,7 @@ const routes: AWRouteConfig<AW.RouteMeta>[] = [
 // 加载路由配置
 export const awRouter = AWRouter.instance<AW.RouteMeta>();
 awRouter.load(routes, {
-  mode: 'history',          // mode
+  mode: 'hash',          // mode
   notFoundRouteName: '404', // not found route name
   // 全局路由中间件
   middlewares: [

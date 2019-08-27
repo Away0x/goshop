@@ -16,6 +16,7 @@ export const PUBLIC_URL = process.env.PUBLIC_URL;
 
 // ---------------------------- 接口根地址 ----------------------------
 export const API_ROOT: string = MAIN_CONFIG.API_ROOT;
+export const URL_ROOT: string = MAIN_CONFIG.URL_ROOT;
 
 // ---------------------------- key ----------------------------
 export const LOCALSTROAGE_PREFIX: string= MAIN_CONFIG.LOCALSTROAGE_PREFIX; // localstroage prefix

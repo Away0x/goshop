@@ -12,6 +12,7 @@ const (
 )
 
 var (
+	// APIPrefix -
 	APIPrefix = constants.RestfulAPIPrefix + "/" + apiVersion
 )
 

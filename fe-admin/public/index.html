@@ -8,9 +8,11 @@
     <script>
       <% if (String(htmlWebpackPlugin.options.render_mode) === 'go') { %>
         window.API_ROOT = '{{ API_ROOT }}';
-        window.__SHARE_DATA__ = '{{ SHARE_DATA }}';
+        window.URL_ROOT = '{{ URL_ROOT }}';
+        window.__SHARE_DATA__ = '{{ SHARE_DATA }}'.replace(/&quot;/g, '"');
       <% } else { %>
         window.API_ROOT = '%REACT_APP_DEV_API_ROOT%';
+        window.URL_ROOT = '/';
       <% } %>
     </script>
     <script src="%PUBLIC_URL%/lib/js-cookie.js"></script>

@@ -1,4 +1,5 @@
 // 登出、获取用户 token 操作
+import { URL_ROOT } from '@/config';
 import TokenStorage from '@/storage/token';
 
 interface LogoutConfig {
@@ -56,7 +57,7 @@ export default class {
     }
 
     if (config.reloadPage) {
-      window.location.href = '/';
+      window.location.href = URL_ROOT;
     }
   }
 

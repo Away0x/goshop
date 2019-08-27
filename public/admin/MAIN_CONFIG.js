@@ -8,10 +8,12 @@
 })('MAIN_CONFIG', function () {
 
   var api_root = window.API_ROOT;
+  var url_root = window.URL_ROOT;
 
   return {
     // ---------------------------- api prefix ----------------------------
     API_ROOT: api_root,
+    URL_ROOT: url_root,
 
     // ---------------------------- key ----------------------------
     LOCALSTROAGE_PREFIX: 'aw_',      // localstroage prefix
