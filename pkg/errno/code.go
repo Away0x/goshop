@@ -25,4 +25,10 @@ var (
 	LoginRequiredErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6000, Summary: "Login Required", Message: "Login Required"}
 	// 用户未激活
 	UserActivateErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6001, Summary: "User need to activate", Message: "User need to activate"}
+	// jwt token error
+	JWTTokenErr            = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6002, Summary: "token error", Message: "token error"}
+	JWTTokenExpireErr      = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6003, Summary: "Token expired", Message: "Token expired"}
+	JWTTokenRefreshErr     = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6004, Summary: "Token has been refreshed", Message: "Token has been refreshed"}
+	JWTTokenInBlackListErr = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6005, Summary: "Token cannot be used", Message: "Token cannot be used"}
+	JWTTokenMissingErr     = &Errno{HTTPCode: http.StatusInternalServerError, Code: 6006, Summary: "Token not found", Message: "Token not found"}
 )
