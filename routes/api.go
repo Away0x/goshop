@@ -31,5 +31,7 @@ func registerAPI(e *echo.Echo) {
 		context.RegisterHandler(authRouter.PUT, "/refresh_token", auth.RefreshToken)
 		// 登出
 		context.RegisterHandler(authRouter.DELETE, "/logout", auth.Logout)
+		// 获取用户信息
+		context.RegisterHandler(authRouter.GET, "/user_info", auth.UserInfo)
 	}
 }

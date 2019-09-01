@@ -35,19 +35,20 @@ func Login(c *context.AppContext) error {
 
 	user := new(models.User)
 	if err := models.Where("email = ?", req.Email).First(&user).Error; err != nil {
-		return err
+		return c.EM(err, "email", "该邮箱还未注册")
 	}
 	if err := user.Compare(req.Password); err != nil {
-		return err
+		return c.EM(err, "password", "密码错误")
 	}
 
+	// 签发 token
 	tokenInfo, err := jwt.Sign(user)
 	if err != nil {
 		return err
 	}
 
 	return c.RenderOKJSON(context.G{
-		"info":  req,
-		"token": tokenInfo,
+		"user":  user.Serialize(),
+		"token": tokenInfo.Token,
 	})
 }
