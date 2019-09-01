@@ -12,6 +12,7 @@ import (
 
 	"echo_shop/pkg/captcha"
 
+	"github.com/Away0x/validate"
 	"github.com/labstack/echo/v4"
 	echomiddleware "github.com/labstack/echo/v4/middleware"
 )
@@ -67,14 +68,25 @@ func Register(e *echo.Echo) {
 	echo.NotFoundHandler = notFoundHandler
 	echo.MethodNotAllowedHandler = notFoundHandler
 	// handler 返回的 error 的处理函数
-	e.HTTPErrorHandler = errno.HTTPErrorHandler(func(c echo.Context, e *errno.Errno) error {
-		if (e.Detail != nil) && (e.Detail.Type == errno.RenderDetailTypeHTML) && (e.Detail.Template != "") {
-			return c.Render(e.HTTPCode, e.Detail.Template, e.Detail.Content)
-		}
+	e.HTTPErrorHandler = errno.HTTPErrorHandler(
+		func(err error) *errno.Errno {
+			switch typed := err.(type) {
+			// 请求参数错误
+			case validate.Messages:
+				return errno.ParamsErr.SetErrorContent(map[string][]string(typed))
+			default:
+				return errno.UnknowErr.SetErrorContent(typed)
+			}
+		},
+		func(c echo.Context, e *errno.Errno) error {
+			if (e.Detail != nil) && (e.Detail.Type == errno.RenderDetailTypeHTML) && (e.Detail.Template != "") {
+				return c.Render(e.HTTPCode, e.Detail.Template, e.Detail.Content)
+			}
 
-		cc := context.NewAppContext(c)
-		return cc.RenderErrorJSON(e)
-	})
+			cc := context.NewAppContext(c)
+			return cc.RenderErrorJSON(e)
+		},
+	)
 
 	// 项目静态文件配置
 	e.Static(constants.StaticURLPrefix, config.String("APP.PUBLIC_DIR"))

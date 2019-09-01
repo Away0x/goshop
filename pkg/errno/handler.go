@@ -7,10 +7,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type errTypeResolveFunc = func(err error) *Errno
 type resolveErrorFunc = func(echo.Context, *Errno) error
 
 // HTTPErrorHandler 统一错误处理 handler
-func HTTPErrorHandler(resolve resolveErrorFunc) echo.HTTPErrorHandler {
+func HTTPErrorHandler(typedResolve errTypeResolveFunc, resolve resolveErrorFunc) echo.HTTPErrorHandler {
 	return func(err error, c echo.Context) {
 		var data *Errno
 
@@ -20,7 +21,7 @@ func HTTPErrorHandler(resolve resolveErrorFunc) echo.HTTPErrorHandler {
 		case *Errno: // 自定义错误
 			data = typed
 		default:
-			data = UnknowErr.SetErrorContent(typed)
+			data = typedResolve(err)
 		}
 
 		// Send response

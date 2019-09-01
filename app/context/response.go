@@ -1,19 +1,12 @@
 package context
 
 import (
-	"echo_shop/bootstrap/config"
 	"echo_shop/pkg/errno"
 	"echo_shop/pkg/serializer"
 	"net/http"
 )
 
-// CommonResponse 标准响应格式
-type CommonResponse struct {
-	Code  int         `json:"code"`
-	Msg   string      `json:"msg"`
-	Data  interface{} `json:"data,omitempty"`
-	Debug interface{} `json:"debug,omitempty"`
-}
+type G = serializer.Data
 
 // RenderHTML 渲染 html
 func (a *AppContext) RenderHTML(tplName string, data ...serializer.Data) error {
@@ -26,45 +19,29 @@ func (a *AppContext) RenderHTML(tplName string, data ...serializer.Data) error {
 	return a.Context.Render(http.StatusOK, tplName+renderTypeExt, map[string]interface{}{})
 }
 
-// RenderJSON resp json
-func (a *AppContext) RenderJSON(code int, data CommonResponse) error {
-	r := map[string]interface{}{
-		"code": data.Code,
-		"msg": data.Msg,
-	}
-
-	if data.Data != nil {
-		r["data"] = data.Data
-	}
-	if data.Debug != nil {
-		r["debug"] = data.Debug
-	}
-
-	return a.JSON(code, r)
-}
-
 // RenderOKJSON render ok json
 func (a *AppContext) RenderOKJSON(data serializer.Data) error {
-	return a.RenderJSON(http.StatusOK, CommonResponse{
-		Code: 0,
-		Msg:  "OK",
-		Data: data,
-	})
+	return a.JSON(http.StatusOK, map[string]interface{}(data))
 }
 
 // RenderErrorJSON render error json
 func (a *AppContext) RenderErrorJSON(err *errno.Errno) error {
-	// 隐藏错误详情 (默认开启)
-	if !config.Bool("APP.SHOW_ERROR_DETAIL") {
-		return a.RenderJSON(err.HTTPCode, CommonResponse{
-			Code: err.Code,
-			Msg:  err.Message,
-		})
+	resp := make(map[string]interface{})
+
+	resp["code"] = err.Code
+	resp["msg"] = err.Message
+
+	if err.Detail != nil && err.Detail.Content != nil {
+		errLen := len(err.Detail.Content)
+		// detail.context 中只有一个 kv，提取出来
+		if errLen == 1 {
+			for _, v := range err.Detail.Content {
+				resp["errors"] = v
+			}
+		} else {
+			resp["errors"] = err.Detail.Content
+		}
 	}
 
-	return a.RenderJSON(err.HTTPCode, CommonResponse{
-		Code:  err.Code,
-		Msg:   err.Message,
-		Debug: err.Detail,
-	})
+	return a.JSON(err.HTTPCode, resp)
 }
