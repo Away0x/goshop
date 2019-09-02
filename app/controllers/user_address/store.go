@@ -77,7 +77,7 @@ func Store(c *context.AppContext, u *models.User) error {
 	// 创建地址
 	address := &models.UserAddress{UserID: u.ID}
 	if err := models.AssignAndCreate(true, address, req); err != nil {
-		c.ErrorFlash(c.WrapError(err, "收货地址创建失败"))
+		c.ErrorFlash(c.WE(err, "收货地址创建失败"))
 		return c.RedirectByName("user_addresses.create")
 	}
 

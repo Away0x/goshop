@@ -1,8 +1,8 @@
 package auth
 
 import (
+	"echo_shop/app/auth/jwt"
 	"echo_shop/app/context"
-	"echo_shop/app/helpers/jwt"
 	"time"
 )
 

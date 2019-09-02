@@ -19,7 +19,7 @@ func Update(c *context.AppContext, u *models.User) error {
 	}
 
 	if err := models.AssignAndUpdate(true, address, req); err != nil {
-		c.ErrorFlash(c.WrapError(err, "收货地址更新失败"))
+		c.ErrorFlash(c.WE(err, "收货地址更新失败"))
 		return c.RedirectByName("user_addresses.edit", address.ID)
 	}
 

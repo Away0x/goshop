@@ -31,13 +31,13 @@ func Email(c *context.AppContext) error {
 
 	pwd := &models.PasswordReset{Email: req.Email}
 	if err := models.Create(pwd); err != nil {
-		c.FlashDangerMessage(c.WrapErrorMessage(err, "重置密码链接生成失败"))
+		c.FlashDangerMessage(c.WEM(err, "重置密码链接生成失败"))
 		return c.RedirectByName("password.show_link_form")
 	}
 
 	// 发送邮件
 	if err := mail.SendPasswordResetEmail(pwd); err != nil {
-		c.FlashDangerMessage(c.WrapErrorMessage(err, "重置密码邮件发送失败"))
+		c.FlashDangerMessage(c.WEM(err, "重置密码邮件发送失败"))
 		models.Delete(pwd)
 	} else {
 		c.FlashSuccessMessage("重置密码已发送到你的邮箱上，请注意查收。")

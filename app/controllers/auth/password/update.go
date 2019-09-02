@@ -52,12 +52,12 @@ func Update(c *context.AppContext) error {
 	// update user
 	user := new(models.User)
 	if err := models.Where("email = ?", req.Email).First(&user).Error; err != nil {
-		c.FlashDangerMessage(c.WrapErrorMessage(err, "该邮箱还未注册过用户"))
+		c.FlashDangerMessage(c.WEM(err, "该邮箱还未注册过用户"))
 		return c.RedirectByName("password.show_reset_form", token)
 	}
 	user.Password = req.Password
 	if err := models.Update(&user); err != nil {
-		c.FlashDangerMessage(c.WrapErrorMessage(err, "重置密码失败"))
+		c.FlashDangerMessage(c.WEM(err, "重置密码失败"))
 		return c.RedirectByName("password.show_reset_form", token)
 	}
 
@@ -67,7 +67,7 @@ func Update(c *context.AppContext) error {
 		Token: req.Token,
 	}
 	if err := models.Delete(pwd); err != nil {
-		c.FlashDangerMessage(c.WrapErrorMessage(err, "重置密码失败"))
+		c.FlashDangerMessage(c.WEM(err, "重置密码失败"))
 		return c.RedirectByName("password.show_reset_form", token)
 	}
 

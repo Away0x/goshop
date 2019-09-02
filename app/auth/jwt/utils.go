@@ -21,26 +21,6 @@ func getCacheKey(tokenString string) string {
 	return cacheTokenKeyName + tokenString
 }
 
-// CustomClaims -
-type CustomClaims struct {
-	jwt.StandardClaims
-	UserID      uint  `json:"userid"`
-	RefreshTime int64 `json:"refresh_time,omitempty"`
-}
-
-// SetUser 设置 token 有效期
-func (c *CustomClaims) SetUser(u *models.User) {
-	c.UserID = u.ID
-}
-
-// SetExpiredAt 设置 user data
-func (c *CustomClaims) SetExpiredAt() {
-	now := time.Now()
-	c.IssuedAt = now.Unix()
-	c.ExpiresAt = now.Add(jwtTokenExpiredTime).Unix()
-	c.RefreshTime = now.Add(jwtTokenRefreshTime).Unix()
-}
-
 // ParseToken 解析 token
 func ParseToken(tokenString string) (*CustomClaims, *errno.Errno) {
 	token, err := parse(tokenString)
@@ -117,7 +97,6 @@ func forget(tokenString string, remainTime time.Duration) {
 	cache.PutInt64(getCacheKey(tokenString), now.Add(remainTime).Unix(), jwtTokenExpiredTime) // val 为 token 还可以使用的过渡时间
 }
 
-// ------------- private
 func parse(tokenString string) (*jwt.Token, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(config.String("APP.KEY")), nil

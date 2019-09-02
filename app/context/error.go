@@ -42,3 +42,16 @@ func (a *AppContext) EM(err error, key string, msg string) M {
 	data[key] = []string{a.WEM(err, msg)}
 	return data
 }
+
+// ErrorFlashWEM 包装一条参数错误信息 (flash error 输出)
+func (a *AppContext) ErrorFlashWEM(err error, key string, msg string) {
+	ms := a.EM(err, key, msg)
+	a.ErrorFlash(ms)
+}
+
+// ErrorFlashWM 包装一条参数错误信息 (flash error 输出)
+func (a *AppContext) ErrorFlashWM(key string, msg string) {
+	ms := M{}
+	ms[key] = []string{msg}
+	a.ErrorFlash(ms)
+}

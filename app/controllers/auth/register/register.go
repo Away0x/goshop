@@ -43,9 +43,7 @@ func Register(c *context.AppContext) error {
 
 	user := new(models.User)
 	if err := models.Where("email = ?", req.Email).First(&user).Error; err == nil {
-		c.ErrorFlash(validate.Messages{
-			"email": []string{"该邮箱已经被使用了"},
-		})
+		c.ErrorFlashWM("email", "该邮箱已经被使用了")
 		return c.RedirectToRegisterPage()
 	}
 

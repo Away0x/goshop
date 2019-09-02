@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"echo_shop/app/helpers/jwt"
+	"echo_shop/app/auth/jwt"
 	"echo_shop/app/models"
 	"echo_shop/pkg/errno"
 	"fmt"
