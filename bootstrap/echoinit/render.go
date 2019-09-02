@@ -76,10 +76,10 @@ func SetupRender(e *echo.Echo) {
 		other["flash_json"] = flashStore.ToJSONString()
 
 		// method
-		if currentUser := appCtx.CurrentUser(); currentUser != nil {
+		if currentUser := appCtx.SessionCurrentUser(); currentUser != nil {
 			other["current_user"] = currentUser.Serialize()
 		}
-		other["is_login"] = appCtx.IsLogin
+		other["is_login"] = appCtx.SessionIsLogin
 
 		pongoCtx.Update(other)
 	})

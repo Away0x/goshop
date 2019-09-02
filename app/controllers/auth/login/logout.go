@@ -6,7 +6,7 @@ import (
 
 // Logout 登出
 func Logout(c *context.AppContext) error {
-	c.Logout()
+	c.SessionLogout()
 	c.FlashSuccessMessage("您已成功退出！")
 	return c.RedirectToLoginPage()
 }

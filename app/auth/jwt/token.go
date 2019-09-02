@@ -23,7 +23,7 @@ func Sign(u *models.User) (*Info, *errno.Errno) {
 
 	return &Info{
 		Token:     t,
-		Type:      TokenInHeaderIdentification,
+		Type:      tokenInHeaderIdentification,
 		ExpiresIn: time.Unix(claims.ExpiresAt, 0).Format(constants.DateTimeLayout),
 	}, nil
 }
@@ -37,7 +37,7 @@ func Refresh(tokenString string) (*Info, *errno.Errno) {
 
 	return &Info{
 		Token:     t,
-		Type:      TokenInHeaderIdentification,
+		Type:      tokenInHeaderIdentification,
 		ExpiresIn: time.Unix(claims.ExpiresAt, 0).Format(constants.DateTimeLayout),
 	}, nil
 }

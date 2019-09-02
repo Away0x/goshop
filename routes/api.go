@@ -4,6 +4,7 @@ import (
 	"echo_shop/app/context"
 	"echo_shop/app/controllers/api/auth"
 	"echo_shop/pkg/constants"
+	"echo_shop/routes/wrapper"
 
 	"github.com/labstack/echo/v4"
 )
@@ -32,6 +33,6 @@ func registerAPI(e *echo.Echo) {
 		// 登出
 		context.RegisterHandler(authRouter.DELETE, "/logout", auth.Logout)
 		// 获取用户信息
-		context.RegisterHandler(authRouter.GET, "/user_info", auth.UserInfo)
+		context.RegisterHandler(authRouter.GET, "/user_info", wrapper.GetToken(auth.UserInfo))
 	}
 }

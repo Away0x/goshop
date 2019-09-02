@@ -71,7 +71,7 @@ func Update(c *context.AppContext) error {
 		return c.RedirectByName("password.show_reset_form", token)
 	}
 
-	c.Login(user)
+	c.SessionLogin(user)
 	c.FlashSuccessMessage("密码更新成功，您已成功登录！")
 	return c.RedirectToHomePage()
 }

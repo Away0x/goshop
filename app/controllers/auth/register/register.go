@@ -59,7 +59,7 @@ func Register(c *context.AppContext) error {
 		return c.RedirectToRegisterPage()
 	}
 
-	c.Login(user)
+	c.SessionLogin(user)
 	if err := mail.SendVerifyEmail(user); err != nil {
 		c.FlashDangerMessage(c.WrapErrorMessage(err, "邮件发送失败"))
 	} else {

@@ -8,11 +8,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Auth 登录用户才可访问 (会验证用户是否激活)
-func Auth(next echo.HandlerFunc) echo.HandlerFunc {
+// SessionAuth 登录用户才可访问 (会验证用户是否激活)
+func SessionAuth(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cc := context.NewAppContext(c)
-		user := cc.CurrentUser()
+		user := cc.SessionCurrentUser()
 		if user == nil {
 			if constants.NeedResponseJSON(c) {
 				return errno.LoginRequiredErr
@@ -33,11 +33,11 @@ func Auth(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-// AuthAndNoCheckActived 登录用户才可访问 (不会验证用户是否激活)
-func AuthAndNoCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
+// SessionAuthAndNoCheckActived 登录用户才可访问 (不会验证用户是否激活)
+func SessionAuthAndNoCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cc := context.NewAppContext(c)
-		if !cc.IsLogin() {
+		if !cc.SessionIsLogin() {
 			if constants.NeedResponseJSON(c) {
 				return errno.LoginRequiredErr
 			}
@@ -48,11 +48,11 @@ func AuthAndNoCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-// AuthIfLoginCheckActived 如果用户登录需要验证用户是否激活
-func AuthIfLoginCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
+// SessionAuthIfLoginCheckActived 如果用户登录需要验证用户是否激活
+func SessionAuthIfLoginCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cc := context.NewAppContext(c)
-		user := cc.CurrentUser()
+		user := cc.SessionCurrentUser()
 
 		if user != nil && !user.IsActivated() {
 			if constants.NeedResponseJSON(c) {
@@ -62,5 +62,17 @@ func AuthIfLoginCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 		}
 
 		return next(c)
+	}
+}
+
+// SessionGuest 未登录用户才可访问
+func SessionGuest(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cc := context.NewAppContext(c)
+		if !cc.SessionIsLogin() {
+			return next(c)
+		}
+
+		return cc.RedirectToHomePage()
 	}
 }

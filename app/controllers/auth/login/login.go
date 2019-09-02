@@ -45,7 +45,7 @@ func Login(c *context.AppContext) error {
 		return c.RedirectToLoginPage()
 	}
 
-	c.Login(user)
+	c.SessionLogin(user)
 	// 用户未激活
 	if !user.IsActivated() {
 		return c.RedirectToUserVerificationPage()

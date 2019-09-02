@@ -1,7 +1,6 @@
-package auth
+package jwt
 
 import (
-	"echo_shop/app/auth/jwt"
 	"echo_shop/app/models"
 	"echo_shop/pkg/errno"
 	"fmt"
@@ -10,8 +9,9 @@ import (
 )
 
 const (
-	tokenParamsKeyName = "token"
-	tokenHeaderKeyName = "Authorization"
+	tokenParamsKeyName          = "token"
+	tokenHeaderKeyName          = "Authorization"
+	tokenInHeaderIdentification = "Bearer"
 )
 
 // GetTokenFromRequest 从请求中获取 token
@@ -28,7 +28,7 @@ func GetTokenFromRequest(c echo.Context) (string, *errno.Errno) {
 
 // ParseAndGetUser 解析 token 获取 user
 func ParseAndGetUser(c echo.Context, token string) (*models.User, *errno.Errno) {
-	claims, err := jwt.ParseToken(token)
+	claims, err := ParseToken(token)
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +71,7 @@ func getTokenFromHeader(c echo.Context) (string, bool) {
 	}
 
 	var token string
-	fmt.Sscanf(header, jwt.TokenInHeaderIdentification+" %s", &token)
+	fmt.Sscanf(header, tokenInHeaderIdentification+" %s", &token)
 	if token == "" {
 		return "", false
 	}

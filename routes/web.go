@@ -28,7 +28,7 @@ func registerWeb(e *echo.Echo) {
 	// session
 	ee.Use(mymiddleware.Session())
 	// csrf
-	// ee.Use(mymiddleware.Csrf())
+	ee.Use(mymiddleware.Csrf())
 	// old value
 	ee.Use(flash.OldValueFlashMiddleware())
 
@@ -43,26 +43,26 @@ func registerWeb(e *echo.Echo) {
 		}
 	})
 
-	context.RegisterHandler(ee.GET, "/", page.Root, mymiddleware.AuthIfLoginCheckActived).Name = "root"
+	context.RegisterHandler(ee.GET, "/", page.Root, mymiddleware.SessionAuthIfLoginCheckActived).Name = "root"
 	context.RegisterHandler(ee.POST, "/", page.Root)
 
 	// ------------------------------------- Auth -------------------------------------
 	// +++++++++++++++ 用户身份验证相关的路由 +++++++++++++++
 	// 展示登录页面
-	context.RegisterHandler(ee.GET, "/login", login.Show, mymiddleware.Guest).Name = "login.show"
+	context.RegisterHandler(ee.GET, "/login", login.Show, mymiddleware.SessionGuest).Name = "login.show"
 	// 登录
-	context.RegisterHandler(ee.POST, "/login", login.Login, mymiddleware.Guest).Name = "login"
+	context.RegisterHandler(ee.POST, "/login", login.Login, mymiddleware.SessionGuest).Name = "login"
 	// 登出
-	context.RegisterHandler(ee.DELETE, "/logout", login.Logout, mymiddleware.AuthAndNoCheckActived).Name = "logout"
+	context.RegisterHandler(ee.DELETE, "/logout", login.Logout, mymiddleware.SessionAuthAndNoCheckActived).Name = "logout"
 
 	// +++++++++++++++ 用户注册相关路由 +++++++++++++++
 	// 展示注册页面
-	context.RegisterHandler(ee.GET, "/register", register.Show, mymiddleware.Guest).Name = "register.show"
+	context.RegisterHandler(ee.GET, "/register", register.Show, mymiddleware.SessionGuest).Name = "register.show"
 	// 注册
-	context.RegisterHandler(ee.POST, "/register", register.Register, mymiddleware.Guest).Name = "register"
+	context.RegisterHandler(ee.POST, "/register", register.Register, mymiddleware.SessionGuest).Name = "register"
 
 	// +++++++++++++++ 密码重置相关路由 +++++++++++++++
-	pwdRouter := ee.Group("/password", mymiddleware.Guest)
+	pwdRouter := ee.Group("/password", mymiddleware.SessionGuest)
 	{
 		// 展示发送重置密码链接 email 的页面
 		context.RegisterHandler(pwdRouter.GET, "/reset", password.ShowLinkForm).Name = "password.show_link_form"
@@ -79,8 +79,8 @@ func registerWeb(e *echo.Echo) {
 	{
 		// 展示发送激活用户链接邮件的页面
 		context.RegisterHandler(verificationRouter.GET, "/verify",
-			wrapper.User(verification.ShowLinkForm),
-			mymiddleware.AuthAndNoCheckActived,
+			wrapper.UserBySession(verification.ShowLinkForm),
+			mymiddleware.SessionAuthAndNoCheckActived,
 		).Name = "verification.show_link_form"
 		// 激活用户
 		context.RegisterHandler(verificationRouter.GET, "/verify/:token",
@@ -89,33 +89,33 @@ func registerWeb(e *echo.Echo) {
 		).Name = "verification.verify"
 		// 重新发送激活用户链接
 		context.RegisterHandler(verificationRouter.GET, "/resend",
-			wrapper.User(verification.Resend),
-			mymiddleware.Auth,
+			wrapper.UserBySession(verification.Resend),
+			mymiddleware.SessionAuth,
 		).Name = "verification.resend"
 	}
 
 	// ------------------------------------- Page -------------------------------------
 	// +++++++++++++++ user address +++++++++++++++
-	userAddressRouter := ee.Group("/user_addresses", mymiddleware.Auth)
+	userAddressRouter := ee.Group("/user_addresses", mymiddleware.SessionAuth)
 	{
     // 用户收货地址列表
 		context.RegisterHandler(userAddressRouter.GET, "",
-      wrapper.User(useraddress.Index)).Name = "user_addresses.index"
+      wrapper.UserBySession(useraddress.Index)).Name = "user_addresses.index"
     // 新建收货地址的页面
 		context.RegisterHandler(userAddressRouter.GET, "/create",
-			wrapper.User(useraddress.Create)).Name = "user_addresses.create"
+			wrapper.UserBySession(useraddress.Create)).Name = "user_addresses.create"
     // 新建收货地址
 		context.RegisterHandler(userAddressRouter.POST, "/create",
-      wrapper.User(useraddress.Store)).Name = "user_addresses.store"
+      wrapper.UserBySession(useraddress.Store)).Name = "user_addresses.store"
     // 编辑收货地址的页面
 		context.RegisterHandler(userAddressRouter.GET, "/:user_address",
-			wrapper.User(useraddress.Edit)).Name = "user_addresses.edit"
+			wrapper.UserBySession(useraddress.Edit)).Name = "user_addresses.edit"
     // 编辑收货地址
 		context.RegisterHandler(userAddressRouter.PUT, "/:user_address",
-			wrapper.User(useraddress.Update)).Name = "user_addresses.update"
+			wrapper.UserBySession(useraddress.Update)).Name = "user_addresses.update"
     // 删除收货地址
 		context.RegisterHandler(userAddressRouter.DELETE, "/:user_address",
-			wrapper.User(useraddress.Destroy)).Name = "user_addresses.destroy"
+			wrapper.UserBySession(useraddress.Destroy)).Name = "user_addresses.destroy"
   }
   
   // +++++++++++++++ products +++++++++++++++

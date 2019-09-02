@@ -10,7 +10,7 @@ import (
 
 const (
 	// SessionName -
-	SessionName = "shop_session"
+	SessionName = "shopsession"
 )
 
 // Session -

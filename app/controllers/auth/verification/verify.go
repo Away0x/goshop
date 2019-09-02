@@ -25,7 +25,7 @@ func Verify(c *context.AppContext) error {
 		return c.RedirectByName("verification.verify")
 	}
 
-	c.Login(user)
+	c.SessionLogin(user)
 	c.FlashSuccessMessage("邮箱验证成功 ^_^")
 	return c.RedirectToHomePage()
 }

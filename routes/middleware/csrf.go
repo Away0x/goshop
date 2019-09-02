@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+// Csrf -
 func Csrf() echo.MiddlewareFunc {
 	return middleware.CSRFWithConfig(middleware.CSRFConfig{
 		Skipper:     middleware.DefaultSkipper,
