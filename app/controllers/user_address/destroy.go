@@ -22,5 +22,5 @@ func Destroy(c *context.AppContext, u *models.User) error {
 		return errno.DatabaseErr.SetErrorContent(err).JSON()
 	}
 
-	return c.RenderOKJSON(nil)
+	return c.RenderJSON(nil)
 }

@@ -8,26 +8,22 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-const (
-	tokenParamsKeyName          = "token"
-	tokenHeaderKeyName          = "Authorization"
-	tokenInHeaderIdentification = "Bearer"
-)
-
-// GetTokenFromRequest 从请求中获取 token
-func GetTokenFromRequest(c echo.Context) (string, *errno.Errno) {
+// GetToken 获取 token
+func GetToken(c echo.Context) (string, *errno.Errno) {
 	if token, ok := getTokenFromHeader(c); ok {
+		c.Set(tokenHeaderKeyName+"Token", token)
 		return token, nil
 	}
 	if token, ok := getTokenFromParams(c); ok {
+		c.Set(tokenHeaderKeyName+"Token", token)
 		return token, nil
 	}
 
 	return "", errno.JWTTokenMissingErr
 }
 
-// ParseAndGetUser 解析 token 获取 user
-func ParseAndGetUser(c echo.Context, token string) (*models.User, *errno.Errno) {
+// GetUser 根据 token 获取用户数据 (并且将用户数据和 token 存储到 context 中)
+func GetUser(c echo.Context, token string) (*models.User, *errno.Errno) {
 	claims, err := ParseToken(token)
 	if err != nil {
 		return nil, err
@@ -43,8 +39,30 @@ func ParseAndGetUser(c echo.Context, token string) (*models.User, *errno.Errno) 
 	return user, nil
 }
 
-// GetTokenUserFromContext -
-func GetTokenUserFromContext(c echo.Context) (string, *models.User, bool) {
+// GetTokenAndUser 获取 token 和 user (并且将用户数据和 token 存储到 context 中)
+func GetTokenAndUser(c echo.Context) (tokenStr string, user *models.User, err *errno.Errno) {
+	// 如果 context 中存在
+	if tokenStr, user, ok := GetTokenAndUserFromContext(c); ok {
+		return tokenStr, user, nil
+	}
+
+	tokenStr, err = GetToken(c)
+	if err != nil {
+		return "", nil, err
+	}
+
+	user, err = GetUser(c, tokenStr)
+	if err != nil {
+		return "", nil, err
+	}
+
+	c.Set(tokenHeaderKeyName+"User", user)
+	c.Set(tokenHeaderKeyName+"Token", tokenStr)
+	return tokenStr, user, nil
+}
+
+// GetTokenAndUserFromContext 从 context 中获取 user 和 token
+func GetTokenAndUserFromContext(c echo.Context) (string, *models.User, bool) {
 	user := c.Get(tokenHeaderKeyName + "User")
 	if user == nil {
 		return "", nil, false
@@ -56,7 +74,7 @@ func GetTokenUserFromContext(c echo.Context) (string, *models.User, bool) {
 
 	u, ok := user.(*models.User)
 	s, ok := t.(string)
-	if !ok {
+	if !ok || u == nil || s == "" {
 		return "", nil, false
 	}
 

@@ -6,7 +6,11 @@ import (
 	"net/http"
 )
 
+// G -
 type G = serializer.Data
+
+// SerializeWrap -
+var SerializeWrap = serializer.Wrap
 
 // RenderHTML 渲染 html
 func (a *AppContext) RenderHTML(tplName string, data ...serializer.Data) error {
@@ -19,9 +23,31 @@ func (a *AppContext) RenderHTML(tplName string, data ...serializer.Data) error {
 	return a.Context.Render(http.StatusOK, tplName+renderTypeExt, map[string]interface{}{})
 }
 
+// RenderJSON render ok json
+func (a *AppContext) RenderJSON(data interface{}) error {
+	// data -> serializer.Serializer，会调用其 Serialize 方法，然后 ToJSON
+	// data -> serializer.Data，会调用 ToJSON
+	// data -> struct，会根据其 json tag 序列化
+
+	// var d interface{}
+	// switch typed := data.(type) {
+	// case serializer.Serializer:
+	// 	d = typed.Serialize().ToJSON()
+	// case serializer.Data:
+	// 	d = typed.ToJSON()
+	// default:
+	// 	d = data
+	// }
+	// return a.JSON(http.StatusOK, d)
+
+	return a.JSON(http.StatusOK, serializer.Serialize(data))
+}
+
 // RenderOKJSON render ok json
-func (a *AppContext) RenderOKJSON(data serializer.Data) error {
-	return a.JSON(http.StatusOK, map[string]interface{}(data))
+func (a *AppContext) RenderOKJSON() error {
+	return a.JSON(http.StatusOK, map[string]interface{}{
+		"status": true,
+	})
 }
 
 // RenderErrorJSON render error json

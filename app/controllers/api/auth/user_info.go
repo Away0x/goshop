@@ -7,8 +7,5 @@ import (
 
 // UserInfo 获取用户信息
 func UserInfo(c *context.AppContext, user *models.User, tokenStr string) error {
-	return c.RenderOKJSON(context.G{
-		"token": tokenStr,
-		"user":  user.Serialize(),
-	})
+	return c.RenderJSON(user)
 }

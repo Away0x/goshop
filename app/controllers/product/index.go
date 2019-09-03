@@ -15,5 +15,5 @@ func Index(c *context.AppContext) error {
 
 	return c.RenderHTML("products/index",
 		serializer.Wrap("products", products))
-	// return c.RenderOKJSON(serializer.Wrap("products", products))
+	// return c.RenderJSON(serializer.Wrap("products", products))
 }

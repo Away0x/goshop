@@ -9,11 +9,11 @@ import (
 func (a *AppContext) ModelByID(idkey string, i interface{}) *errno.Errno {
 	id, err := a.IntParam(idkey)
 	if err != nil {
-		return errno.NotFoundErr
+		return errno.ResourceNotFoundErr
 	}
 
 	if err = database.DBManager().First(i, id).Error; err != nil {
-		return errno.NotFoundErr
+		return errno.ResourceNotFoundErr.SetErrorContent(err)
 	}
 
 	return nil

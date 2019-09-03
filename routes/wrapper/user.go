@@ -22,14 +22,26 @@ func UserBySession(handler func(*context.AppContext, *models.User) error) contex
 	}
 }
 
-// GetToken : handler 中注入 token string 和 user
-func GetToken(handler func(*context.AppContext, *models.User, string) error) context.AppHandlerFunc {
+// GetToken : 注入 token
+func GetToken(handler func(*context.AppContext, string) error) context.AppHandlerFunc {
 	return func(c *context.AppContext) error {
-		tokenStr, user, ok := jwt.GetTokenUserFromContext(c)
-		if !ok {
-			return errno.JWTTokenErr
+		tokenStr, err := jwt.GetToken(c)
+		if err != nil {
+			return err
 		}
 
-		return handler(c, user, tokenStr)
+		return handler(c, tokenStr)
+	}
+}
+
+// GetTokenAndUser : handler 中注入 token string 和 user
+func GetTokenAndUser(handler func(*context.AppContext, *models.User, string) error) context.AppHandlerFunc {
+	return func(c *context.AppContext) error {
+		tokenStr, curUser, err := jwt.GetTokenAndUser(c)
+		if err != nil {
+			return err
+		}
+
+		return handler(c, curUser, tokenStr)
 	}
 }

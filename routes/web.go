@@ -28,7 +28,7 @@ func registerWeb(e *echo.Echo) {
 	// session
 	ee.Use(mymiddleware.Session())
 	// csrf
-	ee.Use(mymiddleware.Csrf())
+	// ee.Use(mymiddleware.Csrf())
 	// old value
 	ee.Use(flash.OldValueFlashMiddleware())
 

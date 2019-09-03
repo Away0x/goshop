@@ -20,6 +20,7 @@ func getSerializeData(val interface{}) (data interface{}) {
 			data = val
 		}
 	}()
+
 	// val 是 Serializer 类型
 	if v, ok := val.(Serializer); ok {
 		data = v.Serialize()
@@ -99,4 +100,9 @@ func Wrap(key string, val interface{}) Data {
 	s[key] = data
 
 	return s
+}
+
+// Serialize 如果 val 是 Serializer interface 或者 []Serializer，会调用各自 Serialize 方法
+func Serialize(val interface{}) interface{} {
+	return getSerializeData(val)
 }

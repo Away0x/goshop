@@ -6,7 +6,8 @@ import (
 	"time"
 )
 
-func Logout(c *context.AppContext) error {
-	jwt.Forget("", time.Duration(0))
-	return nil
+// Logout 登出
+func Logout(c *context.AppContext, tokenStr string) error {
+	jwt.Forget(tokenStr, time.Duration(0))
+	return c.RenderOKJSON()
 }

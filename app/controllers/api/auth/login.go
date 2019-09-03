@@ -26,6 +26,7 @@ func (f *loginForm) Plugins() validate.Plugins {
 	}
 }
 
+// Login 登录
 func Login(c *context.AppContext) error {
 	req := new(loginForm)
 
@@ -47,7 +48,7 @@ func Login(c *context.AppContext) error {
 		return err
 	}
 
-	return c.RenderOKJSON(context.G{
+	return c.RenderJSON(context.G{
 		"user":  user.Serialize(),
 		"token": tokenInfo.Token,
 	})
