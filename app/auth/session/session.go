@@ -29,6 +29,7 @@ func Logout(c echo.Context) {
 }
 
 // GetCurrentUserFromSession 通过 session 获取到 user model
+// 如果获取到 user model 会将其保存到 context 中，下次再调用该函数时就可直接从 context 中获取了
 func GetCurrentUserFromSession(c echo.Context) (*models.User, bool) {
 	id, ok := fromSessionGetUserID(c)
 	if !ok {

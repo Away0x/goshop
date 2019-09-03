@@ -113,7 +113,7 @@ func Register(e *echo.Echo) {
 
 // 未找到路由时的 handler
 func notFoundHandler(c echo.Context) error {
-	if constants.NeedResponseJSON(c) {
+	if constants.IsAPIRequest(c) {
 		return errno.NotFoundErr
 	}
 

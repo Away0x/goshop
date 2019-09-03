@@ -14,7 +14,7 @@ func SessionAuth(next echo.HandlerFunc) echo.HandlerFunc {
 		cc := context.NewAppContext(c)
 		user := cc.SessionCurrentUser()
 		if user == nil {
-			if constants.NeedResponseJSON(c) {
+			if constants.IsAPIRequest(c) {
 				return errno.LoginRequiredErr
 			}
 			return cc.RedirectToLoginPage()
@@ -22,7 +22,7 @@ func SessionAuth(next echo.HandlerFunc) echo.HandlerFunc {
 
 		// 验证用户是否激活
 		if !user.IsActivated() {
-			if constants.NeedResponseJSON(c) {
+			if constants.IsAPIRequest(c) {
 				return errno.UserActivateErr
 			}
 			return cc.RedirectToUserVerificationPage()
@@ -38,7 +38,7 @@ func SessionAuthAndNoCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cc := context.NewAppContext(c)
 		if !cc.SessionIsLogin() {
-			if constants.NeedResponseJSON(c) {
+			if constants.IsAPIRequest(c) {
 				return errno.LoginRequiredErr
 			}
 			return cc.RedirectToLoginPage()
@@ -55,7 +55,7 @@ func SessionAuthIfLoginCheckActived(next echo.HandlerFunc) echo.HandlerFunc {
 		user := cc.SessionCurrentUser()
 
 		if user != nil && !user.IsActivated() {
-			if constants.NeedResponseJSON(c) {
+			if constants.IsAPIRequest(c) {
 				return errno.UserActivateErr
 			}
 			return cc.RedirectToUserVerificationPage()

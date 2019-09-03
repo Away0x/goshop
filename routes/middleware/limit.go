@@ -53,7 +53,7 @@ func NewRateLimiter(duration time.Duration, n int) echo.MiddlewareFunc {
 		Duration: duration,
 		MaxCount: n,
 		ErrorHandler: func(c echo.Context) error {
-			if constants.NeedResponseJSON(c) {
+			if constants.IsAPIRequest(c) {
 				return errno.TooManyRequestsErr
 			}
 

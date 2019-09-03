@@ -15,7 +15,7 @@ func UserBySession(handler func(*context.AppContext, *models.User) error) contex
 			return handler(c, currentUser)
 		}
 
-		if constants.NeedResponseJSON(c) {
+		if constants.IsAPIRequest(c) {
 			return errno.LoginRequiredErr
 		}
 		return c.RedirectToLoginPage()

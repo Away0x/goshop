@@ -13,7 +13,7 @@ func (a *AppContext) AuthCheck(status bool) *errno.Errno {
 		return nil
 	}
 
-	if constants.NeedResponseJSON(a) {
+	if constants.IsAPIRequest(a) {
 		return errno.UnauthorizedErr.JSON()
 	}
 
