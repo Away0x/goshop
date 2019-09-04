@@ -5,36 +5,11 @@ import (
 	"echo_shop/app/helpers/mail"
 	"echo_shop/app/models"
 	"echo_shop/app/request"
-
-	"github.com/Away0x/validate"
 )
-
-type registerForm struct {
-	validate.Base
-	Name                 string
-	Email                string
-	Password             string
-	PasswordConfirmation string `json:"password_confirmation" form:"password_confirmation"`
-	Captcha              string
-	CaptchaID            string `json:"captcha_id" form:"captcha_id"`
-}
-
-func (*registerForm) IsStrict() bool {
-	return false
-}
-
-func (r *registerForm) Plugins() validate.Plugins {
-	return validate.Plugins{
-		request.UserNamePlugin(r.Name),
-		request.EmailPlugin(r.Email),
-		request.RegisterPasswordPlugin(r.Password, r.PasswordConfirmation),
-		request.CaptchaPlugin(r.CaptchaID, r.Captcha),
-	}
-}
 
 // Register 用户注册
 func Register(c *context.AppContext) error {
-	req := new(registerForm)
+	req := new(request.RegisterForm)
 
 	if err := c.BindAndValidate(req); err != nil {
 		c.ErrorFlash(err)
@@ -42,7 +17,7 @@ func Register(c *context.AppContext) error {
 	}
 
 	user := new(models.User)
-	if err := models.Where("email = ?", req.Email).First(&user).Error; err == nil {
+	if err := models.WhereFirst(&user, "email = ?", req.Email); err == nil {
 		c.ErrorFlashWM("email", "该邮箱已经被使用了")
 		return c.RedirectToRegisterPage()
 	}

@@ -12,7 +12,7 @@ func ShowResetForm(c *context.AppContext) error {
 	token := c.Param("token")
 
 	pwd := new(models.PasswordReset)
-	if err := models.Where("token = ?", token).First(&pwd).Error; err != nil {
+	if err := models.WhereFirst(&pwd, "token = ?", token); err != nil {
 		return errno.NotFoundErr.HTML()
 	}
 

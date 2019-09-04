@@ -7,6 +7,7 @@ import (
 	"github.com/Away0x/validate"
 )
 
+// M validate.Messages
 type M = validate.Messages
 
 // WrapErrorMessage 包装输出到客户端的错误信息
@@ -28,17 +29,19 @@ func (a *AppContext) WrapError(err error, msg string) error {
 	return errors.New(msg + ": " + err.Error())
 }
 
+// WE WrapError
 func (a *AppContext) WE(err error, msg string) error {
 	return a.WrapError(err, msg)
 }
 
+// WEM WrapErrorMessage
 func (a *AppContext) WEM(err error, msg string) string {
 	return a.WrapErrorMessage(err, msg)
 }
 
 // EM 包装一条参数错误信息
-func (a *AppContext) EM(err error, key string, msg string) M {
-	data := M{}
+func (a *AppContext) EM(err error, key string, msg string) validate.Messages {
+	data := validate.Messages{}
 	data[key] = []string{a.WEM(err, msg)}
 	return data
 }
@@ -51,7 +54,7 @@ func (a *AppContext) ErrorFlashWEM(err error, key string, msg string) {
 
 // ErrorFlashWM 包装一条参数错误信息 (flash error 输出)
 func (a *AppContext) ErrorFlashWM(key string, msg string) {
-	ms := M{}
+	ms := validate.Messages{}
 	ms[key] = []string{msg}
 	a.ErrorFlash(ms)
 }

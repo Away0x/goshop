@@ -10,8 +10,7 @@ import (
 // Verify 激活用户
 func Verify(c *context.AppContext) error {
 	user := new(models.User)
-	db := models.Where("activation_token = ?", c.Param("token")).First(&user)
-	if err := db.Error; err != nil {
+	if err := models.WhereFirst(&user, "activation_token = ?", c.Param("token")); err != nil {
 		return errno.NotFoundErr.HTML()
 	}
 

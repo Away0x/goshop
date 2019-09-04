@@ -9,11 +9,9 @@ import (
 // Index 商品列表
 func Index(c *context.AppContext) error {
 	products := make([]*models.Product, 0)
-	if err := models.Where("on_sale = ?", models.TrueTinyint).Find(&products).Error; err != nil {
+	if err := models.WhereFind(&products, "on_sale = ?", models.TrueTinyint); err != nil {
 		return err
 	}
 
-	return c.RenderHTML("products/index",
-		serializer.Wrap("products", products))
-	// return c.RenderJSON(serializer.Wrap("products", products))
+	return c.RenderHTML("products/index", serializer.Wrap("products", products))
 }

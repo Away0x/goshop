@@ -1,4 +1,4 @@
-package request
+package validators
 
 import (
 	"github.com/Away0x/validate"
@@ -24,8 +24,10 @@ func PasswordPlugin(password string) validate.PluginFunc {
 	return func() (string, []validate.ValidatorFunc, []string) {
 		return "password", []validate.ValidatorFunc{
 				validate.RequiredValidator(password),
+				validate.MinLengthValidator(password, 6),
 			}, []string{
 				"密码不能为空",
+				"密码长度不能小于 6 个字符",
 			}
 	}
 }

@@ -3,7 +3,7 @@ package password
 import (
 	"echo_shop/app/context"
 	"echo_shop/app/models"
-	"echo_shop/app/request"
+	"echo_shop/app/request/validators"
 
 	"github.com/Away0x/validate"
 )
@@ -18,7 +18,7 @@ type passwordUpdateForm struct {
 
 func (p *passwordUpdateForm) Plugins() validate.Plugins {
 	return validate.Plugins{
-		request.RegisterPasswordPlugin(p.Password, p.PasswordConfirmation),
+		validators.RegisterPasswordPlugin(p.Password, p.PasswordConfirmation),
 	}
 }
 
@@ -51,7 +51,7 @@ func Update(c *context.AppContext) error {
 
 	// update user
 	user := new(models.User)
-	if err := models.Where("email = ?", req.Email).First(&user).Error; err != nil {
+	if err := models.WhereFirst(&user, "email = ?", req.Email); err != nil {
 		c.FlashDangerMessage(c.WEM(err, "该邮箱还未注册过用户"))
 		return c.RedirectByName("password.show_reset_form", token)
 	}

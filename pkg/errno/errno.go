@@ -72,8 +72,7 @@ func (e *Errno) SetErrorContent(content interface{}) *Errno {
 		errContent = typed
 	case *echo.HTTPError: // echo error
 		errContent = map[string]interface{}{
-			"message":  typed.Message,
-			"internal": typed.Internal,
+			"error": typed.Message,
 		}
 	case error:
 		errContent = map[string]interface{}{

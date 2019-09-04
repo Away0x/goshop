@@ -9,5 +9,5 @@ import (
 func Index(c *context.AppContext, user *models.User, tokenStr string) error {
 	addresses := user.Addresses()
 
-	return c.RenderJSON(context.SerializeWrap("list", addresses))
+	return c.RenderJSON(addresses)
 }

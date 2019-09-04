@@ -4,7 +4,7 @@ import (
 	"echo_shop/app/context"
 	"echo_shop/app/helpers/mail"
 	"echo_shop/app/models"
-	"echo_shop/app/request"
+	"echo_shop/app/request/validators"
 
 	"github.com/Away0x/validate"
 )
@@ -22,7 +22,7 @@ func Email(c *context.AppContext) error {
 
 	if err, ok := validate.RunWithConfig(req, validate.Config{
 		Plugins: validate.Plugins{
-			request.EmailPlugin(req.Email),
+			validators.EmailPlugin(req.Email),
 		},
 	}); !ok {
 		c.ErrorFlash(err)

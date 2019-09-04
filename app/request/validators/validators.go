@@ -1,4 +1,4 @@
-package request
+package validators
 
 import (
 	"echo_shop/app/helpers/captcha"

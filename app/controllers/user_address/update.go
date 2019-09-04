@@ -3,6 +3,7 @@ package useraddress
 import (
 	"echo_shop/app/context"
 	"echo_shop/app/models"
+	"echo_shop/app/request"
 )
 
 // Update 编辑收货地址
@@ -12,7 +13,7 @@ func Update(c *context.AppContext, u *models.User) error {
 		return err.HTML()
 	}
 
-	req := new(addressStoreForm)
+	req := new(request.AddressStoreForm)
 	if err := c.BindAndValidate(req); err != nil {
 		c.ErrorFlash(err)
 		return c.RedirectByName("user_addresses.edit", address.ID)

@@ -4,6 +4,7 @@ import (
 	"echo_shop/pkg/errno"
 	"echo_shop/pkg/serializer"
 	"net/http"
+	"reflect"
 )
 
 // G -
@@ -62,12 +63,21 @@ func (a *AppContext) RenderErrorJSON(err *errno.Errno) error {
 		// detail.context 中只有一个 kv，提取出来
 		if errLen == 1 {
 			for _, v := range err.Detail.Content {
-				resp["errors"] = v
+				resp["errors"] = getErrorContext(v)
 			}
 		} else {
-			resp["errors"] = err.Detail.Content
+			resp["errors"] = getErrorContext(err.Detail.Content)
 		}
 	}
 
 	return a.JSON(err.HTTPCode, resp)
+}
+
+func getErrorContext(v interface{}) interface{} {
+	typed := reflect.ValueOf(v).Kind()
+	if typed == reflect.Func {
+		return "RenderErrorJSON type error: " + typed.String()
+	}
+
+	return v
 }

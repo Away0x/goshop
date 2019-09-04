@@ -2,6 +2,7 @@ package routes
 
 import (
 	"echo_shop/app/context"
+	"echo_shop/app/models"
 	"echo_shop/bootstrap/config"
 	"echo_shop/pkg/constants"
 	"echo_shop/pkg/echohelper/handler"
@@ -69,20 +70,27 @@ func Register(e *echo.Echo) {
 	echo.MethodNotAllowedHandler = notFoundHandler
 	// handler 返回的 error 的处理函数
 	e.HTTPErrorHandler = errno.HTTPErrorHandler(
+		// 错误类型转换: 全部转换为 errno.Errno 类型
 		func(err error) *errno.Errno {
 			switch typed := err.(type) {
 			// 请求参数错误
 			case validate.Messages:
 				return errno.ParamsErr.SetErrorContent(map[string][]string(typed))
+			// model error
+			case *models.ModelError:
+				return errno.DatabaseErr.SetErrorContent(typed)
 			default:
 				return errno.UnknowErr.SetErrorContent(typed)
 			}
 		},
+		// 接收到错误时的处理函数
 		func(c echo.Context, e *errno.Errno) error {
+			// html
 			if (e.Detail != nil) && (e.Detail.Type == errno.RenderDetailTypeHTML) && (e.Detail.Template != "") {
 				return c.Render(e.HTTPCode, e.Detail.Template, e.Detail.Content)
 			}
 
+			// json
 			cc := context.NewAppContext(c)
 			return cc.RenderErrorJSON(e)
 		},

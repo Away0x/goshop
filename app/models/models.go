@@ -10,6 +10,24 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// ModelError model error (会在统一错误处理时转换为 errno.DatabaseErr)
+type ModelError struct {
+	Message string
+}
+
+func (m *ModelError) Error() string {
+	return m.Message
+}
+
+func newError(err error) *ModelError {
+	if err == nil {
+		return nil
+	}
+	return &ModelError{
+		Message: err.Error(),
+	}
+}
+
 const (
 	// TrueTinyint true
 	TrueTinyint = 1
@@ -34,74 +52,95 @@ func (m *BaseModel) Serialize() serializer.Data {
 	}
 }
 
-// IDString 获取字符串形式的 id
-func (m *BaseModel) IDString() string {
-	return strconv.Itoa(int(m.ID))
-}
-
-// Delete : db delete
-func Delete(v interface{}) error {
-	return database.DBManager().Delete(v).Error
-}
-
 // DB : db
 func DB() *gorm.DB {
 	return database.DBManager()
 }
 
-// Save : db save
-func Save(v interface{}) error {
-	return database.DBManager().Save(v).Error
-}
-
-// Create : db create
-func Create(v interface{}) error {
-	return database.DBManager().Create(v).Error
-}
-
-// Update : db update
-func Update(v interface{}) error {
-	return database.DBManager().Model(v).Updates(v).Error
-}
-
-// Where : db where
-func Where(query string, args ...interface{}) *gorm.DB {
-	return database.DBManager().Where(query, args...)
-}
-
-// AssignAndCreate 批量赋值，并且创建 model
-// force: 会过滤掉空值
-func AssignAndCreate(force bool, model interface{}, other interface{}) (err error) {
-	if err = utils.BatchAssign(force, model, other); err != nil {
-		return err
-	}
-
-	if err = Create(model); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// AssignAndUpdate 批量赋值，并且更新 model
-// force: 会过滤掉空值
-func AssignAndUpdate(force bool, model interface{}, other interface{}) (err error) {
-	if err = utils.BatchAssign(force, model, other); err != nil {
-		return err
-	}
-
-	if err = Save(model); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// TinyInt -> bool
+// TinyBool -> bool
 func TinyBool(i uint) bool {
 	if i == TrueTinyint {
 		return true
 	}
 
 	return false
+}
+
+// IDString 获取字符串形式的 id
+func (m *BaseModel) IDString() string {
+	return strconv.Itoa(int(m.ID))
+}
+
+// Delete : db delete
+func Delete(v interface{}) *ModelError {
+	e := database.DBManager().Delete(v).Error
+	return newError(e)
+}
+
+// Save : db save
+func Save(v interface{}) *ModelError {
+	e := database.DBManager().Save(v).Error
+	return newError(e)
+}
+
+// Create : db create
+func Create(v interface{}) *ModelError {
+	e := database.DBManager().Create(v).Error
+	return newError(e)
+}
+
+// Update : db update
+func Update(v interface{}) *ModelError {
+	e := database.DBManager().Model(v).Updates(v).Error
+	return newError(e)
+}
+
+// AssignAndCreate 批量赋值，并且创建 model
+// force: 会过滤掉空值
+func AssignAndCreate(force bool, model interface{}, other interface{}) (err *ModelError) {
+	var e error
+	if e = utils.BatchAssign(force, model, other); err != nil {
+		return newError(e)
+	}
+
+	if e = Create(model); err != nil {
+		return newError(e)
+	}
+
+	return nil
+}
+
+// AssignAndUpdate 批量赋值，并且更新或创建 model
+// force: 会过滤掉空值
+func AssignAndUpdate(force bool, model interface{}, other interface{}) (err *ModelError) {
+	var e error
+	if e = utils.BatchAssign(force, model, other); err != nil {
+		return newError(e)
+	}
+
+	if e = Save(model); err != nil {
+		return newError(e)
+	}
+
+	return nil
+}
+
+// WhereFirst where+first
+func WhereFirst(v interface{}, query string, args ...interface{}) *ModelError {
+	var e error
+	if e = database.DBManager().Where(query, args...).First(v).Error; e != nil {
+		return newError(e)
+	}
+
+	return nil
+}
+
+// WhereFind where+find
+func WhereFind(v interface{}, query string, args ...interface{}) *ModelError {
+	var e error
+	if e = database.DBManager().Where(query, args...).Find(v).Error; e != nil {
+		return newError(e)
+	}
+
+	return nil
 }
