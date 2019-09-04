@@ -6,6 +6,11 @@ import (
 	"github.com/patrickmn/go-cache"
 )
 
+const (
+	// DefaultExpiration -
+	DefaultExpiration = cache.DefaultExpiration
+)
+
 var (
 	cacheInstance = cache.New(30*time.Minute, 1*time.Hour)
 )
@@ -100,4 +105,9 @@ func GetTime(key string) (time.Time, bool) {
 // Del -
 func Del(key string) {
 	cacheInstance.Delete(key)
+}
+
+// Items -
+func Items() map[string]cache.Item {
+	return cacheInstance.Items()
 }

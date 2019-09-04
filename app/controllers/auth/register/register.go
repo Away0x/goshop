@@ -29,7 +29,7 @@ func Register(c *context.AppContext) error {
 		Password: req.Password,
 	}
 
-	if err := models.Create(user); err != nil {
+	if err := user.Create(); err != nil {
 		c.ErrorFlash(c.WrapError(err, "用户创建失败"))
 		return c.RedirectToRegisterPage()
 	}

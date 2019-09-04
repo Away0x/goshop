@@ -56,7 +56,7 @@ func Update(c *context.AppContext) error {
 		return c.RedirectByName("password.show_reset_form", token)
 	}
 	user.Password = req.Password
-	if err := models.Update(&user); err != nil {
+	if err := user.Update(); err != nil {
 		c.FlashDangerMessage(c.WEM(err, "重置密码失败"))
 		return c.RedirectByName("password.show_reset_form", token)
 	}

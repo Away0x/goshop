@@ -29,9 +29,9 @@ func GetUser(c echo.Context, token string) (*models.User, *errno.Errno) {
 		return nil, err
 	}
 
-	user := &models.User{}
-	if err := models.DB().Where("id = ?", claims.UserID).First(&user).Error; err != nil {
-		return nil, errno.DatabaseErr.SetMessage(err.Error())
+	user, e := models.GetUser(claims.UserID)
+	if e != nil {
+		return nil, errno.DatabaseErr.SetErrorContent(e)
 	}
 
 	c.Set(tokenHeaderKeyName+"User", user)

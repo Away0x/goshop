@@ -19,7 +19,7 @@ func Verify(c *context.AppContext) error {
 	user.ActivationToken = ""
 	now := time.Now()
 	user.EmailVerifiedAt = &now
-	if err := models.Save(user); err != nil {
+	if err := user.Update(); err != nil {
 		c.FlashDangerMessage(c.WEM(err, "用户激活失败"))
 		return c.RedirectByName("verification.verify")
 	}

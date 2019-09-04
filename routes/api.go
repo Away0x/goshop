@@ -2,6 +2,7 @@ package routes
 
 import (
 	"echo_shop/app/context"
+	"echo_shop/app/cache"
 	"echo_shop/app/controllers/api/auth"
 	"echo_shop/app/controllers/api/user_address"
 	"echo_shop/pkg/constants"
@@ -22,7 +23,11 @@ var (
 )
 
 func registerAPI(e *echo.Echo) {
-	ee := e.Group(APIPrefix)
+  ee := e.Group(APIPrefix)
+  
+  context.RegisterHandler(ee.GET, "/caches", func(c *context.AppContext) error {
+    return c.JSON(200, cache.Items())
+  })
 
 	// ------------------------------------- Auth -------------------------------------
 	authRouter := ee.Group("/auth")
