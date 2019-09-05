@@ -47,16 +47,16 @@ func registerAPI(e *echo.Echo) {
 	// ------------------------------------- user adress -------------------------------------
 	userAddressRouter := ee.Group("/user_adress", mymiddleware.TokenAuth)
 	{
-    // 用户收货地址列表
+    // 用户收货列表
 		context.RegisterHandler(userAddressRouter.GET, "",
       wrapper.GetTokenAndUser(useraddress.Index)).Name = "api.user_addresses.index"
-    // 新建收货地址
+    // 新建收货
 		context.RegisterHandler(userAddressRouter.POST, "",
       wrapper.GetTokenAndUser(useraddress.Store)).Name = "api.user_addresses.store"
-    // 编辑收货地址
+    // 编辑收货
 		context.RegisterHandler(userAddressRouter.PUT, "/:id",
 			wrapper.GetTokenAndUser(useraddress.Update)).Name = "api.user_addresses.update"
-    // 删除收货地址
+    // 删除收货
 		context.RegisterHandler(userAddressRouter.DELETE, "/:id",
 			wrapper.GetTokenAndUser(useraddress.Destroy)).Name = "api.user_addresses.destroy"
 	}

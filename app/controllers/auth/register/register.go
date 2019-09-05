@@ -28,7 +28,6 @@ func Register(c *context.AppContext) error {
 		Email:    req.Email,
 		Password: req.Password,
 	}
-
 	if err := user.Create(); err != nil {
 		c.ErrorFlash(c.WrapError(err, "用户创建失败"))
 		return c.RedirectToRegisterPage()
