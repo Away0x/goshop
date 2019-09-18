@@ -13,6 +13,7 @@ import (
 func registeAdmin(e *echo.Echo) {
 	ee := e.Group(constants.AdminWebPrefix)
 
+	// admin index.html
 	context.RegisterHandler(ee.GET, "", func(c *context.AppContext) error {
 		user := models.User{
 			Name:  "wutong",
@@ -23,6 +24,18 @@ func registeAdmin(e *echo.Echo) {
 			"API_ROOT":   config.String("APP.URL") + APIPrefix,
 			"URL_ROOT":   config.String("APP.URL") + constants.AdminWebPrefix,
 			"SHARE_DATA": string(user.Serialize().ToJSONString()),
+		})
+	}).Name = "admin.index"
+
+	registeAdminAPI(ee, "/api")
+}
+
+func registeAdminAPI(e *echo.Group, prefix string) {
+	ee := e.Group(prefix)
+
+	context.RegisterHandler(ee.GET, "", func(c *context.AppContext) error {
+		return c.RenderJSON(context.G{
+			"status": "ok",
 		})
 	})
 }

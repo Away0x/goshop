@@ -29,13 +29,13 @@ func Register(c *context.AppContext) error {
 		Password: req.Password,
 	}
 	if err := user.Create(); err != nil {
-		c.ErrorFlash(c.WrapError(err, "用户创建失败"))
+		c.ErrorFlash(c.WE(err, "用户创建失败"))
 		return c.RedirectToRegisterPage()
 	}
 
 	c.SessionLogin(user)
 	if err := mail.SendVerifyEmail(user); err != nil {
-		c.FlashDangerMessage(c.WrapErrorMessage(err, "邮件发送失败"))
+		c.FlashDangerMessage(c.WEM(err, "邮件发送失败"))
 	} else {
 		c.FlashSuccessMessage("新的验证链接已发送到您的 E-mail")
 	}
