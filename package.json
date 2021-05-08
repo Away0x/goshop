@@ -28,7 +28,7 @@
     "bootstrap": "^4.3.1",
     "china-area-data": "^4.0.0",
     "jquery": "^3.4.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "popper.js": "^1.15.0",
     "qs": "^6.7.0",
     "sweetalert": "^2.1.2",
